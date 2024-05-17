@@ -1,0 +1,76 @@
+
+<div class="recent-grid">
+    <div class="projects">
+        <div class="card">
+            <div class="card-header">
+                <h3>STAFF</h3>
+            </div>
+            <div class="card-body">
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <td>NOM</td>
+                            <td>EMAIL</td>
+                            <td>TELEPHONE</td>
+                            <td>GRADE</td>
+                            <td>ADDSUP</td>
+                            <td>BUREAU</td>
+                            <td>BATIMENT</td>
+
+                        </tr>
+                    </thead>
+                    <tbody id="corps-staff">
+                        <!-- Les lignes seront remplies dynamiquement par JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="customers">
+        <div class="card">
+            <div class="card-header">
+                <span class="las la-plus-circle"></span>
+                <h3>Add New Teacher</h3>
+            </div>
+            <div class="card-body">
+                <div class="box">
+                    <form id="addTeacherForm" method="post" action="/Postadministration">
+                        <h2>ADD NEW</h2>
+                        <div class="inputbox">
+                            <input type="text" id="poste" name="poste" placeholder="Poste" required>
+                            <span>Poste</span>
+                            <i></i>
+                        </div>
+                        <div class="inputbox">
+                            <input type="text" id="nom" name="nom" placeholder="Nom" required>
+                            <span>Nom</span>
+                            <i></i>
+                        </div>
+                        <div class="inputbox">
+                            <input type="text" id="agenda" name="agenda" placeholder="Agenda" required>
+                            <span>Agenda</span>
+                            <i></i>
+                        </div>
+                        <div class="inputbox">
+                            <input type="email" id="email" name="email" placeholder="Email" required>
+                            <span>Email</span>
+                            <i></i>
+                        </div>
+                        <div class="inputbox">
+                            <input type="tel" id="telephone" name="telephone" placeholder="Téléphone" required>
+                            <span>Téléphone</span>
+                            <i></i>
+                        </div>
+                        <div id="daccord">
+                            <input type="checkbox" id="check" name="agree" required>
+                            <label for="check" style="color: pink;">Je suis d'accord</label>
+                        </div>
+                        <input type="submit" value="Enregistrer">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

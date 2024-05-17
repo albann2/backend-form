@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+        <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
+        <link rel="stylesheet" href="/css/acceuil.css">
+     
+    </head>
+    <body>
+       <input type="checkbox" id="nav-toggle">
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <h2>
+                    <span class="lab la-accusoft">
+                    </span>
+                    <span>backend</span>
+                </h2>
+            </div>
+
+
+            <div class="sidebar-menu">
+                <ul>
+                    <li>
+                        <a href="/" class="active"><span class="las la-igloo"></span>
+                            <span>DASHBOARD</span></a>
+                    </li>
+                    <li>
+                        <a ><button  class="reset-button" onclick="clickRubrique('/Administration')"><span class="las la-users"></span>
+                            <span>Administration</span></button></a>
+                    </li>
+                    <li>
+                        <a ><button  class="reset-button" onclick="clickRubrique('/Staff')"><span class="las la-users"></span>
+                            <span>Staff</span></button></a>
+                    </li>
+                    <li>
+                        <a ><button  class="reset-button" onclick="clickRubrique('/Enseignement')"><span class="las la-users"></span>
+                            <span>Enseignements</span></button></a>
+                    </li>
+                    <li>
+                        <a ><button  class="reset-button" onclick="clickRubrique('/Recherche')"><span class="las la-users"></span>
+                            <span>Recherches</span></button></a>
+                    </li>
+                    
+
+                    <li>
+                        <a ><button class="reset-button" onclick="clickRubrique('/rubrique/formation')"><span class="las la-clipboard-list"></span>
+                            <span>formations</span></button></a>
+                    </li>
+                    <li>
+                        <a ><button class="reset-button" onclick="clickRubrique('/rubrique/lien')"><span class="las la-shopping-bag"></span>
+                            <span>liens</span></button></a>
+                    </li>
+                    <li>
+                        <a ><button class="reset-button" onclick="clickRubrique('/rubrique/contact')"><span class="las la-receipt"></span>
+                            <span>contacts</span></button></a>
+                    </li>
+                    <li>
+                        <a href="/"><span class="lab la-accusoft">
+
+                            <span>QUITTER</span></a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+
+        
+        <div class="main-content">
+            <header>
+                <h2>
+                     <label for="nav-toggle">
+                        <span class="las la-bars"></span>
+                    </label>
+                    DASHBOARD
+                </h2>
+                <div class="search-wrapper">
+                    <span class="las la-search"></span>
+                    <input type="search" placeholder="search"/>
+                </div>
+
+                <div class="user-wrapper">
+                    <div>
+                        <img src="/images/1.png" width="200px" height="100px" alt="erreur">
+                        <h4>departement d'informatique</h4>
+                        <small>super admin</small>
+                    </div>
+                </div>
+            </header>
+            <main id="main-content">
+               
+                <div id="cards-content" class="cards"> </div>
+
+            </main>
+        </div>
+        <script src="js/index.js"></script>
+
+        <script src="js/fill-card.js"></script>
+
+    </body>
+
+</html>

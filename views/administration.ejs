@@ -1,0 +1,107 @@
+<div class="recent-grid">
+    <div class="projects">
+        <div class="card">
+            <div class="card-header">
+                <h3>ADMINISTRATION</h3>
+            </div>
+            <div class="card-body">
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <td>POSTE</td>
+                            <td>NOM</td>
+                            <td>AGENDA</td>
+                            <td>EMAIL</td>
+                            <td>TELEPHONE</td>
+                        </tr>
+                    </thead>
+                    <tbody id="corps-administration">
+                        <!-- Les lignes seront remplies dynamiquement par JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="customers">
+        <div class="card">
+            <div class="card-header">
+                <span class="las la-plus-circle"></span>
+                <h3>Ajouter un nouveau membre administratif</h3>
+            </div>
+            <div class="card-body">
+                <div class="box">
+                    <form id="addTeacherForm" method="post">
+                        <h2>AJOUTER UN NOUVEAU MEMBRE ADMINISTRATIF</h2>
+                        <div class="inputbox">
+                            <input type="text" id="poste" name="poste" placeholder="Poste" required>
+                            <span>Poste</span>
+                            <i></i>
+                        </div>
+                        <div class="inputbox">
+                            <input type="text" id="nom" name="nom" placeholder="Nom" required>
+                            <span>Nom</span>
+                            <i></i>
+                        </div>
+                        <div class="inputbox">
+                            <input type="text" id="agenda" name="agenda" placeholder="Agenda" required>
+                            <span>Agenda</span>
+                               <i></i>
+                        </div>
+                        <div class="inputbox">
+                            <input type="text" id="email" name="email" placeholder="Email" required>
+                            <span>Email</span>
+                            <i></i>
+                        </div>
+                        <div class="inputbox">
+                            <input type="tel" id="telephone" name="telephone" placeholder="Téléphone" required>
+                            <span>Téléphone</span>
+                            <i></i>
+                        </div>
+                        <div id="daccord">
+                            <input type="checkbox" id="check" name="agree" required>
+                            <label for="check" style="color: pink;">Je suis d'accord</label>
+                        </div>
+                        <input type="submit" value="Enregistrer" onclick="save()">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function save(){
+    var poste=document.getElementById("poste").value
+    var nom=document.getElementById("nom").value
+    var agenda=document.getElementById("agenda").value
+    var email=document.getElementById("eamil").value
+    var telephone=document.getElementById("telephone").value
+    var donnees={
+        poste:poste,
+        nom:nom,
+        agenda:agenda,
+        email:email,
+        telephone:telephone
+    }
+   fetch('/Postadministration',
+{
+    method:'POST',
+    headers:{
+        'Content-Type':'application/json'
+    },
+    body:JSON.stringify(donnees)
+
+
+
+    
+}).then(response=>{
+    if(!response.ok){
+        alert("erreur")
+    }
+    return response.json;
+}).then(data=>{
+    alert(succes)
+})
+}
+</script>
