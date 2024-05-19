@@ -11,6 +11,15 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'ressources')));
 app.get('/index',index.index)
+app.get('/Actualite',index.Actualite)
+app.get('/Enseignant',index.Enseignant)
+app.get('/Formation',index.Formation)
+app.get('/Historique',index.Historique)
+app.get('/Mission',index.Mission)
+app.get('/Presentation',index.Presentation)
+app.get('/Realisation',index.Realisation)
+
+
 
 app.get('/Getmission', index.Getmission);
 app.get('/Getpresentation', index.Getpresentation);

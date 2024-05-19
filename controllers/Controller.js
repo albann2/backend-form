@@ -2,6 +2,27 @@ const model = require('../model/modeles');
 exports.index=(req,res)=>{
     res.render('index')
 }
+exports.Actualite=(req,res)=>{
+    res.render('actualite')
+}
+exports.Enseignant=(req,res)=>{
+    res.render('enseignant')
+}
+exports.Formation=(req,res)=>{
+    res.render('formation')
+}
+exports.Historique=(req,res)=>{
+    res.render('historique')
+}
+exports.Mission=(req,res)=>{
+    res.render('mission')
+}
+exports.Presentation=(req,res)=>{
+    res.render('presentation')
+}
+exports.Realisation=(req,res)=>{
+    res.render('realisation')
+}
 
 // Fonction générique pour les requêtes GET
 const getAllDocuments = (Model) => async (req, res) => {

@@ -4,7 +4,7 @@
     function getStaffData() {
         let staffData = [];
 
-        fetch('/Getstaff', {
+        fetch('/Getmission', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,7 +27,7 @@
 
     // Fonction pour afficher les données d'administration dans le tableau
     function displayStaffData(data) {
-        const tableBody = document.getElementById("corps-staff"); // Correction de la méthode pour obtenir l'élément
+        const tableBody = document.getElementById("corps-mission"); // Correction de la méthode pour obtenir l'élément
             tableBody.innerHTML = ''; // Effacer le contenu précédent du tableau
     
             data.forEach(item => {
@@ -35,13 +35,8 @@
                     // Ajouter une nouvelle ligne au tableau avec les données de la personne
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
-                        <td>${item.nom}</td>
-                        <td>${item.email}</td>
-                        <td>${item.telephone}</td>
-                        <td>${item.poste}</td>
-                        <td>${item.addsup}</td>
-                        <td>${item.bureau}</td>
-                        <td>${item.batiment}</td>
+                        <td>${item.Description}</td>
+                        <td>${item.Image}</td>
 
                     `;
             });

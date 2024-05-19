@@ -30,9 +30,8 @@ const EnseignantSchema = new mongoose.Schema({
     nomComplet: String,
     adresseMail: String,
     telephone: String,
-    domainesExpertise: [String],
-    coursEnseignes: [String],
-    disponibilite: String,
+    domainesExpertise:String,
+    grade:String,
     responsabilite: String,
     imageProfil: String,
     activated: { type: Boolean, default: true }
