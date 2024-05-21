@@ -43,7 +43,7 @@ app.put('/Updatepresentation/:id', index.Updatepresentation);
 app.put('/Updatehistorique/:id', index.Updatehistorique);
 app.put('/Updateenseignant/:id', index.Updateenseignant);
 app.put('/Updateformation/:id', index.Updateformation);
-app.put('/Updaterealisation/:id', index.Updaterealisation);
+app.post('/Updaterealisation/:id', index.Updaterealisation);
 app.put('/Updateactualite/:id', index.Updateactualite);
 
 app.patch('/ActivateMission/:id', index.ActivateMission);

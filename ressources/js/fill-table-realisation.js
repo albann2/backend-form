@@ -39,16 +39,16 @@ function displayStaffData(data) {
             <td>${item.titre}</td>
             <td>${item.annee}</td>
             <td>${item.description}</td>
-            <td><button class="btn-add">ajouter</button></td>
+            <td><button class="btn-add">EDIT</button></td>
         `;
 
         const newRowForm = tableBody.insertRow();
         newRowForm.innerHTML = `
             <td colspan="4">
-            <form action="/Updaterealisation/${item._id}" method="post" class="modal" style="display:none;" onsubmit="event.preventDefault(); updateRealisation(this);">
-            <input type="text" name="titre"  oninput="adjustInputWidth(this)">
-            <input type="text" name="annee"  oninput="adjustInputWidth(this)">
-            <input type="text" name="description"  oninput="adjustInputWidth(this)">
+            <form action="/Updaterealisation/${item._id}" method="POST" class="modal" style="display:none;">
+            <input type="text" value="${item.titre}" name="titre" id="titre" oninput="adjustInputWidth(this)">
+            <input type="text" value="${item.annee}" name="annee" id="annee" oninput="adjustInputWidth(this)">
+            <input type="text" value="${item.description}" name="description" id="description" oninput="adjustInputWidth(this)">
             <input type="submit" value="mettre à jour">
         </form>
         
@@ -67,38 +67,3 @@ function displayStaffData(data) {
 
 // Appel de la fonction pour récupérer et afficher les données lors du chargement de la page
 getStaffData();
-
-
-function updateRealisation(form) {
-    const formData = new FormData(form);
-    const data = {};
-    formData.forEach((value, key) => {
-        data[key] = value;
-    });
-
-    const url = form.action;
-    fetch(url, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error('Erreur lors de la mise à jour');
-        }
-    })
-    .then(updatedData => {
-        console.log('Données mises à jour:', updatedData);
-        getStaffData();
-
-        // Mettre à jour l'interface utilisateur avec les nouvelles données si nécessaire
-    })
-    .catch(error => {
-        console.error('Erreur:', error.message);
-        // Gérer l'erreur de mise à jour
-    });
-}

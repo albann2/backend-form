@@ -49,7 +49,6 @@
                 document.body.appendChild(staff);
             }
             
-            
         }
     };
     xhr.send();
@@ -63,3 +62,9 @@ buttons.forEach(button=>{
         this.classList.add('clicked')
     })
 })
+
+
+
+
+///////////////////////
+
