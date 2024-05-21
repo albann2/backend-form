@@ -52,7 +52,7 @@ const createDocument = (Model, uniqueFields) => async (req, res) => {
         // Créer et enregistrer le nouveau document
         let document = new Model(data);
         await document.save();
-        res.json({ message: 'success' });
+        res.redirect('/index')
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Erreur de soumission' });
@@ -64,23 +64,47 @@ const updateDocument = (Model, uniqueFields) => async (req, res) => {
     try {
         const data = {};
         uniqueFields.forEach(field => {
-            data[field] = req.body[field];
+            if (req.body[field] !== undefined) {
+                data[field] = req.body[field];
+            }
         });
 
-        // Vérifier si un document similaire existe déjà
-        const existingDocument = await Model.findOne({ _id: req.params.id });
+        // Vérifier si le document existe
+        const existingDocument = await Model.findById(req.params.id);
         if (!existingDocument) {
             return res.status(404).json({ message: 'Document non trouvé' });
         }
 
+        // Vérifier si un autre document avec les mêmes champs uniques existe
+        const query = uniqueFields.reduce((acc, field) => {
+            acc[field] = req.body[field];
+            return acc;
+        }, { _id: { $ne: req.params.id } }); // Exclure le document actuel de la recherche
+
+        const duplicateDocument = await Model.findOne(query);
+        if (duplicateDocument) {
+            return res.status(409).json({ message: 'Un document avec les mêmes champs uniques existe déjà' });
+        }
+
         // Mettre à jour le document
-        await Model.updateOne({ _id: req.params.id }, data);
-        res.json({ message: 'success' });
+        const updatedDocument = await Model.findByIdAndUpdate(
+            req.params.id,
+            { $set: data },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedDocument) {
+            return res.status(404).json({ message: 'Document non trouvé après la mise à jour' });
+        }
+
+        res.json({ message: 'Mise à jour réussie', data: updatedDocument });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Erreur de mise à jour' });
     }
 };
+
+
 
 // Fonction pour mettre à jour l'état activated
 const updateIsActive = (Model) => async (req, res) => {
@@ -121,7 +145,7 @@ exports.Postpresentation = createDocument(model.Presentation, ['Description', 'I
 exports.Posthistorique = createDocument(model.Historique, ['Description', 'Image']);
 exports.Postenseignant = createDocument(model.Enseignant, [
     'nomComplet', 'adresseMail', 'telephone', 'domainesExpertise', 
-    'coursEnseignes', 'disponibilite', 'responsabilite', 'imageProfil'
+    'grade', 'responsabilite', 'imageProfil'
 ]);
 exports.Postformation = createDocument(model.Formation, [
     'titre', 'presentation', 'admission', 'parcours', 'parcoursImage'
@@ -139,7 +163,7 @@ exports.Updatepresentation = updateDocument(model.Presentation, ['Description', 
 exports.Updatehistorique = updateDocument(model.Historique, ['Description', 'Image']);
 exports.Updateenseignant = updateDocument(model.Enseignant, [
     'nomComplet', 'adresseMail', 'telephone', 'domainesExpertise', 
-    'coursEnseignes', 'disponibilite', 'responsabilite', 'imageProfil'
+    'grade' ,'responsabilite', 'imageProfil'
 ]);
 exports.Updateformation = updateDocument(model.Formation, [
     'titre', 'presentation', 'admission', 'parcours', 'parcoursImage'
@@ -160,3 +184,8 @@ exports.ActivateFormation = updateIsActive(model.Formation);
 exports.ActivateRealisation = updateIsActive(model.Realisation);
 exports.ActivateActualite = updateIsActive(model.Actualite);
 exports.ActivateOrganisation = updateIsActive(model.Organisation);
+
+
+
+
+

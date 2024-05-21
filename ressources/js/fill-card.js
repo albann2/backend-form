@@ -4,15 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Fonction pour effectuer la requête AJAX
     function getStaff() {
-        fetch("/Getstaff")
+        fetch("/Getenseignant")
             .then(response => response.json())
             .then(data => {
                 // Regrouper les données par poste
                 data.forEach(person => {
-                    if (!(person.poste in staffArray)) {
-                        staffArray[person.poste] = []; // Initialiser un tableau vide pour chaque poste
+                    if (!(person.grade in staffArray)) {
+                        staffArray[person.grade] = []; // Initialiser un tableau vide pour chaque poste
                     }
-                    staffArray[person.poste].push(person);
+                    staffArray[person.grade].push(person);
                 });
 
                 // Créer les cards pour chaque poste
@@ -29,14 +29,14 @@ document.addEventListener("DOMContentLoaded", () => {
         mainContent.innerHTML = "";
 
         // Parcourir les postes dans staffArray
-        for (const poste in staffArray) {
-            if (staffArray.hasOwnProperty(poste)) {
-                const personnes = staffArray[poste];
+        for (const grade in staffArray) {
+            if (staffArray.hasOwnProperty(grade)) {
+                const personnes = staffArray[grade];
                 const cardHTML = `
                     <div class="card-single">
                         <div>
                             <h1>${personnes.length}</h1>
-                            <span>${poste}</span>
+                            <span>${grade}</span>
                         </div>
                         <div>
                             <span class="las la-users"></span>

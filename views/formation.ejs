@@ -15,7 +15,7 @@
                             <td>PARCOURS IMAGE</td>
                         </tr>
                     </thead>
-                    <tbody id="corps-enseignement">
+                    <tbody id="corps-formation">
                         <!-- Les lignes seront remplies dynamiquement par JavaScript -->
                     </tbody>
                 </table>
@@ -30,38 +30,32 @@
             </div>
             <div class="card-body">
                 <div class="box">
-                    <form id="addTeacherForm">
+                    <form method="post" action="/Postformation" id="addPresentationForm">
                         <h2>ADD NEW</h2>
                         <div class="inputbox">
-                            <input type="text" id="nom" name="nom" placeholder="Nom" required>
-                            <span>Nom</span>
+                            <input type="text" id="titre" name="titre" placeholder="titre" required>
+                            <span>titre</span>
                             <i></i>
                         </div>
                         <div class="inputbox">
-                            <input type="text" id="type" name="type" placeholder="Type" required>
-                            <span>Type</span>
+                            <input type="text" id="presentation" name="presentation" placeholder="presentation" required>
+                            <span>presentation</span>
                             <i></i>
                         </div>
                         <div class="inputbox">
-                            <input type="text" id="credits" name="credits" placeholder="Nmbre_Credits" required>
-                            <span>Nmbre_Credits</span>
+                            <input type="text" id="admission" name="admission" placeholder="admission" required>
+                            <span>admission</span>
                             <i></i>
                         </div>
                         <div class="inputbox">
-                            <input type="text" id="description" name="description" placeholder="Description" required>
-                            <span>Description</span>
+                            <input type="text" id="parcours" name="parcours" placeholder="parcours" required>
+                            <span>parcours</span>
                             <i></i>
                         </div>
                         <div class="inputbox">
-                            <select name="langue" id="langue">
-                                <option value="1">Francais</option>
-                                <option value="2">Anglais</option>
-                            </select>
+                            <input type="text" id="parcoursImage" name="parcoursImage" placeholder="parcoursImage" required>
+                            <span>parcoursImage</span>
                             <i></i>
-                        </div>
-                        <div id="daccord">
-                            <input type="checkbox" id="check" name="agree" required>
-                            <label for="check" style="color: pink;">Je suis d'accord</label>
                         </div>
                         <input type="submit" value="Enregistrer">
                     </form>

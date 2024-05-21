@@ -1,10 +1,10 @@
 
     // Tableau pour stocker les données d'administration
 
-    function getEnseignementData() {
-        let enseignementData = [];
+    function getStaffData() {
+        let staffData = [];
 
-        fetch('/Getenseignement', {
+        fetch('/Gethistorique', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -14,9 +14,9 @@
         .then(data => {
             console.log('Données de staff récupérées:', data);
             // Stocker les données dans le tableau
-            enseignementData = data;
+            staffData = data;
             // Appeler la fonction pour afficher les données dans le tableau
-            displayEnseignementData(enseignementData);
+            displayStaffData(staffData);
 
         })
         .catch(error => {
@@ -26,8 +26,8 @@
     }
 
     // Fonction pour afficher les données d'administration dans le tableau
-    function displayEnseignementData(data) {
-        const tableBody = document.getElementById("corps-enseignement"); // Correction de la méthode pour obtenir l'élément
+    function displayStaffData(data) {
+        const tableBody = document.getElementById("corps-historique"); // Correction de la méthode pour obtenir l'élément
             tableBody.innerHTML = ''; // Effacer le contenu précédent du tableau
     
             data.forEach(item => {
@@ -35,17 +35,14 @@
                     // Ajouter une nouvelle ligne au tableau avec les données de la personne
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
-                        <td>${item.nom}</td>
-                        <td>${item.type}</td>
-                        <td>${item.nbrCredits}</td>
-                        <td>${item.description}</td>
-                        <td>${item.langue}</td>
-                        <td><button class="change">DELETE</button></td>
-                        <td><button class="change">EDIT</button></td>
+                        <td>${item.Description}</td>
+                        <td>${item.Image}</td>
+                        
+
 
                     `;
             });
     }
 
     // Appel de la fonction pour récupérer et afficher les données lors du chargement de la page
-    getEnseignementData();
+    getStaffData();

@@ -8,16 +8,12 @@
                 <table width="100%">
                     <thead>
                         <tr>
-                            <td>NOM</td>
-                            <td>TYPE</td>
-                            <td>NOMBRE CREDITS</td>
                             <td>DESCRIPTION</td>
-                            <td>LANGUE</td>
-                            <td>DELETE</td>
-                            <td>EDIT</td>
+                            <td>IMAGE</td>
+                           
                         </tr>
                     </thead>
-                    <tbody id="corps-enseignement">
+                    <tbody id="corps-presentation">
                         <!-- Les lignes seront remplies dynamiquement par JavaScript -->
                     </tbody>
                 </table>
@@ -28,47 +24,27 @@
         <div class="card">
             <div class="card-header">
                 <span class="las la-plus-circle"></span>
-                <h3>Add New Teacher</h3>
+                <h3>Add New Presentation</h3>
             </div>
             <div class="card-body">
                 <div class="box">
-                    <form id="addTeacherForm">
+                    <form method="post" action="/Postpresentation" id="addPresentationForm">
                         <h2>ADD NEW</h2>
                         <div class="inputbox">
-                            <input type="text" id="nom" name="nom" placeholder="Nom" required>
-                            <span>Nom</span>
-                            <i></i>
-                        </div>
-                        <div class="inputbox">
-                            <input type="text" id="type" name="type" placeholder="Type" required>
-                            <span>Type</span>
-                            <i></i>
-                        </div>
-                        <div class="inputbox">
-                            <input type="text" id="credits" name="credits" placeholder="Nmbre_Credits" required>
-                            <span>Nmbre_Credits</span>
-                            <i></i>
-                        </div>
-                        <div class="inputbox">
-                            <input type="text" id="description" name="description" placeholder="Description" required>
+                            <input type="text" id="Description" name="Description" placeholder="Description" required>
                             <span>Description</span>
                             <i></i>
                         </div>
                         <div class="inputbox">
-                            <select name="langue" id="langue">
-                                <option value="1">Francais</option>
-                                <option value="2">Anglais</option>
-                            </select>
+                            <input type="text" id="Image" name="Image" placeholder="Image URL" required>
+                            <span>Image</span>
                             <i></i>
                         </div>
-                        <div id="daccord">
-                            <input type="checkbox" id="check" name="agree" required>
-                            <label for="check" style="color: pink;">Je suis d'accord</label>
-                        </div>
+                      
                         <input type="submit" value="Enregistrer">
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    

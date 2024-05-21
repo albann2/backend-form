@@ -85,4 +85,4 @@ const Realisation = mongoose.model('Realisation', RealisationSchema);
 const Actualite = mongoose.model('Actualite', ActualiteSchema);
 const Organisation = mongoose.model('Organisation', OrganisationSchema);
 
-module.exports = { Historique, Mission, Presentation, Enseignant, Formation, Realisation, Actualite, Organisation };
+module.exports = { Historique, Mission, Presentation, Enseignant, Formation, Realisation, Actualite };
