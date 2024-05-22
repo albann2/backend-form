@@ -1,7 +1,10 @@
 const express = require("express");
-express.urlencoded({ extended: true });
+const bodyParser=require('body-parser')
 const port = 5000;
 const app = express();
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
 const path = require('path');
 const index = require('./controllers/Controller');
 const connectDB = require('./model/db');
@@ -43,7 +46,7 @@ app.put('/Updatepresentation/:id', index.Updatepresentation);
 app.put('/Updatehistorique/:id', index.Updatehistorique);
 app.put('/Updateenseignant/:id', index.Updateenseignant);
 app.put('/Updateformation/:id', index.Updateformation);
-app.post('/Updaterealisation/:id', index.Updaterealisation);
+app.put('/Updaterealisation/:id', index.Updaterealisation);
 app.put('/Updateactualite/:id', index.Updateactualite);
 
 app.patch('/ActivateMission/:id', index.ActivateMission);

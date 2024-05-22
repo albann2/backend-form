@@ -30,6 +30,13 @@
             </div>
             <div class="card-body">
                 <div class="box">
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                        sendDataViaAjax('addPresentationForm', '/Postformation', function(error, response) {
+        
+                            });
+                        });
+                    </script>
                     <form method="post" action="/Postformation" id="addPresentationForm">
                         <h2>ADD NEW</h2>
                         <div class="inputbox">
@@ -57,7 +64,7 @@
                             <span>parcoursImage</span>
                             <i></i>
                         </div>
-                        <input type="submit" value="Enregistrer">
+                        <input type="submit" onclick="clickRubrique('/Formation');" value="Enregistrer">
                     </form>
                 </div>
             </div>

@@ -52,7 +52,6 @@ const createDocument = (Model, uniqueFields,tex) => async (req, res) => {
         // Créer et enregistrer le nouveau document
         let document = new Model(data);
         await document.save();
-        res.render(tex)
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Erreur de soumission' });

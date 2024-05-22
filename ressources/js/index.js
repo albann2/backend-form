@@ -63,8 +63,76 @@ buttons.forEach(button=>{
     })
 })
 
+function adjustInputWidth(input) {
+    input.style.width = `${input.value.length + 1}ch`;
+}
 
 
 
+function updateStaffData(url, formData) {
+    const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+
+    fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: jsonData
+    })
+    .then(response => response.json())
+    .then(updatedItem => {
+        getStaffData(); // Recharger les données pour afficher les mises à jour
+    })
+    .catch(error => {
+        console.error('Erreur lors de la mise à jour des données:', error.message);
+        alert('Erreur lors de la mise à jour des données: ' + error.message);
+    });
+}
 ///////////////////////
 
+
+
+
+
+function sendDataViaAjax(formId, url, callback) {
+    var form = document.getElementById(formId);
+    if (!form) {
+        console.error('Formulaire non trouvé');
+        return;
+    }
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêche le comportement par défaut du formulaire
+
+        // Récupérer les valeurs des champs
+        var formData = new FormData(form);
+
+        // Envoyer les données via AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // Traitement à effectuer en cas de succès
+clickRubrique('/Realisation')            
+if (callback && typeof callback === 'function') {
+                    callback(null, xhr.responseText);
+                }
+            } else {
+                // Traitement à effectuer en cas d'échec
+                console.error('Erreur lors de l\'envoi des données');
+                if (callback && typeof callback === 'function') {
+                    callback('Erreur lors de l\'envoi des données');
+                }
+            }
+        };
+        xhr.onerror = function() {
+            console.error('Erreur réseau lors de l\'envoi des données');
+            if (callback && typeof callback === 'function') {
+                callback('Erreur réseau lors de l\'envoi des données');
+            }
+        };
+        xhr.send(formData);
+    });
+}
+
+// Utilisation de la fonction pour le formulaire spécifique

@@ -37,8 +37,32 @@
                     newRow.innerHTML = `
                         <td>${item.Description}</td>
                         <td>${item.Image}</td>
-
+                        <td><button class="btn-edit">EDIT</button></td>
                     `;
+                    const newRowForm = tableBody.insertRow();
+        newRowForm.innerHTML = `
+            <td colspan="3">
+                <form class="modal" style="display:none;">
+                    <input type="text" value="${item.Description}" name="Description" oninput="adjustInputWidth(this)">
+                    <input type="text" value="${item.Image}" name="Image" oninput="adjustInputWidth(this)">
+                    <input type="submit" value="Mettre à jour">
+                </form>
+            </td>
+        `;
+
+        // Gestionnaire d'événements pour le bouton d'édition
+        newRow.querySelector('.btn-edit').addEventListener('click', () => {
+            const form = newRowForm.querySelector('.modal');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            // Ajuster les largeurs des champs de saisie initialement
+            form.querySelectorAll('input[type="text"]').forEach(adjustInputWidth);
+        });
+
+        // Ajouter un gestionnaire d'événements pour la soumission du formulaire via AJAX
+        newRowForm.querySelector('form').addEventListener('submit', event => {
+            event.preventDefault(); // Empêcher la soumission par défaut du formulaire
+            updateStaffData(`/Updatemission/${item._id}`, new FormData(event.target));
+        });
             });
     }
 
