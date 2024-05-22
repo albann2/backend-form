@@ -59,6 +59,10 @@
     color: var(--main-color);
     border-radius: 30px 0px 0px 30px;
 }
+.sidebar-menu a.active:active{
+    background:gray;
+
+}
 .sidebar-menu a span:first-child{
     font-size: 1.5rem;
     padding-right: 1rem;
@@ -98,7 +102,7 @@ width: calc(100% - 70px);
 left: 70px;
   }
 .main-content{
-    transition: margin-left 1000ms;
+    transition: margin-left 0.1;
     margin-left: 345px;
 }
 header{
@@ -293,6 +297,17 @@ td .status{
 }
 .reset-button {
     all: unset;
+    transition: background-color 3s ease;
+
+}
+.reset-button.clicked{
+    background:#fff;
+    padding-top: 1rem;
+    width: 100%;
+    padding-bottom: 1rem;
+    color: var(--main-color);
+    border-radius: 30px 0px 0px 30px;
+    transition: background-color 3s ease;
 }
 a{
     cursor: pointer;
@@ -302,7 +317,7 @@ a{
 .box{
     position: relative;
     width:380px;
-    height: 700px;
+    height: 800px;
     background:#ccc;
     border-radius: 8px;
     overflow: hidden;
@@ -414,4 +429,7 @@ a{
 select{
     margin-bottom: 1rem;
     font-size: 1.5rem;
+}
+.modal{
+    position: fixed;
 }

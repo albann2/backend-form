@@ -36,7 +36,7 @@ const getAllDocuments = (Model) => async (req, res) => {
 };
 
 // Fonction générique pour les requêtes POST
-const createDocument = (Model, uniqueFields) => async (req, res) => {
+const createDocument = (Model, uniqueFields,tex) => async (req, res) => {
     try {
         const data = {};
         uniqueFields.forEach(field => {
@@ -52,7 +52,6 @@ const createDocument = (Model, uniqueFields) => async (req, res) => {
         // Créer et enregistrer le nouveau document
         let document = new Model(data);
         await document.save();
-        res.json({ message: 'success' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Erreur de soumission' });
@@ -63,19 +62,27 @@ const createDocument = (Model, uniqueFields) => async (req, res) => {
 const updateDocument = (Model, uniqueFields) => async (req, res) => {
     try {
         const data = {};
-        uniqueFields.forEach(field => {
-            data[field] = req.body[field];
+        // Loop through all fields in req.body
+        for (const field in req.body) {
+            // Check if the field is allowed to be updated
+            if (uniqueFields.includes(field)) {
+                data[field] = req.body[field];
+            }
+        }
+
+        // Update the document by ID and retrieve the updated document
+        const updatedDocument = await Model.findByIdAndUpdate(req.params.id, data, {
+            new: true, // Return the updated document
+            runValidators: true // Ensure new data adheres to schema validation
         });
 
-        // Vérifier si un document similaire existe déjà
-        const existingDocument = await Model.findOne({ _id: req.params.id });
-        if (!existingDocument) {
+        // Check if the document exists
+        if (!updatedDocument) {
             return res.status(404).json({ message: 'Document non trouvé' });
         }
 
-        // Mettre à jour le document
-        await Model.updateOne({ _id: req.params.id }, data);
-        res.json({ message: 'success' });
+        // Respond with the updated document
+        res.json(updatedDocument);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Erreur de mise à jour' });
@@ -116,22 +123,22 @@ exports.Getactualite = getAllDocuments(model.Actualite);
 exports.Getorganisation = getAllDocuments(model.Organisation);
 
 /**-------------------API POST */
-exports.Postmission = createDocument(model.Mission, ['Description', 'Image']);
-exports.Postpresentation = createDocument(model.Presentation, ['Description', 'Image']);
-exports.Posthistorique = createDocument(model.Historique, ['Description', 'Image']);
+exports.Postmission = createDocument(model.Mission, ['Description', 'Image'],'');
+exports.Postpresentation = createDocument(model.Presentation, ['Description', 'Image'],'index');
+exports.Posthistorique = createDocument(model.Historique, ['Description', 'Image'],'');
 exports.Postenseignant = createDocument(model.Enseignant, [
     'nomComplet', 'adresseMail', 'telephone', 'domainesExpertise', 
     'coursEnseignes', 'disponibilite', 'responsabilite', 'imageProfil'
-]);
+],'');
 exports.Postformation = createDocument(model.Formation, [
     'titre', 'presentation', 'admission', 'parcours', 'parcoursImage'
-]);
+],'');
 exports.Postrealisation = createDocument(model.Realisation, [
     'titre', 'annee', 'description'
-]);
+],'');
 exports.Postactualite = createDocument(model.Actualite, [
     'titre', 'description', 'semaine'
-]);
+],'');
 
 /**-------------------API PUT */
 exports.Updatemission = updateDocument(model.Mission, ['Description', 'Image']);
@@ -160,3 +167,8 @@ exports.ActivateFormation = updateIsActive(model.Formation);
 exports.ActivateRealisation = updateIsActive(model.Realisation);
 exports.ActivateActualite = updateIsActive(model.Actualite);
 exports.ActivateOrganisation = updateIsActive(model.Organisation);
+
+
+
+
+

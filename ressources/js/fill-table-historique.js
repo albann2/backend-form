@@ -4,7 +4,7 @@
     function getStaffData() {
         let staffData = [];
 
-        fetch('/Getmission', {
+        fetch('/Gethistorique', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,7 +27,7 @@
 
     // Fonction pour afficher les données d'administration dans le tableau
     function displayStaffData(data) {
-        const tableBody = document.getElementById("corps-mission"); // Correction de la méthode pour obtenir l'élément
+        const tableBody = document.getElementById("corps-historique"); // Correction de la méthode pour obtenir l'élément
             tableBody.innerHTML = ''; // Effacer le contenu précédent du tableau
     
             data.forEach(item => {
@@ -61,7 +61,7 @@
         // Ajouter un gestionnaire d'événements pour la soumission du formulaire via AJAX
         newRowForm.querySelector('form').addEventListener('submit', event => {
             event.preventDefault(); // Empêcher la soumission par défaut du formulaire
-            updateStaffData(`/Updatemission/${item._id}`, new FormData(event.target));
+            updateStaffData(`/Updatehistorique/${item._id}`, new FormData(event.target));
         });
             });
     }

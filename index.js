@@ -1,7 +1,10 @@
 const express = require("express");
-express.urlencoded({ extended: true });
+const bodyParser=require('body-parser')
 const port = 5000;
 const app = express();
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
 const path = require('path');
 const index = require('./controllers/Controller');
 const connectDB = require('./model/db');
