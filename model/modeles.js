@@ -1,4 +1,50 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+
+// Définir le schéma de l'utilisateur
+const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+});
+
+// Avant de sauvegarder l'utilisateur, hasher le mot de passe
+userSchema.pre('save', async function(next) {
+    if (!this.isModified('password')) {
+        return next();
+    }
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
+
+// Méthode pour vérifier le mot de passe
+userSchema.methods.isValidPassword = async function(password) {
+    try {
+        return await bcrypt.compare(password, this.password);
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+
+
+
+
+
 
 const baseSchemaOptions = {
     timestamps: true
@@ -58,22 +104,13 @@ const RealisationSchema = new mongoose.Schema({
 // Schéma pour la classe Actualite
 const ActualiteSchema = new mongoose.Schema({
     titre: String,
-    description: String,
+    Description: String,
     semaine: String,
     activated: { type: Boolean, default: true }
 }, baseSchemaOptions);
 
 // Schéma pour la classe Organisation
-const OrganisationSchema = new mongoose.Schema({
-    programmePedagogique: String,
-    planCours: {
-        annee: String,
-        image: String,
-        niveau: String,
-        filiere: String
-    },
-    activated: { type: Boolean, default: true }
-}, baseSchemaOptions);
+
 
 // Création des modèles
 const Historique = mongoose.model('Historique', HistoriqueSchema);
@@ -83,6 +120,7 @@ const Enseignant = mongoose.model('Enseignant', EnseignantSchema);
 const Formation = mongoose.model('Formation', FormationSchema);
 const Realisation = mongoose.model('Realisation', RealisationSchema);
 const Actualite = mongoose.model('Actualite', ActualiteSchema);
-const Organisation = mongoose.model('Organisation', OrganisationSchema);
+const User = mongoose.model('User', userSchema);
 
-module.exports = { Historique, Mission, Presentation, Enseignant, Formation, Realisation, Actualite };
+
+module.exports = { Historique, Mission, Presentation, Enseignant, Formation, Realisation, Actualite ,User};

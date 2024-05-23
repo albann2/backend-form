@@ -106,16 +106,20 @@ function sendDataViaAjax(formId, url, callback) {
 
         // Récupérer les valeurs des champs
         var formData = new FormData(form);
+        var headers = {
+            'Content-Type': 'application/json' // Assurez-vous que le type de contenu est correct
+        };
 
-        // Envoyer les données via AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.onload = function() {
-            if (xhr.status === 200) {
+        // Envoyer les données via AJAX avec les en-têtes d'autorisation
+        fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(Object.fromEntries(formData.entries()))
+        })
+        .then(response => {
+            if (response.ok) {
                 // Traitement à effectuer en cas de succès
-clickRubrique('/Realisation')            
-if (callback && typeof callback === 'function') {
-                    callback(null, xhr.responseText);
+                if (callback && typeof callback === 'function') {
                 }
             } else {
                 // Traitement à effectuer en cas d'échec
@@ -124,15 +128,12 @@ if (callback && typeof callback === 'function') {
                     callback('Erreur lors de l\'envoi des données');
                 }
             }
-        };
-        xhr.onerror = function() {
-            console.error('Erreur réseau lors de l\'envoi des données');
+        })
+        .catch(error => {
+            console.error('Erreur réseau lors de l\'envoi des données:', error.message);
             if (callback && typeof callback === 'function') {
                 callback('Erreur réseau lors de l\'envoi des données');
             }
-        };
-        xhr.send(formData);
+        });
     });
 }
-
-// Utilisation de la fonction pour le formulaire spécifique
