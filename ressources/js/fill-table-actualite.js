@@ -44,9 +44,9 @@
                     newRowForm.innerHTML = `
                         <td colspan="3">
                             <form class="modal" style="display:none;">
-                                <input type="text" value="${item.titre}" name="Image" oninput="adjustInputWidth(this)">
+                                <input type="text" value="${item.titre}" name="titre" oninput="adjustInputWidth(this)">
                                 <input type="text" value="${item.Description}" name="Description" oninput="adjustInputWidth(this)">
-                                <input type="text" value="${item.semaine}" name="Image" oninput="adjustInputWidth(this)">
+                                <input type="text" value="${item.semaine}" name="semaine" oninput="adjustInputWidth(this)">
                                 <input type="submit" value="Mettre à jour">
                             </form>
                         </td>

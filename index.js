@@ -1,28 +1,38 @@
 const express = require("express");
-const bodyParser=require('body-parser')
-const port = 5000;
-const app = express();
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
-
+const bodyParser = require('body-parser');
 const path = require('path');
+const jwt = require('jsonwebtoken');
+const authenticateToken = require('./controllers/authenticateToken'); // Chemin vers le middleware
 const index = require('./controllers/Controller');
 const connectDB = require('./model/db');
+const cookieParser = require('cookie-parser');
+
+const port = 3000;
+const app = express();
+app.use(cookieParser());
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'ressources')));
-app.get('/index',index.index)
-app.get('/Actualite',index.Actualite)
-app.get('/Enseignant',index.Enseignant)
-app.get('/Formation',index.Formation)
-app.get('/Historique',index.Historique)
-app.get('/Mission',index.Mission)
-app.get('/Presentation',index.Presentation)
-app.get('/Realisation',index.Realisation)
 
+// Appliquer le middleware authenticateToken pour toutes les requêtes
+app.use(authenticateToken);
 
+// Routes GET
+app.get('/', index.index);
+app.get('/Logout', index.index);
+
+app.get('/Actualite', index.Actualite);
+app.get('/Enseignant', index.Enseignant);
+app.get('/Formation', index.Formation);
+app.get('/Historique', index.Historique);
+app.get('/Mission', index.Mission);
+app.get('/Presentation', index.Presentation);
+app.get('/Realisation', index.Realisation);
 
 app.get('/Getmission', index.Getmission);
 app.get('/Getpresentation', index.Getpresentation);
@@ -33,6 +43,10 @@ app.get('/Getrealisation', index.Getrealisation);
 app.get('/Getactualite', index.Getactualite);
 app.get('/Getorganisation', index.Getorganisation);
 
+// Routes POST
+app.post('/signup', index.Signup);
+app.post('/signin', index.Signin);
+
 app.post('/Postmission', index.Postmission);
 app.post('/Postpresentation', index.Postpresentation);
 app.post('/Posthistorique', index.Posthistorique);
@@ -41,6 +55,7 @@ app.post('/Postformation', index.Postformation);
 app.post('/Postrealisation', index.Postrealisation);
 app.post('/Postactualite', index.Postactualite);
 
+// Routes PUT
 app.put('/Updatemission/:id', index.Updatemission);
 app.put('/Updatepresentation/:id', index.Updatepresentation);
 app.put('/Updatehistorique/:id', index.Updatehistorique);
@@ -49,6 +64,7 @@ app.put('/Updateformation/:id', index.Updateformation);
 app.put('/Updaterealisation/:id', index.Updaterealisation);
 app.put('/Updateactualite/:id', index.Updateactualite);
 
+// Routes PATCH
 app.patch('/ActivateMission/:id', index.ActivateMission);
 app.patch('/ActivatePresentation/:id', index.ActivatePresentation);
 app.patch('/ActivateHistorique/:id', index.ActivateHistorique);
@@ -61,5 +77,5 @@ app.patch('/ActivateOrganisation/:id', index.ActivateOrganisation);
 connectDB();
 
 app.listen(port, () => {
-    console.log("serveur actif sur le port "+port);
+    console.log("Serveur actif sur le port " + port);
 });
