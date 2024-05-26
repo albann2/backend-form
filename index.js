@@ -20,7 +20,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'ressources')));
 
 // Appliquer le middleware authenticateToken pour toutes les requêtes
-app.use(authenticateToken);
+// Appliquer le middleware authenticateToken pour toutes les requêtes POST, PUT et PATCH concernant les missions, les présentations, etc.
+app.use(['/Postmission', '/Postpresentation', '/Posthistorique', '/Postenseignant', '/Postformation', '/Postrealisation', '/Postactualite', 
+         '/Updatemission/:id', '/Updatepresentation/:id', '/Updatehistorique/:id', '/Updateenseignant/:id', '/Updateformation/:id', '/Updaterealisation/:id', '/Updateactualite/:id',
+         '/ActivateMission/:id', '/ActivatePresentation/:id', '/ActivateHistorique/:id', '/ActivateEnseignant/:id', '/ActivateFormation/:id', '/ActivateRealisation/:id', '/ActivateActualite/:id', '/ActivateOrganisation/:id'], authenticateToken);
 
 // Routes GET
 app.get('/', index.index);
