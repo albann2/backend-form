@@ -6,7 +6,7 @@ const MONGODB_URI = process.env.MONGO_URL || 'mongodb://mongo:27017/DEPARTEMENT_
 // Fonction de connexion à MongoDB
 async function connectDB() {
     try {
-        await mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+        await mongoose.connect(MONGODB_URI);
         console.log('Connexion à MongoDB réussie !');
     } catch (error) {
         console.error('Erreur de connexion à MongoDB :', error);
