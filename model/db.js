@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // URL de connexion à votre base de données MongoDB
-const MONGODB_URI = 'mongodb+srv://moise2kuete:Subwaysurf0@cluster0.vwh9hux.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const MONGODB_URI = 'mongodb+srv://moise2kuete:Subwaysurf0@cluster0.vwh9hux.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1';
 
 // Fonction de connexion à MongoDB
 async function connectDB() {
