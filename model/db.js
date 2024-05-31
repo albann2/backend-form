@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 // Utilisez la variable d'environnement MONGO_URL ou une URL par défaut
-const MONGODB_URI ='mongodb://mongo:27017/DEPARTEMENT_BD';
+const MONGODB_URI = process.env.MONGO_URL || 'mongodb://mongo:27017/DEPARTEMENT_BD';
 
 // Fonction de connexion à MongoDB
 async function connectDB() {
     try {
-        await mongoose.connect(MONGODB_URI);
+        await mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
         console.log('Connexion à MongoDB réussie !');
     } catch (error) {
         console.error('Erreur de connexion à MongoDB :', error);
