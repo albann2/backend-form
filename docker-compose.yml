@@ -4,10 +4,20 @@ services:
     image: moisef/soutenance_app:latest
     ports:
       - "3000:3000"
-    links:
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/DEPARTEMENT_BD
+    depends_on:
       - mongo
+    networks:
+      - app-network
 
   mongo:
     image: mongo:latest
     ports:
       - "27017:27017"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
