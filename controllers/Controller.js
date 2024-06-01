@@ -2,6 +2,54 @@ const model = require('../model/modeles');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = '1111';
 
+
+
+
+// Fonction pour créer les groupes par défaut s'ils n'existent pas déjà
+async function createDefaultGroupsIfNotExist() {
+    try {
+        const groups = [
+            { nom: 'Informatique' },
+            { nom: 'Biologie' },
+            { nom: 'Langue' }
+        ];
+
+        // Vérifiez si chaque groupe existe déjà dans la base de données
+        for (const group of groups) {
+            const existingGroup = await model.Group.findOne({ nom: group.nom });
+            if (!existingGroup) {
+                // Créez une instance du modèle Group pour le groupe actuel
+                const newGroup = new model.Group({
+                    nom: group.nom,
+                    historiques: [],
+                    missions: [],
+                    presentations: [],
+                    enseignants: [],
+                    formations: [],
+                    realisations: [],
+                    actualites: []
+                });
+
+                // Enregistrez le groupe dans la base de données
+                await newGroup.save();
+                console.log(`Groupe ${group.nom} créé avec succès.`);
+            } else {
+                console.log(`Le groupe ${group.nom} existe déjà.`);
+            }
+        }
+    } catch (error) {
+        console.error('Erreur lors de la création des groupes par défaut :', error);
+    }
+}
+
+// Appelez la fonction pour créer les groupes par défaut s'ils n'existent pas déjà
+createDefaultGroupsIfNotExist();
+
+
+
+
+
+
 // Rendering view functions
 exports.index = (req, res) => res.render('main');
 exports.logout = (req, res) => {
