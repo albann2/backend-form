@@ -39,13 +39,7 @@ userSchema.methods.isValidPassword = async function(password) {
     }
 };
 
-
-
-
-
-
-
-
+// Options de base pour les schémas
 const baseSchemaOptions = {
     timestamps: true
 };
@@ -76,8 +70,8 @@ const EnseignantSchema = new mongoose.Schema({
     nomComplet: String,
     adresseMail: String,
     telephone: String,
-    domainesExpertise:String,
-    grade:String,
+    domainesExpertise: String,
+    grade: String,
     responsabilite: String,
     imageProfil: String,
     activated: { type: Boolean, default: true }
@@ -109,8 +103,17 @@ const ActualiteSchema = new mongoose.Schema({
     activated: { type: Boolean, default: true }
 }, baseSchemaOptions);
 
-// Schéma pour la classe Organisation
-
+// Schéma pour le groupe
+const GroupSchema = new mongoose.Schema({
+    nom: { type: String, required: true },
+    historiques: [HistoriqueSchema],
+    missions: [MissionSchema],
+    presentations: [PresentationSchema],
+    enseignants: [EnseignantSchema],
+    formations: [FormationSchema],
+    realisations: [RealisationSchema],
+    actualites: [ActualiteSchema]
+}, baseSchemaOptions);
 
 // Création des modèles
 const Historique = mongoose.model('Historique', HistoriqueSchema);
@@ -121,6 +124,16 @@ const Formation = mongoose.model('Formation', FormationSchema);
 const Realisation = mongoose.model('Realisation', RealisationSchema);
 const Actualite = mongoose.model('Actualite', ActualiteSchema);
 const User = mongoose.model('User', userSchema);
+const Group = mongoose.model('Group', GroupSchema);
 
-
-module.exports = { Historique, Mission, Presentation, Enseignant, Formation, Realisation, Actualite ,User};
+module.exports = {
+    Historique,
+    Mission,
+    Presentation,
+    Enseignant,
+    Formation,
+    Realisation,
+    Actualite,
+    User,
+    Group
+};
