@@ -39,7 +39,6 @@ userSchema.methods.isValidPassword = async function(password) {
     }
 };
 
-// Options de base pour les schémas
 const baseSchemaOptions = {
     timestamps: true
 };
@@ -116,24 +115,7 @@ const GroupSchema = new mongoose.Schema({
 }, baseSchemaOptions);
 
 // Création des modèles
-const Historique = mongoose.model('Historique', HistoriqueSchema);
-const Mission = mongoose.model('Mission', MissionSchema);
-const Presentation = mongoose.model('Presentation', PresentationSchema);
-const Enseignant = mongoose.model('Enseignant', EnseignantSchema);
-const Formation = mongoose.model('Formation', FormationSchema);
-const Realisation = mongoose.model('Realisation', RealisationSchema);
-const Actualite = mongoose.model('Actualite', ActualiteSchema);
 const User = mongoose.model('User', userSchema);
 const Group = mongoose.model('Group', GroupSchema);
 
-module.exports = {
-    Historique,
-    Mission,
-    Presentation,
-    Enseignant,
-    Formation,
-    Realisation,
-    Actualite,
-    User,
-    Group
-};
+module.exports = { User, Group };
