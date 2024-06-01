@@ -2,7 +2,7 @@ const model = require('../model/modeles');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = '1111';
 
-// Fonctions de rendu de vue
+// Rendering view functions
 exports.index = (req, res) => res.render('main');
 exports.logout = (req, res) => {
     res.clearCookie('token');
@@ -16,77 +16,77 @@ exports.Mission = (req, res) => res.render('mission');
 exports.Presentation = (req, res) => res.render('presentation');
 exports.Realisation = (req, res) => res.render('realisation');
 
-// Fonction générique pour les requêtes GET
+// Generic function for GET requests
 const getAllDocuments = (Model, groupName, fieldName) => async (req, res) => {
     try {
         const group = await Model.findOne({ nom: groupName });
         if (!group) {
-            return res.status(404).json({ message: 'Groupe non trouvé' });
+            return res.status(404).json({ message: 'Group not found' });
         }
         res.json(group[fieldName]);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Erreur de récupération' });
+        res.status(500).json({ message: 'Error retrieving data' });
     }
 };
 
-// Fonction générique pour les requêtes POST
+// Generic function for POST requests
 const createDocument = (Model, groupName, fieldName) => async (req, res) => {
     try {
         const group = await Model.findOne({ nom: groupName });
         if (!group) {
-            return res.status(404).json({ message: 'Groupe non trouvé' });
+            return res.status(404).json({ message: 'Group not found' });
         }
         group[fieldName].push(req.body);
         await group.save();
         res.status(201).json(group[fieldName]);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Erreur de soumission' });
+        res.status(500).json({ message: 'Error submitting data' });
     }
 };
 
-// Fonction générique pour les requêtes PUT (Update)
+// Generic function for PUT (Update) requests
 const updateDocument = (Model, groupName, fieldName) => async (req, res) => {
     try {
         const group = await Model.findOne({ nom: groupName });
         if (!group) {
-            return res.status(404).json({ message: 'Groupe non trouvé' });
+            return res.status(404).json({ message: 'Group not found' });
         }
         const document = group[fieldName].id(req.params.id);
         if (!document) {
-            return res.status(404).json({ message: 'Document non trouvé' });
+            return res.status(404).json({ message: 'Document not found' });
         }
         Object.assign(document, req.body);
         await group.save();
         res.json(document);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Erreur de mise à jour' });
+        res.status(500).json({ message: 'Error updating data' });
     }
 };
 
-// Fonction pour mettre à jour l'état activated
+// Function for updating the 'activated' state
 const updateIsActive = (Model, groupName, fieldName) => async (req, res) => {
     try {
         const group = await Model.findOne({ nom: groupName });
         if (!group) {
-            return res.status(404).json({ message: 'Groupe non trouvé' });
+            return res.status(404).json({ message: 'Group not found' });
         }
         const document = group[fieldName].id(req.params.id);
         if (!document) {
-            return res.status(404).json({ message: 'Document non trouvé' });
+            return res.status(404).json({ message: 'Document not found' });
         }
         document.activated = req.body.activated;
         await group.save();
-        res.json({ message: 'success' });
+        res.json({ message: 'Success' });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Erreur de mise à jour de l\'état' });
+        res.status(500).json({ message: 'Error updating status' });
     }
 };
 
-// Gestion des utilisateurs
+// User management
 exports.Signup = async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -96,7 +96,7 @@ exports.Signup = async (req, res) => {
         }
         const newUser = new model.User({ email, password });
         await newUser.save();
-        await exports.Signin(req, res);
+        await exports.Signin(req, res);  // Auto-login after signup
     } catch (error) {
         res.status(500).json({ message: 'Error creating user', error });
     }
@@ -114,9 +114,8 @@ exports.Signin = async (req, res) => {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
         const payload = { email: user.email };
-        const token = jwt.sign(payload, JWT_SECRET);
-        const maxAge = 120 * 60 * 1000;
-        res.cookie('token', token, { httpOnly: true, secure: true, maxAge });
+        const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '2h' });
+        res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 2 * 60 * 60 * 1000 });
         res.render('index');
     } catch (error) {
         res.status(500).json({ message: 'Error during authentication', error });
