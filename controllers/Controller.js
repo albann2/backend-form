@@ -26,7 +26,7 @@ const getAllDocuments = (Model, groupName, fieldName) => async (req, res) => {
         res.json(group[fieldName]);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error retrieving data' });
+        res.status(500).json({ message: 'Error getting data' });
     }
 };
 
