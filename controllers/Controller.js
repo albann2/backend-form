@@ -9,9 +9,9 @@ const JWT_SECRET = '1111';
 async function createDefaultGroupsIfNotExist() {
     try {
         const groups = [
-            { nom: 'Informatique' },
-            { nom: 'Biologie' },
-            { nom: 'Langue' }
+            { nom: 'informatique' },
+            { nom: 'biologie' },
+            { nom: 'langue' }
         ];
 
         // Vérifiez si chaque groupe existe déjà dans la base de données
