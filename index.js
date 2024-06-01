@@ -44,7 +44,6 @@ app.get('/Getenseignant', index.Getenseignant);
 app.get('/Getformation', index.Getformation);
 app.get('/Getrealisation', index.Getrealisation);
 app.get('/Getactualite', index.Getactualite);
-app.get('/Getorganisation', index.Getorganisation);
 
 // Routes POST
 app.post('/signup', index.Signup);
@@ -75,7 +74,6 @@ app.patch('/ActivateEnseignant/:id', index.ActivateEnseignant);
 app.patch('/ActivateFormation/:id', index.ActivateFormation);
 app.patch('/ActivateRealisation/:id', index.ActivateRealisation);
 app.patch('/ActivateActualite/:id', index.ActivateActualite);
-app.patch('/ActivateOrganisation/:id', index.ActivateOrganisation);
 
 connectDB();
 
