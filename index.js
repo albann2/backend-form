@@ -27,7 +27,7 @@ app.use(['/Postmission', '/Postpresentation', '/Posthistorique', '/Postenseignan
 
 // Routes GET
 app.get('/', index.index);
-app.get('/Logout', index.index);
+app.get('/Logout', index.logout);
 
 app.get('/Actualite', index.Actualite);
 app.get('/Enseignant', index.Enseignant);
