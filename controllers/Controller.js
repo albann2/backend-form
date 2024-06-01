@@ -87,7 +87,6 @@ const createDocument = (Model, groupName, fieldName) => async (req, res) => {
         }
         group[fieldName].push(req.body);
         await group.save();
-        res.status(201).json(group[fieldName]);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error submitting data' });
