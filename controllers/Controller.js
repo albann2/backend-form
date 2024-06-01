@@ -32,7 +32,7 @@ async function createDefaultGroupsIfNotExist() {
 
                 // Enregistrez le groupe dans la base de données
                 await newGroup.save();
-                console.log(`Groupe ${group.nom} créé avec succès.`);
+                console.log(`Groupe ${group.nom} succès.`);
             } else {
                 console.log(`Le groupe ${group.nom} existe déjà.`);
             }
