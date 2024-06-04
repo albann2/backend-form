@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- Website - www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Responsive Sidebar Menu HTML CSS | CodingNepal</title>
+    <link rel="stylesheet" href="/css/style2.css" />
+    <link rel="stylesheet" href="/css/all.min.css" />
+
+    <!-- Boxicons CDN Link -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      #ouvert{
+        background-color: white;
+      }
+      #ouvert i, #ouvert .links_name{
+        color: #11101D;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="logo-details">
+        <div class="logo_name">CodingLab</div>
+        <i class="fas fa-list" id="btn"></i>
+      </div>
+      <ul class="nav-list">
+        <li>
+          <a href="#" id="ouvert">
+            <i class="fas fa-igloo"></i>
+            <span class="links_name">Dashboard</span>
+          </a>
+          <span class="tooltip">Dashboard</span>
+        </li>
+        <li>
+          <a href="./presentation.html">
+            <i class="fas fa-users"></i>
+            <span class="links_name">Presentation</span>
+          </a>
+          <span class="tooltip">Presentation</span>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-users"></i>
+            <span class="links_name">Staff</span>
+          </a>
+          <span class="tooltip">Staff</span>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-users"></i>
+            <span class="links_name">Enseignants</span>
+          </a>
+          <span class="tooltip">Enseignants</span>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-search"></i>
+            <span class="links_name">Recherche</span>
+          </a>
+          <span class="tooltip">Recherche</span>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-file"></i>
+            <span class="links_name">Formations</span>
+          </a>
+          <span class="tooltip">Formations</span>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-heart"></i>
+            <span class="links_name">Liens</span>
+          </a>
+          <span class="tooltip">Liens</span>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-user"></i>
+            <span class="links_name">Contacts</span>
+          </a>
+          <span class="tooltip">Contacts</span>
+        </li>
+        <li class="profile">
+          <a href="#">
+            <i class="fas fa-power-off"></i>
+            <span class="links_name">Quitter</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <section class="home-section">
+      <header>
+        <h2>Dashboard</h2>
+        <div class="search-wrapper">
+            <span class="fas fa-search"></span>
+            <input type="search" placeholder="search"/>
+        </div>
+      </header>
+    </section>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
