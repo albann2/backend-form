@@ -3,12 +3,12 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = '1111';
 
 
-
+let departement=""
 // Fonction pour créer les groupes par défaut s'ils n'existent pas déjà
 async function createDefaultGroupsIfNotExist() {
     try {
         const groups = [
-            { nom: 'informatique' },
+            { nom: 'informatique'},
             { nom: 'biologie' },
             { nom: 'langue' }
         ];
@@ -64,9 +64,9 @@ exports.Presentation = (req, res) => res.render('presentation');
 exports.Realisation = (req, res) => res.render('realisation');
 
 // Generic function for GET requests
-const getAllDocuments = (Model, groupName, fieldName) => async (req, res) => {
+const getAllDocuments = (Model, fieldName) => async (req, res) => {
     try {
-        const group = await Model.findOne({ nom: groupName });
+        const group = await Model.findOne({ nom: departement });
         if (!group) {
             return res.status(404).json({ message: 'Group not found' });
         }
@@ -78,9 +78,9 @@ const getAllDocuments = (Model, groupName, fieldName) => async (req, res) => {
 };
 
 // Generic function for POST requests
-const createDocument = (Model, groupName, fieldName) => async (req, res) => {
+const createDocument = (Model, fieldName) => async (req, res) => {
     try {
-        const group = await Model.findOne({ nom: groupName });
+        const group = await Model.findOne({ nom: departement });
         if (!group) {
             return res.status(404).json({ message: 'Group not found' });
         }
@@ -93,9 +93,9 @@ const createDocument = (Model, groupName, fieldName) => async (req, res) => {
 };
 
 // Generic function for PUT (Update) requests
-const updateDocument = (Model, groupName, fieldName) => async (req, res) => {
+const updateDocument = (Model, fieldName) => async (req, res) => {
     try {
-        const group = await Model.findOne({ nom: groupName });
+        const group = await Model.findOne({ nom: departement });
         if (!group) {
             return res.status(404).json({ message: 'Group not found' });
         }
@@ -113,9 +113,9 @@ const updateDocument = (Model, groupName, fieldName) => async (req, res) => {
 };
 
 // Function for updating the 'activated' state
-const updateIsActive = (Model, groupName, fieldName) => async (req, res) => {
+const updateIsActive = (Model, fieldName) => async (req, res) => {
     try {
-        const group = await Model.findOne({ nom: groupName });
+        const group = await Model.findOne({ nom: departement });
         if (!group) {
             return res.status(404).json({ message: 'Group not found' });
         }
@@ -159,47 +159,48 @@ exports.Signin = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
+        departement=user.departement
         const payload = { email: user.email };
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '2h' });
         res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 2 * 60 * 60 * 1000 });
-        res.render('informatique');
+        res.render(departement);
     } catch (error) {
         res.status(500).json({ message: 'Error during authentication', error });
     }
 };
 
 // Routes GET
-exports.Getmission = getAllDocuments(model.Group, 'informatique', 'missions');
-exports.Getpresentation = getAllDocuments(model.Group, 'informatique', 'presentations');
-exports.Gethistorique = getAllDocuments(model.Group, 'informatique', 'historiques');
-exports.Getenseignant = getAllDocuments(model.Group, 'informatique', 'enseignants');
-exports.Getformation = getAllDocuments(model.Group, 'informatique', 'formations');
-exports.Getrealisation = getAllDocuments(model.Group, 'informatique', 'realisations');
-exports.Getactualite = getAllDocuments(model.Group, 'informatique', 'actualites');
+exports.Getmission = getAllDocuments(model.Group,  'missions');
+exports.Getpresentation = getAllDocuments(model.Group,  'presentations');
+exports.Gethistorique = getAllDocuments(model.Group,  'historiques');
+exports.Getenseignant = getAllDocuments(model.Group,  'enseignants');
+exports.Getformation = getAllDocuments(model.Group,  'formations');
+exports.Getrealisation = getAllDocuments(model.Group,  'realisations');
+exports.Getactualite = getAllDocuments(model.Group,  'actualites');
 
 // Routes POST
-exports.Postmission = createDocument(model.Group, 'informatique', 'missions');
-exports.Postpresentation = createDocument(model.Group, 'informatique', 'presentations');
-exports.Posthistorique = createDocument(model.Group, 'informatique', 'historiques');
-exports.Postenseignant = createDocument(model.Group, 'informatique', 'enseignants');
-exports.Postformation = createDocument(model.Group, 'informatique', 'formations');
-exports.Postrealisation = createDocument(model.Group, 'informatique', 'realisations');
-exports.Postactualite = createDocument(model.Group, 'informatique', 'actualites');
+exports.Postmission = createDocument(model.Group,  'missions');
+exports.Postpresentation = createDocument(model.Group,  'presentations');
+exports.Posthistorique = createDocument(model.Group,  'historiques');
+exports.Postenseignant = createDocument(model.Group,  'enseignants');
+exports.Postformation = createDocument(model.Group,  'formations');
+exports.Postrealisation = createDocument(model.Group,  'realisations');
+exports.Postactualite = createDocument(model.Group,  'actualites');
 
 // Routes PUT
-exports.Updatemission = updateDocument(model.Group, 'informatique', 'missions');
-exports.Updatepresentation = updateDocument(model.Group, 'informatique', 'presentations');
-exports.Updatehistorique = updateDocument(model.Group, 'informatique', 'historiques');
-exports.Updateenseignant = updateDocument(model.Group, 'informatique', 'enseignants');
-exports.Updateformation = updateDocument(model.Group, 'informatique', 'formations');
-exports.Updaterealisation = updateDocument(model.Group, 'informatique', 'realisations');
-exports.Updateactualite = updateDocument(model.Group, 'informatique', 'actualites');
+exports.Updatemission = updateDocument(model.Group,  'missions');
+exports.Updatepresentation = updateDocument(model.Group,  'presentations');
+exports.Updatehistorique = updateDocument(model.Group,  'historiques');
+exports.Updateenseignant = updateDocument(model.Group,  'enseignants');
+exports.Updateformation = updateDocument(model.Group,  'formations');
+exports.Updaterealisation = updateDocument(model.Group,  'realisations');
+exports.Updateactualite = updateDocument(model.Group,  'actualites');
 
 // Routes PATCH (Update activated)
-exports.ActivateMission = updateIsActive(model.Group, 'informatique', 'missions');
-exports.ActivatePresentation = updateIsActive(model.Group, 'informatique', 'presentations');
-exports.ActivateHistorique = updateIsActive(model.Group, 'informatique', 'historiques');
-exports.ActivateEnseignant = updateIsActive(model.Group, 'informatique', 'enseignants');
-exports.ActivateFormation = updateIsActive(model.Group, 'informatique', 'formations');
-exports.ActivateRealisation = updateIsActive(model.Group, 'informatique', 'realisations');
-exports.ActivateActualite = updateIsActive(model.Group, 'informatique', 'actualites');
+exports.ActivateMission = updateIsActive(model.Group,  'missions');
+exports.ActivatePresentation = updateIsActive(model.Group,  'presentations');
+exports.ActivateHistorique = updateIsActive(model.Group,  'historiques');
+exports.ActivateEnseignant = updateIsActive(model.Group,  'enseignants');
+exports.ActivateFormation = updateIsActive(model.Group,  'formations');
+exports.ActivateRealisation = updateIsActive(model.Group,  'realisations');
+exports.ActivateActualite = updateIsActive(model.Group,  'actualites');
