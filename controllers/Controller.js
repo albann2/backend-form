@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = '1111';
 
 
-
+const vue=''
 
 // Fonction pour créer les groupes par défaut s'ils n'existent pas déjà
 async function createDefaultGroupsIfNotExist() {
@@ -135,7 +135,7 @@ const updateIsActive = (Model, groupName, fieldName) => async (req, res) => {
 
 // User management
 exports.Signup = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password ,departement} = req.body;
     try {
         const existingUser = await model.User.findOne({ email });
         if (existingUser) {
@@ -160,10 +160,11 @@ exports.Signin = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
+        vue=user.departement
         const payload = { email: user.email };
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '2h' });
         res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 2 * 60 * 60 * 1000 });
-        res.render('index');
+        res.render(vue);
     } catch (error) {
         res.status(500).json({ message: 'Error during authentication', error });
     }

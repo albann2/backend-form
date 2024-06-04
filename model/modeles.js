@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         trim: true
     },
+    departement:{
+        type:String,
+        required:true
+    },
     password: {
         type: String,
         required: true
