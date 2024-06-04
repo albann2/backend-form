@@ -8,7 +8,7 @@ let rendu=""
 async function createDefaultGroupsIfNotExist() {
     try {
         const groups = [
-            { nom: 'informatique' },
+            { nom: rendu },
             { nom: 'biologie' },
             { nom: 'langue' }
         ];
@@ -171,37 +171,37 @@ exports.Signin = async (req, res) => {
 };
 
 // Routes GET
-exports.Getmission = getAllDocuments(model.Group, 'informatique', 'missions');
-exports.Getpresentation = getAllDocuments(model.Group, 'informatique', 'presentations');
-exports.Gethistorique = getAllDocuments(model.Group, 'informatique', 'historiques');
-exports.Getenseignant = getAllDocuments(model.Group, 'informatique', 'enseignants');
-exports.Getformation = getAllDocuments(model.Group, 'informatique', 'formations');
-exports.Getrealisation = getAllDocuments(model.Group, 'informatique', 'realisations');
-exports.Getactualite = getAllDocuments(model.Group, 'informatique', 'actualites');
+exports.Getmission = getAllDocuments(model.Group, rendu, 'missions');
+exports.Getpresentation = getAllDocuments(model.Group, rend, 'presentations');
+exports.Gethistorique = getAllDocuments(model.Group, rendu, 'historiques');
+exports.Getenseignant = getAllDocuments(model.Group, rendu, 'enseignants');
+exports.Getformation = getAllDocuments(model.Group, rendu, 'formations');
+exports.Getrealisation = getAllDocuments(model.Group, rendu, 'realisations');
+exports.Getactualite = getAllDocuments(model.Group, rendu, 'actualites');
 
 // Routes POST
-exports.Postmission = createDocument(model.Group, 'informatique', 'missions');
-exports.Postpresentation = createDocument(model.Group, 'informatique', 'presentations');
-exports.Posthistorique = createDocument(model.Group, 'informatique', 'historiques');
-exports.Postenseignant = createDocument(model.Group, 'informatique', 'enseignants');
-exports.Postformation = createDocument(model.Group, 'informatique', 'formations');
-exports.Postrealisation = createDocument(model.Group, 'informatique', 'realisations');
-exports.Postactualite = createDocument(model.Group, 'informatique', 'actualites');
+exports.Postmission = createDocument(model.Group, rendu, 'missions');
+exports.Postpresentation = createDocument(model.Group, rendu, 'presentations');
+exports.Posthistorique = createDocument(model.Group, rendu, 'historiques');
+exports.Postenseignant = createDocument(model.Group, rendu, 'enseignants');
+exports.Postformation = createDocument(model.Group, rendu, 'formations');
+exports.Postrealisation = createDocument(model.Group, rendu, 'realisations');
+exports.Postactualite = createDocument(model.Group, rendu, 'actualites');
 
 // Routes PUT
-exports.Updatemission = updateDocument(model.Group, 'informatique', 'missions');
-exports.Updatepresentation = updateDocument(model.Group, 'informatique', 'presentations');
-exports.Updatehistorique = updateDocument(model.Group, 'informatique', 'historiques');
-exports.Updateenseignant = updateDocument(model.Group, 'informatique', 'enseignants');
-exports.Updateformation = updateDocument(model.Group, 'informatique', 'formations');
-exports.Updaterealisation = updateDocument(model.Group, 'informatique', 'realisations');
-exports.Updateactualite = updateDocument(model.Group, 'informatique', 'actualites');
+exports.Updatemission = updateDocument(model.Group, rendu, 'missions');
+exports.Updatepresentation = updateDocument(model.Group, rendu, 'presentations');
+exports.Updatehistorique = updateDocument(model.Group, rendu, 'historiques');
+exports.Updateenseignant = updateDocument(model.Group, rendu, 'enseignants');
+exports.Updateformation = updateDocument(model.Group, rendu, 'formations');
+exports.Updaterealisation = updateDocument(model.Group, rendu, 'realisations');
+exports.Updateactualite = updateDocument(model.Group, rendu, 'actualites');
 
 // Routes PATCH (Update activated)
-exports.ActivateMission = updateIsActive(model.Group, 'informatique', 'missions');
-exports.ActivatePresentation = updateIsActive(model.Group, 'informatique', 'presentations');
-exports.ActivateHistorique = updateIsActive(model.Group, 'informatique', 'historiques');
-exports.ActivateEnseignant = updateIsActive(model.Group, 'informatique', 'enseignants');
-exports.ActivateFormation = updateIsActive(model.Group, 'informatique', 'formations');
-exports.ActivateRealisation = updateIsActive(model.Group, 'informatique', 'realisations');
-exports.ActivateActualite = updateIsActive(model.Group, 'informatique', 'actualites');
+exports.ActivateMission = updateIsActive(model.Group, rendu, 'missions');
+exports.ActivatePresentation = updateIsActive(model.Group, rendu, 'presentations');
+exports.ActivateHistorique = updateIsActive(model.Group, rendu, 'historiques');
+exports.ActivateEnseignant = updateIsActive(model.Group, rendu, 'enseignants');
+exports.ActivateFormation = updateIsActive(model.Group, rendu, 'formations');
+exports.ActivateRealisation = updateIsActive(model.Group, rendu, 'realisations');
+exports.ActivateActualite = updateIsActive(model.Group, rendu, 'actualites');
