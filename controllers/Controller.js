@@ -160,7 +160,7 @@ exports.Signin = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
-        vue=use.departement
+        vue=user.departement
         const payload = { email: user.email };
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '2h' });
         res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 2 * 60 * 60 * 1000 });
