@@ -169,13 +169,23 @@ exports.Signin = async (req, res) => {
 };
 
 // Routes GET
-exports.Getmission = getAllDocuments(model.Group, department, 'missions');
+<<<<<<< HEAD
+exports.Getmission = getAllDocuments(model.Group, 'informatique', 'missions');
+exports.Getpresentation = getAllDocuments(model.Group, rendu, 'presentations');
+exports.Gethistorique = getAllDocuments(model.Group, rendu, 'historiques');
+exports.Getenseignant = getAllDocuments(model.Group, rendu, 'enseignants');
+exports.Getformation = getAllDocuments(model.Group, rendu, 'formations');
+exports.Getrealisation = getAllDocuments(model.Group, rendu, 'realisations');
+exports.Getactualite = getAllDocuments(model.Group, rendu, 'actualites');
+=======
+exports.Getmission = getAllDocuments(model.Group,'informatique', 'missions');
 exports.Getpresentation = getAllDocuments(model.Group, department, 'presentations');
 exports.Gethistorique = getAllDocuments(model.Group, department, 'historiques');
 exports.Getenseignant = getAllDocuments(model.Group, department, 'enseignants');
 exports.Getformation = getAllDocuments(model.Group, department, 'formations');
 exports.Getrealisation = getAllDocuments(model.Group, department, 'realisations');
 exports.Getactualite = getAllDocuments(model.Group, department, 'actualites');
+>>>>>>> 32f26d7df0cdaea0fe04efdc568379be568069f7
 
 // Routes POST
 exports.Postmission = createDocument(model.Group, department, 'missions');
