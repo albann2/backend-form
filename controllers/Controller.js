@@ -82,7 +82,6 @@ const createDocument = (Model, fieldName) => async (req, res) => {
         }
         group[fieldName].push(req.body);
         await group.save();
-        res.status(201).json({ message: 'Document created successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error submitting data' });
@@ -102,7 +101,6 @@ const updateDocument = (Model, fieldName) => async (req, res) => {
         }
         Object.assign(document, req.body);
         await group.save();
-        res.json(document);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error updating data' });
@@ -122,7 +120,6 @@ const updateIsActive = (Model, fieldName) => async (req, res) => {
         }
         document.activated = req.body.activated;
         await group.save();
-        res.json({ message: 'Success' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error updating status' });
