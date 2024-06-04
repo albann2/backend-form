@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <title>Responsive Sidebar Menu HTML CSS | CodingNepal</title>
     <link rel="stylesheet" href="/css/style2.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+
     <link rel="stylesheet" href="/css/all.min.css" />
 
     <!-- Boxicons CDN Link -->
@@ -25,68 +27,47 @@
         <div class="logo_name">CodingLab</div>
         <i class="fas fa-list" id="btn"></i>
       </div>
-      <ul class="nav-list">
+      <ul>
         <li>
-          <a href="#" id="ouvert">
-            <i class="fas fa-igloo"></i>
-            <span class="links_name">Dashboard</span>
-          </a>
-          <span class="tooltip">Dashboard</span>
+            <a href="#" class="active"><span class="las la-igloo"></span>
+                <span>DASHBOARD DU DEPARTEMENT INFORMATIQUE</span></a>
         </li>
         <li>
-          <a ><button class="reset-button" onclick="clickRubrique('/Realisation')"><span class=" las la-users"></span>
-            <span>Realisation</span></button></a>
-          <span class="tooltip">Presentation</span>
+            <a><button  class="reset-button" onclick="clickRubrique('/Presentation')"><span class="las la-users"></span>
+                <span>Presentation</span></button></a>
         </li>
         <li>
-          <a href="#">
-            <i class="fas fa-users"></i>
-            <span class="links_name">Staff</span>
-          </a>
-          <span class="tooltip">Staff</span>
+            <a ><button  class="reset-button" onclick="clickRubrique('/Historique')"><span class="las la-users"></span>
+                <span>Historique</span></button></a>
         </li>
         <li>
-          <a href="#">
-            <i class="fas fa-users"></i>
-            <span class="links_name">Enseignants</span>
-          </a>
-          <span class="tooltip">Enseignants</span>
+            <a ><button  class="reset-button" onclick="clickRubrique('/Mission')"><span class="las la-users"></span>
+                <span>Mission</span></button></a>
         </li>
         <li>
-          <a href="#">
-            <i class="fas fa-search"></i>
-            <span class="links_name">Recherche</span>
-          </a>
-          <span class="tooltip">Recherche</span>
+            <a ><button  class="reset-button" onclick="clickRubrique('/Enseignant')"><span class="las la-users"></span>
+                <span>Enseignant</span></button></a>
+        </li>
+        
+
+        <li>
+            <a ><button class="reset-button" onclick="clickRubrique('/Formation')"><span class="las la-users"></span>
+                <span>Formation</span></button></a>
         </li>
         <li>
-          <a href="#">
-            <i class="fas fa-file"></i>
-            <span class="links_name">Formations</span>
-          </a>
-          <span class="tooltip">Formations</span>
+            <a ><button class="reset-button" onclick="clickRubrique('/Realisation')"><span class=" las la-users"></span>
+                <span>Realisation</span></button></a>
         </li>
         <li>
-          <a href="#">
-            <i class="fas fa-heart"></i>
-            <span class="links_name">Liens</span>
-          </a>
-          <span class="tooltip">Liens</span>
+            <a ><button class="reset-button" onclick="clickRubrique('/Actualite')"><span class="las la-users"></span>
+                <span>Actualite</span></button></a>
         </li>
         <li>
-          <a href="#">
-            <i class="fas fa-user"></i>
-            <span class="links_name">Contacts</span>
-          </a>
-          <span class="tooltip">Contacts</span>
+            <a href="/logout"><button class="reset-button"><span class="las la-users"></span>
+                <span>Déconnexion</span></button></a>
         </li>
-        <li class="profile">
-          <a href="#">
-            <i class="fas fa-power-off"></i>
-            <span class="links_name">Quitter</span>
-          </a>
-        </li>
-      </ul>
+       
+    </ul>
     </div>
     <section class="home-section">
       <header>
@@ -96,12 +77,12 @@
             <input type="search" placeholder="search"/>
         </div>
       </header>
-    </section>
-    <main id="main-content">
+      <main id="main-content">
                
-      <div id="cards-content" class="cards"> </div>
-
-  </main>
+        <div id="cards-content" class="cards"> </div>
+  
+    </main>
+    </section>
     <script src="js/script.js"></script>
     <script src="js/index.js"></script>
 
