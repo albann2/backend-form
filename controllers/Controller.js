@@ -140,7 +140,7 @@ exports.Signup = async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
         }
-        const newUser = new model.User({ email, password });
+        const newUser = new model.User({ email, password,departement });
         await newUser.save();
         await exports.Signin(req, res);  // Auto-login after signup
     } catch (error) {
