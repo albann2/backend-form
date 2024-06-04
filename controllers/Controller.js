@@ -141,7 +141,7 @@ exports.Signup = async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
         }
-        const newUser = new model.User({ email, password });
+        const newUser = new model.User({ email, password,departement});
         await newUser.save();
         await exports.Signin(req, res);  // Auto-login after signup
     } catch (error) {
@@ -160,7 +160,7 @@ exports.Signin = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
-        vue=user.departement
+        vue=use.departement
         const payload = { email: user.email };
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '2h' });
         res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 2 * 60 * 60 * 1000 });
