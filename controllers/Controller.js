@@ -172,7 +172,7 @@ exports.Signin = async (req, res) => {
 
 // Routes GET
 exports.Getmission = getAllDocuments(model.Group, rendu, 'missions');
-exports.Getpresentation = getAllDocuments(model.Group, rend, 'presentations');
+exports.Getpresentation = getAllDocuments(model.Group, rendu, 'presentations');
 exports.Gethistorique = getAllDocuments(model.Group, rendu, 'historiques');
 exports.Getenseignant = getAllDocuments(model.Group, rendu, 'enseignants');
 exports.Getformation = getAllDocuments(model.Group, rendu, 'formations');
