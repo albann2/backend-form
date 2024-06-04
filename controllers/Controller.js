@@ -162,7 +162,7 @@ exports.Signin = async (req, res) => {
         const payload = { email: user.email };
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '2h' });
         res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 2 * 60 * 60 * 1000 });
-        res.render('index');
+        res.render('informatique');
     } catch (error) {
         res.status(500).json({ message: 'Error during authentication', error });
     }
