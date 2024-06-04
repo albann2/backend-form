@@ -60,7 +60,7 @@ exports.Presentation = (req, res) => res.render('presentation');
 exports.Realisation = (req, res) => res.render('realisation');
 
 // Generic function for GET requests
-const getAllDocuments = (Model, groupName, fieldName) => async (req, res) => {
+const getAllDocuments = (Model, fieldName) => async (req, res) => {
     try {
         const group = await Model.findOne({ nom: department });
         if (!group) {
@@ -74,9 +74,9 @@ const getAllDocuments = (Model, groupName, fieldName) => async (req, res) => {
 };
 
 // Generic function for POST requests
-const createDocument = (Model, groupName, fieldName) => async (req, res) => {
+const createDocument = (Model, fieldName) => async (req, res) => {
     try {
-        const group = await Model.findOne({ nom: groupName });
+        const group = await Model.findOne({ nom: department });
         if (!group) {
             return res.status(404).json({ message: 'Group not found' });
         }
@@ -90,9 +90,9 @@ const createDocument = (Model, groupName, fieldName) => async (req, res) => {
 };
 
 // Generic function for PUT (Update) requests
-const updateDocument = (Model, groupName, fieldName) => async (req, res) => {
+const updateDocument = (Model, fieldName) => async (req, res) => {
     try {
-        const group = await Model.findOne({ nom: groupName });
+        const group = await Model.findOne({ nom: department });
         if (!group) {
             return res.status(404).json({ message: 'Group not found' });
         }
@@ -110,9 +110,9 @@ const updateDocument = (Model, groupName, fieldName) => async (req, res) => {
 };
 
 // Function for updating the 'activated' state
-const updateIsActive = (Model, groupName, fieldName) => async (req, res) => {
+const updateIsActive = (Model, fieldName) => async (req, res) => {
     try {
-        const group = await Model.findOne({ nom: groupName });
+        const group = await Model.findOne({ nom: department });
         if (!group) {
             return res.status(404).json({ message: 'Group not found' });
         }
@@ -169,37 +169,37 @@ exports.Signin = async (req, res) => {
 };
 
 // Routes GET
-exports.Getmission = getAllDocuments(model.Group,'informatique', 'missions');
-exports.Getpresentation = getAllDocuments(model.Group, department, 'presentations');
-exports.Gethistorique = getAllDocuments(model.Group, department, 'historiques');
-exports.Getenseignant = getAllDocuments(model.Group, department, 'enseignants');
-exports.Getformation = getAllDocuments(model.Group, department, 'formations');
-exports.Getrealisation = getAllDocuments(model.Group, department, 'realisations');
-exports.Getactualite = getAllDocuments(model.Group, department, 'actualites');
+exports.Getmission = getAllDocuments(model.Group, 'missions');
+exports.Getpresentation = getAllDocuments(model.Group, 'presentations');
+exports.Gethistorique = getAllDocuments(model.Group, 'historiques');
+exports.Getenseignant = getAllDocuments(model.Group, 'enseignants');
+exports.Getformation = getAllDocuments(model.Group, 'formations');
+exports.Getrealisation = getAllDocuments(model.Group, 'realisations');
+exports.Getactualite = getAllDocuments(model.Group, 'actualites');
 
 // Routes POST
-exports.Postmission = createDocument(model.Group, department, 'missions');
-exports.Postpresentation = createDocument(model.Group, department, 'presentations');
-exports.Posthistorique = createDocument(model.Group, department, 'historiques');
-exports.Postenseignant = createDocument(model.Group, department, 'enseignants');
-exports.Postformation = createDocument(model.Group, department, 'formations');
-exports.Postrealisation = createDocument(model.Group, department, 'realisations');
-exports.Postactualite = createDocument(model.Group, department, 'actualites');
+exports.Postmission = createDocument(model.Group,  'missions');
+exports.Postpresentation = createDocument(model.Group,  'presentations');
+exports.Posthistorique = createDocument(model.Group,  'historiques');
+exports.Postenseignant = createDocument(model.Group,  'enseignants');
+exports.Postformation = createDocument(model.Group,  'formations');
+exports.Postrealisation = createDocument(model.Group, 'realisations');
+exports.Postactualite = createDocument(model.Group, 'actualites');
 
 // Routes PUT
-exports.Updatemission = updateDocument(model.Group, department, 'missions');
-exports.Updatepresentation = updateDocument(model.Group, department, 'presentations');
-exports.Updatehistorique = updateDocument(model.Group, department, 'historiques');
-exports.Updateenseignant = updateDocument(model.Group, department, 'enseignants');
-exports.Updateformation = updateDocument(model.Group, department, 'formations');
-exports.Updaterealisation = updateDocument(model.Group, department, 'realisations');
-exports.Updateactualite = updateDocument(model.Group, department, 'actualites');
+exports.Updatemission = updateDocument(model.Group, 'missions');
+exports.Updatepresentation = updateDocument(model.Group,  'presentations');
+exports.Updatehistorique = updateDocument(model.Group,  'historiques');
+exports.Updateenseignant = updateDocument(model.Group,  'enseignants');
+exports.Updateformation = updateDocument(model.Group,  'formations');
+exports.Updaterealisation = updateDocument(model.Group, 'realisations');
+exports.Updateactualite = updateDocument(model.Group, 'actualites');
 
 // Routes PATCH (Update activated)
-exports.ActivateMission = updateIsActive(model.Group, department, 'missions');
-exports.ActivatePresentation = updateIsActive(model.Group, department, 'presentations');
-exports.ActivateHistorique = updateIsActive(model.Group, department, 'historiques');
-exports.ActivateEnseignant = updateIsActive(model.Group, department, 'enseignants');
-exports.ActivateFormation = updateIsActive(model.Group, department, 'formations');
-exports.ActivateRealisation = updateIsActive(model.Group, department, 'realisations');
-exports.ActivateActualite = updateIsActive(model.Group, department, 'actualites');
+exports.ActivateMission = updateIsActive(model.Group,  'missions');
+exports.ActivatePresentation = updateIsActive(model.Group,  'presentations');
+exports.ActivateHistorique = updateIsActive(model.Group,  'historiques');
+exports.ActivateEnseignant = updateIsActive(model.Group,  'enseignants');
+exports.ActivateFormation = updateIsActive(model.Group,  'formations');
+exports.ActivateRealisation = updateIsActive(model.Group,  'realisations');
+exports.ActivateActualite = updateIsActive(model.Group, 'actualites');
