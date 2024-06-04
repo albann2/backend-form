@@ -89,9 +89,9 @@ const createDocument = (Model, fieldName) => async (req, res) => {
 };
 
 // Generic function for PUT (Update) requests
-const updateDocument = (Model, fieldName) => async (req, res) => {
+const updateDocument = (Model, groupName, fieldName) => async (req, res) => {
     try {
-        const group = await Model.findOne({ nom: department });
+        const group = await Model.findOne({ nom: groupName });
         if (!group) {
             return res.status(404).json({ message: 'Group not found' });
         }
@@ -101,6 +101,7 @@ const updateDocument = (Model, fieldName) => async (req, res) => {
         }
         Object.assign(document, req.body);
         await group.save();
+        res.json(document);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error updating data' });
@@ -108,9 +109,9 @@ const updateDocument = (Model, fieldName) => async (req, res) => {
 };
 
 // Function for updating the 'activated' state
-const updateIsActive = (Model, fieldName) => async (req, res) => {
+const updateIsActive = (Model, groupName, fieldName) => async (req, res) => {
     try {
-        const group = await Model.findOne({ nom: department });
+        const group = await Model.findOne({ nom: groupName });
         if (!group) {
             return res.status(404).json({ message: 'Group not found' });
         }
@@ -120,6 +121,7 @@ const updateIsActive = (Model, fieldName) => async (req, res) => {
         }
         document.activated = req.body.activated;
         await group.save();
+        res.json({ message: 'Success' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error updating status' });
