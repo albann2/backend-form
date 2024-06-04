@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = '1111';
 
 
-
+let rendu=""
 // Fonction pour créer les groupes par défaut s'ils n'existent pas déjà
 async function createDefaultGroupsIfNotExist() {
     try {
@@ -159,7 +159,7 @@ exports.Signin = async (req, res) => {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
         
-        const rendu = user.departement;
+         rendu = user.departement;
 
         const payload = { email: user.email };
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '2h' });
