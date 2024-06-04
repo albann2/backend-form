@@ -2,7 +2,6 @@ const model = require('../model/modeles');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = '1111';
 
-const rendu=""
 
 
 // Fonction pour créer les groupes par défaut s'ils n'existent pas déjà
@@ -148,7 +147,6 @@ exports.Signup = async (req, res) => {
         res.status(500).json({ message: 'Error creating user', error });
     }
 };
-
 exports.Signin = async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -160,7 +158,8 @@ exports.Signin = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
-        rendu=user.departement
+        
+        const rendu = user.departement;
 
         const payload = { email: user.email };
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '2h' });
