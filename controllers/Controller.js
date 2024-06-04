@@ -8,7 +8,7 @@ let rendu=""
 async function createDefaultGroupsIfNotExist() {
     try {
         const groups = [
-            { nom: rendu },
+            { nom: 'informatique' },
             { nom: 'biologie' },
             { nom: 'langue' }
         ];
