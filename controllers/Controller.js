@@ -62,7 +62,7 @@ exports.Realisation = (req, res) => res.render('realisation');
 // Generic function for GET requests
 const getAllDocuments = (Model, groupName, fieldName) => async (req, res) => {
     try {
-        const group = await Model.findOne({ nom: groupName });
+        const group = await Model.findOne({ nom: department });
         if (!group) {
             return res.status(404).json({ message: 'Group not found' });
         }
