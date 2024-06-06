@@ -36,6 +36,7 @@ app.get('/Historique', index.Historique);
 app.get('/Mission', index.Mission);
 app.get('/Presentation', index.Presentation);
 app.get('/Realisation', index.Realisation);
+app.get('/Presentitionbio',index.Presentationbio)
 
 app.get('/Getmission', index.Getmission);
 app.get('/Getpresentation', index.Getpresentation);

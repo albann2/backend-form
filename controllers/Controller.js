@@ -55,13 +55,16 @@ exports.logout = (req, res) => {
     res.clearCookie('token');
     res.redirect('/main');
 }
-exports.Actualite = (req, res) => res.render('actualite');
-exports.Enseignant = (req, res) => res.render('enseignant');
-exports.Formation = (req, res) => res.render('formation');
-exports.Historique = (req, res) => res.render('historique');
-exports.Mission = (req, res) => res.render('mission');
-exports.Presentation = (req, res) => res.render('presentation');
-exports.Realisation = (req, res) => res.render('realisation');
+const renderView = (viewName) => (req, res) => res.render(viewName);
+
+exports.Actualite = renderView('actualite');
+exports.Enseignant = renderView('enseignant');
+exports.Formation = renderView('formation');
+exports.Historique = renderView('historique');
+exports.Mission = renderView('mission');
+exports.Presentation = renderView('presentation');
+exports.Realisation = renderView('realisation');
+exports.Presentationbio=renderView('presentationbio');
 
 // Generic function for GET requests
 const getAllDocuments = (Model, fieldName) => async (req, res) => {
