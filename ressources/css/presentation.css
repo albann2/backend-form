@@ -5,9 +5,7 @@ main{
     gap: 2em;
     padding: 2%;
 }
-.sidebar.open ~ .home-section main{
-left: 250px;
-}
+
 
 main .list{
     background-color: white;
