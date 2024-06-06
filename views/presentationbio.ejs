@@ -1,85 +1,55 @@
-<!DOCTYPE html>
-<!-- Website - www.codingnepalweb.com -->
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Responsive Sidebar Menu HTML CSS | CodingNepal</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/presentation.css">
-    <link rel="stylesheet" href="/css/acceuil.css">
-
-    <!-- Boxicons CDN Link -->
-    <link href="css/all.min.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <style>
-      #ouvert{
-        background-color: white;
-      }
-      #ouvert i, #ouvert .links_name{
-        color: #11101D;
-      }
-    </style>
-  </head>
-  <body>
- 
-    <section class="home-section">
-        <main>
-            <div class="list">
-                <h2>Liste administratif</h2>
-                <hr>
-                <table>
+<div class="recent-grid">
+    <div class="projects">
+        <div class="card">
+            <div class="card-header">
+                <h3>HISTORIQUE</h3>
+            </div>
+            <div class="card-body">
+                <table width="100%">
                     <thead>
                         <tr>
-                            <th>POSTE</th>
-                            <th>NOM</th>
-                            <th>AGENDA</th>
-                            <th>EMAIL</th>
-                            <th>TELEPHONE</th>
+                            <td>DESCRIPTION</td>
+                            <td>IMAGE</td>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>d</td>
-                            <td>d</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>dd</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td>dd</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                    <tbody id="corps-historique">
+                        <!-- Les lignes seront remplies dynamiquement par JavaScript -->
                     </tbody>
                 </table>
             </div>
-            <div class="card">
-                <h2>Ajouter un administrateur</h2>
-                <hr>
-                <form action="">
-                    <input type="text" name="" placeholder="Poste" id="">
-                    <input type="text" name="" placeholder="Nom" id="">
-                    <input type="text" name="" placeholder="Agenda" id="">
-                    <input type="email" name="" placeholder="Mail" id="">
-                    <input type="text" name="" placeholder="Telephone" id="">
-
-                    <button>Ajouter</button>
-                </form>
+        </div>
+    </div>
+    <div class="customers">
+        <div class="card">
+            <div class="card-header">
+                <span class="las la-plus-circle"></span>
+                <h3>Add New Historique</h3>
             </div>
-        </main>
-      </div>
-    </section>
-
-    <script src="/script.js"></script>
-  </body>
-</html>
+            <div class="card-body">
+                <div class="box">
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                        sendDataViaAjax('addPresentationForm', '/Posthistorique', function(error, response) {
+                            });
+                        });
+                    </script>
+                    <form method="post" action="/Posthistorique" id="addPresentationForm">
+                        <h2>ADD NEW</h2>
+                        <div class="inputbox">
+                            <input type="text" id="Description" name="Description" placeholder="Description" required>
+                            <span>Description</span>
+                            <i></i>
+                        </div>
+                        <div class="inputbox">
+                            <input type="text" id="Image" name="Image" placeholder="Image URL" required>
+                            <span>Image</span>
+                            <i></i>
+                        </div>
+                       
+                        <input type="submit" onclick="clickRubrique('/Historique');" value="Enregistrer">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
