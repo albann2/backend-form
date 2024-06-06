@@ -11,6 +11,11 @@
                 admin.src = 'js/fill-table-admin.js';
                 document.body.appendChild(admin);
             }
+            if(chemin == '/Presentationbio') {
+                var admin = document.createElement('script');
+                admin.src = 'js/fill-table-historique.js';
+                document.body.appendChild(admin);
+            }
 
             // Importez le script fill-table-staff.js après avoir changé la page
             if(chemin == '/Mission') {
