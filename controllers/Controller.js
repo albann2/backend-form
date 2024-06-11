@@ -53,7 +53,7 @@ createDefaultGroupsIfNotExist();
 exports.index = (req, res) => res.render('main');
 exports.logout = (req, res) => {
     res.clearCookie('token');
-    res.redirect('main');
+    res.render('main');
 }
 const renderView = (viewName) => (req, res) => res.render(viewName);
 
