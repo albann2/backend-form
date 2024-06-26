@@ -68,11 +68,7 @@ exports.Presentationbio=renderView('presentationbio');
 
 // Generic function for GET requests
 const getAllDocuments = (Model, fieldName) => async (req, res) => {
-    let name = departement; // Utilisation de let pour permettre la réaffectation
-    const { departements } = req.params;
-    if (departements) {
-        name = departements;
-    }
+        let name = req.params.id || departement; // Utilisation de req.params.departements s'il est défini, sinon departement
 
     try {
         const group = await Model.findOne({ nom: name });
