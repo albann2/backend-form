@@ -57,7 +57,16 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+        if (file.fieldname === 'Image') {
+            cb(null, true);
+        } else {
+            cb(new Error('Unexpected field'), false);
+        }
+    }
+});
 
 
 
