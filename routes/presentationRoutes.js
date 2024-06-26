@@ -5,7 +5,7 @@ const authenticateToken = require('../controllers/authenticateToken');
 
 
 
-router.get('/Getpresentation',presentation.Getpresentation)
+router.get('/Getpresentation/:id?',presentation.Getpresentation)
 router.post('/Postpresentation',authenticateToken, presentation.Postpresentation);
 router.put('/Updatepresentation/:id',authenticateToken,presentation.Updatepresentation)
 router.patch('/Activatepresentation/:id',authenticateToken,presentation.ActivatePresentation)
