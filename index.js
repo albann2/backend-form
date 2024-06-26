@@ -19,10 +19,14 @@ const realisationRoutes = require('./routes/realisationRoutes');
 const port = 3000;
 const app = express();
 
+// Connexion à la base de données
+connectDB();
+
 // Configuration des middlewares
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 // Middleware d'erreur global
 app.use((err, req, res, next) => {
     console.error(err.stack);
@@ -51,9 +55,6 @@ app.get('/', index.index);
 app.post('/signup', index.Signup);
 app.post('/signin', index.Signin);
 app.get('/logout', index.logout);
-
-// Connexion à la base de données
-connectDB();
 
 // Démarrage du serveur
 app.listen(port, () => {
