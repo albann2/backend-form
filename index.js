@@ -7,77 +7,49 @@ const index = require('./controllers/Controller');
 const connectDB = require('./model/db');
 const cookieParser = require('cookie-parser');
 
+// Import des routes
+const missionRoutes = require('./routes/missionRoutes');
+const actualiteRoutes = require('./routes/actualiteRoutes');
+const enseignantRoutes = require('./routes/enseignantRoutes');
+const formationRoutes = require('./routes/formationRoutes');
+const historiqueRoutes = require('./routes/historiqueRoutes');
+const presentationRoutes = require('./routes/presentationRoutes');
+const realisationRoutes = require('./routes/realisationRoutes');
+
 const port = 3000;
 const app = express();
-app.use(cookieParser());
 
+// Configuration des middlewares
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Configuration des vues
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({ extended: true }));
+
+// Configuration du dossier statique
 app.use(express.static(path.join(__dirname, 'ressources')));
 
-// Appliquer le middleware authenticateToken pour toutes les requêtes
-// Appliquer le middleware authenticateToken pour toutes les requêtes POST, PUT et PATCH concernant les missions, les présentations, etc.
-app.use(['/Postmission', '/Postpresentation', '/Posthistorique', '/Postenseignant', '/Postformation', '/Postrealisation', '/Postactualite', 
-         '/Updatemission/:id', '/Updatepresentation/:id', '/Updatehistorique/:id', '/Updateenseignant/:id', '/Updateformation/:id', '/Updaterealisation/:id', '/Updateactualite/:id',
-         '/ActivateMission/:id', '/ActivatePresentation/:id', '/ActivateHistorique/:id', '/ActivateEnseignant/:id', '/ActivateFormation/:id', '/ActivateRealisation/:id', '/ActivateActualite/:id', '/ActivateOrganisation/:id'], authenticateToken);
+// Utilisation des routes
+app.use('/', missionRoutes);
+app.use('/', actualiteRoutes);
+app.use('/', enseignantRoutes);
+app.use('/', formationRoutes);
+app.use('/', historiqueRoutes);
+app.use('/', presentationRoutes);
+app.use('/', realisationRoutes);
 
-// Routes GET
+// Routes GET et POST
 app.get('/', index.index);
-app.get('/Logout', index.logout);
-
-app.get('/Actualite', index.Actualite);
-app.get('/Enseignant', index.Enseignant);
-app.get('/Formation', index.Formation);
-app.get('/Historique', index.Historique);
-app.get('/Mission', index.Mission);
-app.get('/Presentation', index.Presentation);
-app.get('/Realisation', index.Realisation);
-app.get('/Presentitionbio',index.Presentationbio)
-
-app.get('/Getmission', index.Getmission);
-app.get('/Getpresentation', index.Getpresentation);
-app.get('/Gethistorique', index.Gethistorique);
-app.get('/Getenseignant', index.Getenseignant);
-app.get('/Getformation', index.Getformation);
-app.get('/Getrealisation', index.Getrealisation);
-app.get('/Getactualite', index.Getactualite);
-
-// Routes POST
 app.post('/signup', index.Signup);
 app.post('/signin', index.Signin);
+app.get('/logout', index.logout);
 
-app.post('/Postmission', index.Postmission);
-app.post('/Postpresentation', index.Postpresentation);
-app.post('/Posthistorique', index.Posthistorique);
-app.post('/Postenseignant', index.Postenseignant);
-app.post('/Postformation', index.Postformation);
-app.post('/Postrealisation', index.Postrealisation);
-app.post('/Postactualite', index.Postactualite);
-
-// Routes PUT
-app.put('/Updatemission/:id', index.Updatemission);
-app.put('/Updatepresentation/:id', index.Updatepresentation);
-app.put('/Updatehistorique/:id', index.Updatehistorique);
-app.put('/Updateenseignant/:id', index.Updateenseignant);
-app.put('/Updateformation/:id', index.Updateformation);
-app.put('/Updaterealisation/:id', index.Updaterealisation);
-app.put('/Updateactualite/:id', index.Updateactualite);
-
-// Routes PATCH
-app.patch('/ActivateMission/:id', index.ActivateMission);
-app.patch('/ActivatePresentation/:id', index.ActivatePresentation);
-app.patch('/ActivateHistorique/:id', index.ActivateHistorique);
-app.patch('/ActivateEnseignant/:id', index.ActivateEnseignant);
-app.patch('/ActivateFormation/:id', index.ActivateFormation);
-app.patch('/ActivateRealisation/:id', index.ActivateRealisation);
-app.patch('/ActivateActualite/:id', index.ActivateActualite);
-
+// Connexion à la base de données
 connectDB();
 
+// Démarrage du serveur
 app.listen(port, () => {
     console.log("Serveur actif sur le port " + port);
 });
