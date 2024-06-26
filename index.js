@@ -23,6 +23,11 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// Middleware d'erreur global
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+});
 
 // Configuration des vues
 app.set('views', path.join(__dirname, '/views'));

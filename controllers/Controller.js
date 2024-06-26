@@ -50,7 +50,7 @@ createDefaultGroupsIfNotExist();
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/uploads/');  // Répertoire où les fichiers seront stockés
+        cb(null, './uploads/');  // Répertoire où les fichiers seront stockés
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname));  // Nom du fichier après téléchargement
@@ -114,13 +114,13 @@ const createDocument = (Model, fieldName) => async (req, res) => {
             if (req.file) {
                 // Vous pouvez accéder au fichier téléchargé via req.file
                 const fileUrl = `/uploads/${req.file.filename}`;
-                req.body.fileUrl = fileUrl;  // Ajoutez l'URL du fichier à req.body
+                req.body.Image = fileUrl;  // Utilisez 'Image' au lieu de 'fileUrl' si c'est le nom du champ dans votre modèle
             }
 
             // Ajoutez les données du corps de la requête au champ spécifié du modèle
             group[fieldName].push(req.body);
             await group.save();
-            res.json({ message: 'Document created successfully', fileUrl: req.body.fileUrl });
+            res.json({ message: 'Document created successfully', fileUrl: req.body.Image });
         });
 
     } catch (error) {
@@ -128,7 +128,6 @@ const createDocument = (Model, fieldName) => async (req, res) => {
         res.status(500).json({ message: 'Error submitting data', error });
     }
 };
-
 
 // Generic function for PUT (Update) requests
 const updateDocument = (Model, fieldName) => async (req, res) => {
