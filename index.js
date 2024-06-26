@@ -8,7 +8,7 @@ const connectDB = require('./model/db');
 const cookieParser = require('cookie-parser');
 
 // Import des routes
-const missionRoutes = require('./routes/missionRoutes');
+const missionRoutes = require('./routes/missionRoutes')
 const actualiteRoutes = require('./routes/actualiteRoutes');
 const enseignantRoutes = require('./routes/enseignantRoutes');
 const formationRoutes = require('./routes/formationRoutes');
