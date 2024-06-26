@@ -1,3 +1,6 @@
+const multer = require('multer');
+const path = require('path');
+
 const model = require('../model/modeles');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = '1111';
@@ -45,7 +48,16 @@ async function createDefaultGroupsIfNotExist() {
 createDefaultGroupsIfNotExist();
 
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/uploads/');  // Répertoire où les fichiers seront stockés
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname));  // Nom du fichier après téléchargement
+    }
+});
 
+const upload = multer({ storage: storage });
 
 
 
@@ -89,13 +101,34 @@ const createDocument = (Model, fieldName) => async (req, res) => {
         if (!group) {
             return res.status(404).json({ message: 'Group not found' });
         }
-        group[fieldName].push(req.body);
-        await group.save();
+
+        // Utilisation de Multer pour gérer le téléchargement de fichiers
+        upload.single('file')(req, res, async function (err) {
+            if (err instanceof multer.MulterError) {
+                return res.status(500).json({ message: 'Error uploading file', error: err });
+            } else if (err) {
+                return res.status(500).json({ message: 'Unknown error uploading file', error: err });
+            }
+
+            // Si le fichier est téléchargé avec succès, ajoutez-le au document
+            if (req.file) {
+                // Vous pouvez accéder au fichier téléchargé via req.file
+                const fileUrl = `/uploads/${req.file.filename}`;
+                req.body.fileUrl = fileUrl;  // Ajoutez l'URL du fichier à req.body
+            }
+
+            // Ajoutez les données du corps de la requête au champ spécifié du modèle
+            group[fieldName].push(req.body);
+            await group.save();
+            res.json({ message: 'Document created successfully', fileUrl: req.body.fileUrl });
+        });
+
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error submitting data' });
+        res.status(500).json({ message: 'Error submitting data', error });
     }
 };
+
 
 // Generic function for PUT (Update) requests
 const updateDocument = (Model, fieldName) => async (req, res) => {
