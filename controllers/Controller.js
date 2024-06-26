@@ -17,7 +17,6 @@ async function createDefaultGroupsIfNotExist() {
             { nom: 'langue' }
         ];
 
-        // Vérifiez si chaque groupe existe déjà dans la base de données
         for (const group of groups) {
             const existingGroup = await model.Group.findOne({ nom: group.nom });
             if (!existingGroup) {
