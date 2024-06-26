@@ -81,16 +81,32 @@ exports.logout = (req, res) => {
     res.clearCookie('token');
     res.render('main');
 }
-const renderView = (viewName) => (req, res) => res.render(viewName);
+const renderView = (viewName, data = {}) => (req, res) => res.render(viewName, data);
 
-exports.Actualite = renderView('actualite');
-exports.Enseignant = renderView('enseignant');
-exports.Formation = renderView('formation');
-exports.Historique = renderView('historique');
-exports.Mission = renderView('mission');
-exports.Presentation = renderView('presentation');
-exports.Realisation = renderView('realisation');
-exports.Presentationbio=renderView('presentationbio');
+const getDataAndRenderView = (Model, fieldName, viewName) => async (req, res) => {
+    let name = req.params.id || departement; // Utilisation de req.params.departements s'il est défini, sinon departement
+
+    try {
+        const group = await Model.findOne({ nom: name });
+        if (!group) {
+            return res.status(404).json({ message: 'Group not found' });
+        }
+        renderView(viewName, { [fieldName]: group[fieldName] })(req, res);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error getting data' });
+    }
+};
+
+// Routes GET
+exports.Actualite = getDataAndRenderView(model.Group, 'actualites', 'actualite');
+exports.Enseignant = getDataAndRenderView(model.Group, 'enseignants', 'enseignant');
+exports.Formation = getDataAndRenderView(model.Group, 'formations', 'formation');
+exports.Historique = getDataAndRenderView(model.Group, 'historiques', 'historique');
+exports.Mission = getDataAndRenderView(model.Group, 'missions', 'mission');
+exports.Presentation = getDataAndRenderView(model.Group, 'presentations', 'presentation');
+exports.Realisation = getDataAndRenderView(model.Group, 'realisations', 'realisation');
+
 
 // Generic function for GET requests
 const getAllDocuments = (Model, fieldName) => async (req, res) => {
