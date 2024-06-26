@@ -134,7 +134,6 @@ const createDocument = (Model, fieldName) => async (req, res) => {
             // Ajoutez les données du corps de la requête au champ spécifié du modèle
             group[fieldName].push(req.body);
             await group.save();
-            res.json({ message: 'Document created successfully', fileUrl: req.body.Image });
         });
 
     } catch (error) {
