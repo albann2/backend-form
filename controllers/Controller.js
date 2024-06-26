@@ -1,17 +1,18 @@
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs'); // Importation du module fs
 
 const model = require('../model/modeles');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = '1111';
 
-let departement = ""; // Assurez-vous que cette variable est initialisée correctement
+let departement="";
 
 // Fonction pour créer les groupes par défaut s'ils n'existent pas déjà
 async function createDefaultGroupsIfNotExist() {
     try {
         const groups = [
-            { nom: 'informatique' },
+            { nom: 'informatique'},
             { nom: 'biologie' },
             { nom: 'langue' }
         ];
@@ -34,7 +35,7 @@ async function createDefaultGroupsIfNotExist() {
 
                 // Enregistrez le groupe dans la base de données
                 await newGroup.save();
-                console.log(`Groupe ${group.nom} créé avec succès.`);
+                console.log(`Groupe ${group.nom} succès.`);
             } else {
                 console.log(`Le groupe ${group.nom} existe déjà.`);
             }
@@ -47,9 +48,16 @@ async function createDefaultGroupsIfNotExist() {
 // Appelez la fonction pour créer les groupes par défaut s'ils n'existent pas déjà
 createDefaultGroupsIfNotExist();
 
+// Vérifiez que le répertoire 'uploads' existe et créez-le si nécessaire
+const uploadDir = path.join(__dirname, './uploads');
+
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads/');  // Répertoire où les fichiers seront stockés
+        cb(null, uploadDir);  // Répertoire où les fichiers seront stockés
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname));  // Nom du fichier après téléchargement
@@ -59,7 +67,7 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     fileFilter: function (req, file, cb) {
-        if (file.fieldname === 'Image') { // Assurez-vous que 'Image' correspond au champ attendu
+        if (file.fieldname === 'Image') {
             cb(null, true);
         } else {
             cb(new Error('Unexpected field'), false);
@@ -67,13 +75,12 @@ const upload = multer({
     }
 });
 
-// Fonctions de rendu des vues
+// Rendering view functions
 exports.index = (req, res) => res.render('main');
 exports.logout = (req, res) => {
     res.clearCookie('token');
     res.render('main');
-};
-
+}
 const renderView = (viewName) => (req, res) => res.render(viewName);
 
 exports.Actualite = renderView('actualite');
@@ -83,9 +90,9 @@ exports.Historique = renderView('historique');
 exports.Mission = renderView('mission');
 exports.Presentation = renderView('presentation');
 exports.Realisation = renderView('realisation');
-exports.Presentationbio = renderView('presentationbio');
+exports.Presentationbio=renderView('presentationbio');
 
-// Fonction générique pour les requêtes GET
+// Generic function for GET requests
 const getAllDocuments = (Model, fieldName) => async (req, res) => {
     let name = req.params.id || departement; // Utilisation de req.params.departements s'il est défini, sinon departement
 
@@ -101,7 +108,7 @@ const getAllDocuments = (Model, fieldName) => async (req, res) => {
     }
 };
 
-// Fonction générique pour les requêtes POST
+// Generic function for POST requests
 const createDocument = (Model, fieldName) => async (req, res) => {
     try {
         const group = await Model.findOne({ nom: departement });
@@ -110,7 +117,7 @@ const createDocument = (Model, fieldName) => async (req, res) => {
         }
 
         // Utilisation de Multer pour gérer le téléchargement de fichiers
-        upload.single('Image')(req, res, async function (err) { // Assurez-vous que 'Image' correspond au champ attendu
+        upload.single('Image')(req, res, async function (err) {
             if (err instanceof multer.MulterError) {
                 return res.status(500).json({ message: 'Error uploading file', error: err });
             } else if (err) {
@@ -136,7 +143,7 @@ const createDocument = (Model, fieldName) => async (req, res) => {
     }
 };
 
-// Fonction générique pour les requêtes PUT (mise à jour)
+// Generic function for PUT (Update) requests
 const updateDocument = (Model, fieldName) => async (req, res) => {
     try {
         const group = await Model.findOne({ nom: departement });
@@ -156,7 +163,7 @@ const updateDocument = (Model, fieldName) => async (req, res) => {
     }
 };
 
-// Fonction pour mettre à jour l'état 'activated'
+// Function for updating the 'activated' state
 const updateIsActive = (Model, fieldName) => async (req, res) => {
     try {
         const group = await Model.findOne({ nom: departement });
@@ -176,17 +183,17 @@ const updateIsActive = (Model, fieldName) => async (req, res) => {
     }
 };
 
-// Gestion des utilisateurs
+// User management
 exports.Signup = async (req, res) => {
-    const { email, password, departement } = req.body;
+    const { email, password ,departement} = req.body;
     try {
         const existingUser = await model.User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
         }
-        const newUser = new model.User({ email, password, departement });
+        const newUser = new model.User({ email, password,departement });
         await newUser.save();
-        await exports.Signin(req, res);  // Connexion automatique après l'inscription
+        await exports.Signin(req, res);  // Auto-login after signup
     } catch (error) {
         res.status(500).json({ message: 'Error creating user', error });
     }
@@ -203,48 +210,48 @@ exports.Signin = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
-        departement = user.departement; // Assurez-vous que departement est correctement défini
+        departement=user.departement
         const payload = { email: user.email };
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '2h' });
         res.cookie('token', token, { httpOnly: true, secure: true, maxAge: 2 * 60 * 60 * 1000 });
-        res.render(departement); // Assurez-vous que 'departement' est une vue valide
+        res.render(departement);
     } catch (error) {
         res.status(500).json({ message: 'Error during authentication', error });
     }
 };
 
 // Routes GET
-exports.Getmission = getAllDocuments(model.Group, 'missions');
-exports.Getpresentation = getAllDocuments(model.Group, 'presentations');
-exports.Gethistorique = getAllDocuments(model.Group, 'historiques');
-exports.Getenseignant = getAllDocuments(model.Group, 'enseignants');
-exports.Getformation = getAllDocuments(model.Group, 'formations');
-exports.Getrealisation = getAllDocuments(model.Group, 'realisations');
-exports.Getactualite = getAllDocuments(model.Group, 'actualites');
+exports.Getmission = getAllDocuments(model.Group,  'missions');
+exports.Getpresentation = getAllDocuments(model.Group,  'presentations');
+exports.Gethistorique = getAllDocuments(model.Group,  'historiques');
+exports.Getenseignant = getAllDocuments(model.Group,  'enseignants');
+exports.Getformation = getAllDocuments(model.Group,  'formations');
+exports.Getrealisation = getAllDocuments(model.Group,  'realisations');
+exports.Getactualite = getAllDocuments(model.Group,  'actualites');
 
 // Routes POST
-exports.Postmission = createDocument(model.Group, 'missions');
-exports.Postpresentation = createDocument(model.Group, 'presentations');
-exports.Posthistorique = createDocument(model.Group, 'historiques');
-exports.Postenseignant = createDocument(model.Group, 'enseignants');
-exports.Postformation = createDocument(model.Group, 'formations');
-exports.Postrealisation = createDocument(model.Group, 'realisations');
-exports.Postactualite = createDocument(model.Group, 'actualites');
+exports.Postmission = createDocument(model.Group,  'missions');
+exports.Postpresentation = createDocument(model.Group,  'presentations');
+exports.Posthistorique = createDocument(model.Group,  'historiques');
+exports.Postenseignant = createDocument(model.Group,  'enseignants');
+exports.Postformation = createDocument(model.Group,  'formations');
+exports.Postrealisation = createDocument(model.Group,  'realisations');
+exports.Postactualite = createDocument(model.Group,  'actualites');
 
 // Routes PUT
-exports.Updatemission = updateDocument(model.Group, 'missions');
-exports.Updatepresentation = updateDocument(model.Group, 'presentations');
-exports.Updatehistorique = updateDocument(model.Group, 'historiques');
-exports.Updateenseignant = updateDocument(model.Group, 'enseignants');
-exports.Updateformation = updateDocument(model.Group, 'formations');
-exports.Updaterealisation = updateDocument(model.Group, 'realisations');
-exports.Updateactualite = updateDocument(model.Group, 'actualites');
+exports.Updatemission = updateDocument(model.Group,  'missions');
+exports.Updatepresentation = updateDocument(model.Group,  'presentations');
+exports.Updatehistorique = updateDocument(model.Group,  'historiques');
+exports.Updateenseignant = updateDocument(model.Group,  'enseignants');
+exports.Updateformation = updateDocument(model.Group,  'formations');
+exports.Updaterealisation = updateDocument(model.Group,  'realisations');
+exports.Updateactualite = updateDocument(model.Group,  'actualites');
 
 // Routes PATCH (Update activated)
-exports.ActivateMission = updateIsActive(model.Group, 'missions');
-exports.ActivatePresentation = updateIsActive(model.Group, 'presentations');
-exports.ActivateHistorique = updateIsActive(model.Group, 'historiques');
-exports.ActivateEnseignant = updateIsActive(model.Group, 'enseignants');
-exports.ActivateFormation = updateIsActive(model.Group, 'formations');
-exports.ActivateRealisation = updateIsActive(model.Group, 'realisations');
-exports.ActivateActualite = updateIsActive(model.Group, 'actualites');
+exports.ActivateMission = updateIsActive(model.Group,  'missions');
+exports.ActivatePresentation = updateIsActive(model.Group,  'presentations');
+exports.ActivateHistorique = updateIsActive(model.Group,  'historiques');
+exports.ActivateEnseignant = updateIsActive(model.Group,  'enseignants');
+exports.ActivateFormation = updateIsActive(model.Group,  'formations');
+exports.ActivateRealisation = updateIsActive(model.Group,  'realisations');
+exports.ActivateActualite = updateIsActive(model.Group,  'actualites');
