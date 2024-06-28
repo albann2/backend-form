@@ -15,8 +15,17 @@
                             <td>PARCOURS IMAGE</td>
                         </tr>
                     </thead>
-                    <tbody id="corps-formation">
-                        <!-- Les lignes seront remplies dynamiquement par JavaScript -->
+                    <tbody>
+                        <% formations.forEach(function(formation) { %>
+                            <tr>
+                                <td><%= formation.titre %></td>
+                                <td><%= formation.presentation %></td>
+                                <td><%= formation.admission %></td>
+                                <td><%= formation.parcours %></td>
+
+                                <td><img src="<%= formation.Image %>" alt="Image" width="100"></td>
+                            </tr>
+                        <% }); %>
                     </tbody>
                 </table>
             </div>
@@ -37,7 +46,7 @@
                             });
                         });
                     </script>
-                    <form method="post" action="/Postformation" id="addPresentationForm">
+                    <form method="post" action="/Postformation"  enctype="multipart/form-data" id="addPresentationForm">
                         <h2>ADD NEW</h2>
                         <div class="inputbox">
                             <input type="text" id="titre" name="titre" placeholder="titre" required>
@@ -60,7 +69,7 @@
                             <i></i>
                         </div>
                         <div class="inputbox">
-                            <input type="text" id="parcoursImage" name="parcoursImage" placeholder="parcoursImage" required>
+                            <input type="file" id="Image" name="Image" placeholder="parcoursImage" required>
                             <span>parcoursImage</span>
                             <i></i>
                         </div>

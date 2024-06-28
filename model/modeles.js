@@ -76,7 +76,7 @@ const EnseignantSchema = new mongoose.Schema({
     domainesExpertise: String,
     grade: String,
     responsabilite: String,
-    imageProfil: String,
+    Image: String,
     activated: { type: Boolean, default: true }
 }, baseSchemaOptions);
 
@@ -86,7 +86,7 @@ const FormationSchema = new mongoose.Schema({
     presentation: String,
     admission: String,
     parcours: String,
-    parcoursImage: String,
+    Image: String,
     activated: { type: Boolean, default: true }
 }, baseSchemaOptions);
 
@@ -94,7 +94,7 @@ const FormationSchema = new mongoose.Schema({
 const RealisationSchema = new mongoose.Schema({
     titre: String,
     annee: String,
-    description: String,
+    Description: String,
     activated: { type: Boolean, default: true }
 }, baseSchemaOptions);
 

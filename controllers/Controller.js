@@ -48,7 +48,7 @@ async function createDefaultGroupsIfNotExist() {
 createDefaultGroupsIfNotExist();
 
 // Vérifiez que le répertoire 'uploads' existe et créez-le si nécessaire
-const uploadDir = path.join(__dirname, './uploads');
+const uploadDir = path.join(__dirname, '../uploads');
 
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
@@ -142,7 +142,7 @@ const createDocument = (Model, fieldName) => async (req, res) => {
             // Si le fichier est téléchargé avec succès, ajoutez-le au document
             if (req.file) {
                 // Vous pouvez accéder au fichier téléchargé via req.file
-                const fileUrl = `/uploads/${req.file.filename}`;
+                const fileUrl = `/files/${req.file.filename}`;
                 req.body.Image = fileUrl;  // Utilisez 'Image' au lieu de 'fileUrl' si c'est le nom du champ dans votre modèle
             }
 

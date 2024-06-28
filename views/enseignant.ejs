@@ -17,8 +17,19 @@
                             <td>PHOTO</td>
                         </tr>
                     </thead>
-                    <tbody id="corps-enseignant">
-                        <!-- Les lignes seront remplies dynamiquement par JavaScript -->
+                    <tbody>
+                        <% enseignants.forEach(function(enseignant) { %>
+                            <tr>
+                                <td><%= enseignant.nomComplet %></td>
+                                <td><%= enseignant.adresseMail %></td>
+                                <td><%= enseignant.telephone %></td>
+                                <td><%= enseignant.domainesExpertise %></td>
+                                <td><%= enseignant.grade %></td>
+                                <td><%= enseignant.responsabilite %></td>
+
+                                <td><img src="<%= enseignant.Image %>" alt="Image" width="100"></td>
+                            </tr>
+                        <% }); %>
                     </tbody>
                 </table>
             </div>
@@ -32,14 +43,8 @@
             </div>
             <div class="card-body">
                 <div class="box">
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                        sendDataViaAjax('addPresentationForm', '/Postenseignant', function(error, response) {
-        
-                            });
-                        });
-                    </script>
-                    <form method="post" action="/Postenseignant" id="addPresentationForm">
+                    
+                    <form method="post" action="/Postenseignant" enctype="multipart/form-data" id="addPresentationForm">
                         <h2>ADD NEW</h2>
                         <div class="inputbox">
                             <input type="text" id="nomComplet" name="nomComplet" placeholder="nomComplet" required>
@@ -72,7 +77,7 @@
                             <i></i>
                         </div>
                         <div class="inputbox">
-                            <input type="text" id="imageProfil" name="imageProfil" placeholder="imageProfil" required>
+                            <input type="file" id="Image" name="Image" placeholder="imageProfil" required>
                             <span>imageProfil</span>
                             <i></i>
                         </div>

@@ -13,8 +13,14 @@
                            
                         </tr>
                     </thead>
-                    <tbody id="corps-mission">
-                        <!-- Les lignes seront remplies dynamiquement par JavaScript -->
+                    <tbody>
+                        <% missions.forEach(function(mission) { %>
+                            <tr>
+                                <td><%= mission.Description %></td>
+
+                                <td><img src="<%= mission.Image %>" alt="Image" width="100"></td>
+                            </tr>
+                        <% }); %>
                     </tbody>
                 </table>
             </div>
@@ -35,7 +41,7 @@
                             });
                         });
                     </script>
-                    <form method="post" action="/Postmission" id="addPresentationForm">
+                    <form method="post" enctype="multipart/form-data" action="/Postmission" id="addPresentationForm">
                         <h2>ADD NEW</h2>
                         <div class="inputbox">
                             <input type="text" id="Description" name="Description" placeholder="Description" required>
@@ -43,7 +49,7 @@
                             <i></i>
                         </div>
                         <div class="inputbox">
-                            <input type="text" id="Image" name="Image" placeholder="Image URL" required>
+                            <input type="file" id="Image" name="Image" placeholder="Image URL" required>
                             <span>Image</span>
                             <i></i>
                         </div>

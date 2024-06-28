@@ -15,8 +15,8 @@ const formationRoutes = require('./routes/formationRoutes');
 const historiqueRoutes = require('./routes/historiqueRoutes');
 const presentationRoutes = require('./routes/presentationRoutes');
 const realisationRoutes = require('./routes/realisationRoutes');
-
-const port = 3000;
+const filepath=require('./routes/fileRoutes')
+const port = 8080;
 const app = express();
 
 // Connexion à la base de données
@@ -39,7 +39,8 @@ app.set('view engine', 'ejs');
 
 // Configuration du dossier statique
 app.use(express.static(path.join(__dirname, 'ressources')));
-app.use('/uploads', express.static(path.join(__dirname, 'ressources/uploads')));
+app.use(express.static(path.join(__dirname, 'controllers')));
+
 
 // Utilisation des routes
 app.use('/', missionRoutes);
@@ -49,7 +50,7 @@ app.use('/', formationRoutes);
 app.use('/', historiqueRoutes);
 app.use('/', presentationRoutes);
 app.use('/', realisationRoutes);
-
+app.use('/',filepath);
 // Routes GET et POST
 app.get('/', index.index);
 app.post('/signup', index.Signup);

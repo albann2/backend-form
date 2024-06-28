@@ -13,8 +13,14 @@
                             <td>SEMAINE</td>                            
                         </tr>
                     </thead>
-                    <tbody id="corps-actualite">
-                        <!-- Les lignes seront remplies dynamiquement par JavaScript -->
+                    <tbody>
+                        <% actualites.forEach(function(actualite) { %>
+                            <tr>
+                                <td><%= actualite.titre %></td>
+                                <td><%= actualite.Description %></td>
+                                <td><%= actualite.semaine %></td>
+                            </tr>
+                        <% }); %>
                     </tbody>
                 </table>
             </div>
@@ -35,7 +41,7 @@
                             });
                         });
                     </script>
-                    <form method="post" action="/Postactualite" id="addPresentationForm">
+                    <form method="post" action="/Postactualite" enctype="multipart/form-data" id="addPresentationForm">
                         <h2>ADD NEW</h2>
                         <div class="inputbox">
                             <input type="text" id="titre" name="titre" placeholder="titre" required>

@@ -15,8 +15,14 @@
                            
                         </tr>
                     </thead>
-                    <tbody id="corps-realisation">
-                        <!-- Les lignes seront remplies dynamiquement par JavaScript -->
+                    <tbody>
+                        <% realisations.forEach(function(realisation) { %>
+                            <tr>
+                                <td><%= realisation.titre %></td>
+                                <td><%= realisation.annee %></td>
+                                <td><%= realisation.Description %></td>
+                            </tr>
+                        <% }); %>
                     </tbody>
                 </table>
             </div>
@@ -39,7 +45,7 @@
                         });
                     </script>
                     
-                    <form method="post" action="/Postrealisation" id="addPresentationForm">
+                    <form method="post" action="/Postrealisation" enctype="multipart/form-data" id="addPresentationForm">
                         <h2>ADD NEW</h2>
                         <div class="inputbox">
                             <input type="text" id="titre" name="titre" placeholder="titre" required>
@@ -52,7 +58,7 @@
                             <i></i>
                         </div>
                         <div class="inputbox">
-                            <input type="text" id="description" name="description" placeholder="description" required>
+                            <input type="text" id="Description" name="Description" placeholder="description" required>
                             <span>description</span>
                             <i></i>
                         </div>
