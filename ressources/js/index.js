@@ -7,7 +7,7 @@ function clickRubrique(chemin) {
             if (mainContent) {
                 mainContent.innerHTML = xhr.responseText;
 
-            
+                // Importez le script correspondant après avoir changé la page
             } else {
                 console.error('Élément #main-content non trouvé dans le DOM.');
             }
@@ -18,15 +18,13 @@ function clickRubrique(chemin) {
 
 
 // Écouteurs d'événements pour les boutons reset
-document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.reset-button');
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            buttons.forEach(btn => {
-                btn.classList.remove('clicked');
-            });
-            this.classList.add('clicked');
+const buttons = document.querySelectorAll('.reset-button');
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        buttons.forEach(btn => {
+            btn.classList.remove('clicked');
         });
+        this.classList.add('clicked');
     });
 });
 
@@ -74,5 +72,35 @@ function sendDataViaAjax(formId, url, callback) {
                 callback('Erreur réseau lors de l\'envoi des données');
             }
         });
+    });
+}
+
+function editActualite(id) {
+    var formId = 'editForm' + id;
+    var form = document.getElementById(formId);
+    if (form.style.display === 'none') {
+        form.style.display = 'table-row';
+    } else {
+        form.style.display = 'none';
+    }
+}
+function updateStaffData(url, formData) {
+    const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+
+    fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: jsonData
+    })
+    .then(response => response.json())
+    .then(updatedItem => {
+        console.log('Données mises à jour avec succès:', updatedItem);
+        // Vous pouvez ajouter du code ici pour mettre à jour l'affichage des données si nécessaire
+    })
+    .catch(error => {
+        console.error('Erreur lors de la mise à jour des données:', error.message);
+        alert('Erreur lors de la mise à jour des données: ' + error.message);
     });
 }
