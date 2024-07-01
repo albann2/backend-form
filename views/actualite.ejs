@@ -19,9 +19,19 @@
                                 <td><%= actualite.titre %></td>
                                 <td><%= actualite.Description %></td>
                                 <td><%= actualite.semaine %></td>
+                                <td><input type="button" name="edit" id="edit">EDIT</td>
+                            </tr>
+                            <tr class="update" style="display: none;">
+                                <form action="/Updateactualite/<%= actualite.id %>" method="POST">
+                                    <td><input type="text" name="titre" value="<%= actualite.titre %>"></td>
+                                    <td><input type="text" name="Description" value="<%= actualite.Description %>"></td>
+                                    <td><input type="text" name="semaine" value="<%= actualite.semaine %>"></td>
+                                    <td><input type="submit" onclick="clickRubrique('/Actualite');" value="update"></td>
+                                </form>
                             </tr>
                         <% }); %>
                     </tbody>
+                    
                 </table>
             </div>
         </div>

@@ -6,37 +6,6 @@ function clickRubrique(chemin) {
             var mainContent = document.getElementById('main-content');
             if (mainContent) {
                 mainContent.innerHTML = xhr.responseText;
-
-                // Importez le script correspondant après avoir changé la page
-                switch (chemin) {
-                    case '/Administration':
-                        importScript('js/fill-table-admin.js');
-                        break;
-                    case '/Presentationbio':
-                    case '/Historique':
-                        importScript('js/fill-table-historique.js');
-                        break;
-                    case '/Mission':
-                        importScript('js/fill-table-mission.js');
-                        break;
-                    case '/Realisation':
-                        importScript('js/fill-table-realisation.js');
-                        break;
-                    case '/Presentation':
-                        importScript('js/fill-table-presentation.js');
-                        break;
-                    case '/Enseignant':
-                        importScript('js/fill-table-enseignant.js');
-                        break;
-                    case '/Formation':
-                        importScript('js/fill-table-formation.js');
-                        break;
-                    case '/Actualite':
-                        importScript('js/fill-table-actualite.js');
-                        break;
-                    default:
-                        console.warn('Script de remplissage non trouvé pour:', chemin);
-                }
             } else {
                 console.error('Élément #main-content non trouvé dans le DOM.');
             }
@@ -45,28 +14,7 @@ function clickRubrique(chemin) {
     xhr.send();
 }
 
-// Fonction pour importer un script dynamiquement
-function importScript(scriptSrc) {
-    var script = document.createElement('script');
-    script.src = scriptSrc;
-    document.body.appendChild(script);
-}
 
-// Écouteurs d'événements pour les boutons reset
-const buttons = document.querySelectorAll('.reset-button');
-buttons.forEach(button => {
-    button.addEventListener('click', function() {
-        buttons.forEach(btn => {
-            btn.classList.remove('clicked');
-        });
-        this.classList.add('clicked');
-    });
-});
-
-// Fonction pour ajuster la largeur de l'entrée en fonction de la longueur de la valeur
-function adjustInputWidth(input) {
-    input.style.width = `${input.value.length + 1}ch`;
-}
 
 // Fonction pour envoyer des données via AJAX
 function sendDataViaAjax(formId, url, callback) {
