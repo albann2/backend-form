@@ -7,7 +7,7 @@ function clickRubrique(chemin) {
             if (mainContent) {
                 mainContent.innerHTML = xhr.responseText;
 
-                // Importez le script correspondant après avoir changé la page
+                // Importez le script correspondant après avoir changé
             } else {
                 console.error('Élément #main-content non trouvé dans le DOM.');
             }
