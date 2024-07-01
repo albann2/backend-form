@@ -18,13 +18,15 @@ function clickRubrique(chemin) {
 
 
 // Écouteurs d'événements pour les boutons reset
-const buttons = document.querySelectorAll('.reset-button');
-buttons.forEach(button => {
-    button.addEventListener('click', function() {
-        buttons.forEach(btn => {
-            btn.classList.remove('clicked');
+document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.reset-button');
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            buttons.forEach(btn => {
+                btn.classList.remove('clicked');
+            });
+            this.classList.add('clicked');
         });
-        this.classList.add('clicked');
     });
 });
 
