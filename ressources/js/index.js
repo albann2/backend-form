@@ -6,6 +6,8 @@ function clickRubrique(chemin) {
             var mainContent = document.getElementById('main-content');
             if (mainContent) {
                 mainContent.innerHTML = xhr.responseText;
+
+                // Importez le script correspondant après avoir changé la page
             } else {
                 console.error('Élément #main-content non trouvé dans le DOM.');
             }
@@ -14,6 +16,17 @@ function clickRubrique(chemin) {
     xhr.send();
 }
 
+
+// Écouteurs d'événements pour les boutons reset
+const buttons = document.querySelectorAll('.reset-button');
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        buttons.forEach(btn => {
+            btn.classList.remove('clicked');
+        });
+        this.classList.add('clicked');
+    });
+});
 
 
 // Fonction pour envoyer des données via AJAX
