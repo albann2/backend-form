@@ -24,7 +24,6 @@
 
                                 <td><input type="button" value="EDIT" onclick="edit('<%= presentation._id %>')"></td>
 
-                                <td><input type="button" value="activate/desactivate" onclick="updateActive('/Activatepresentation/<%= presentation._id %>','<%= presentation.activated %>','/Presentation')"></td>
 
                             </tr>
 
@@ -40,6 +39,8 @@
                                         <div>
                                             <button onclick="clickRubrique('/Presentation');"type="submit">Update</button>
                                             <button type="button" onclick="edit('<%= presentation._id %>')">Cancel</button>
+                                <td><input type="button" value="activate/desactivate" onclick="updateActive('/Activatepresentation/<%= presentation._id %>','<%= presentation.activated %>','/Presentation')"></td>
+
 
                                         </div>
                                     </form>
