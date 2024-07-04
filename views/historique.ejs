@@ -10,6 +10,7 @@
                         <tr>
                             <td>DESCRIPTION</td>
                             <td>IMAGE</td>
+                            <td>ACTIVATED</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -17,6 +18,8 @@
                             <tr>
                                 <td><%= historique.Description %></td>
                                 <td><img src="<%= historique.Image %>" alt="Image" width="100"></td>
+                                <td><%= historique.activated %></td>
+
                                 <td><input type="button" value="EDIT" onclick="edit('<%= historique._id %>')"></td>
 
                             </tr>

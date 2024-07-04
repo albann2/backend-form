@@ -74,22 +74,23 @@ function sendDataViaAjax(formId, url, callback) {
         });
     });
 }
-
 function edit(id) {
-    var formId = 'editForm' + id;
-    var form = document.getElementById(formId);
+    const form = document.getElementById(`editForm${id}`);
     if (form.style.display === 'none') {
         form.style.display = 'table-row';
     } else {
         form.style.display = 'none';
     }
 }
-// Function to update activation status
+
 function updateActive(url, data, vue) {
+    console.log('updateActive called with:', { url, data, vue });
     const formData = new FormData();
     formData.append('activated', !data);
+    console.log('FormData created:', Array.from(formData.entries()));
 
     const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+    console.log('JSON data to be sent:', jsonData);
 
     fetch(url, {
         method: 'POST',
@@ -98,14 +99,20 @@ function updateActive(url, data, vue) {
         },
         body: jsonData
     })
-    .then(response => response.ok ? response.json() : Promise.reject(response))
+    .then(response => {
+        console.log('Fetch response:', response);
+        if (response.ok) {
+            return response.json();
+        } else {
+            return response.json().then(err => Promise.reject(err));
+        }
+    })
     .then(updatedItem => {
         console.log('Données mises à jour avec succès:', updatedItem);
         clickRubrique(vue);
     })
     .catch(error => {
-        console.error('Erreur lors de la mise à jour des données:', error.message);
-        alert('Erreur lors de la mise à jour des données: ' + error.message);
+        console.error('Erreur lors de la mise à jour des données:', error);
+        alert('Erreur lors de la mise à jour des données: ' + (error.message || error.error || JSON.stringify(error)));
     });
 }
-

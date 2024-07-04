@@ -8,7 +8,7 @@ const authenticateToken = require('../controllers/authenticateToken');
 router.get('/Getactualite/:id?',Actualites.Getactualite)
 router.post('/Postactualite',authenticateToken, Actualites.Postactualite);
 router.post('/Updateactualite/:id', authenticateToken, Actualites.Updateactualite);
-router.patch('/ActivateActualite/:id',authenticateToken,Actualites.ActivateActualite)
+router.post('/ActivateActualite/:id',authenticateToken,Actualites.ActivateActualite)
 router.get('/Actualite',authenticateToken, Actualites.Actualite);
 
 module.exports = router;

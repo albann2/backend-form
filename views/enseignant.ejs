@@ -15,6 +15,7 @@
                             <td>GRADE </td>
                             <td>RESPONSABILITE</td>
                             <td>PHOTO</td>
+                            <td>ACTIVATED</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,6 +28,7 @@
                                 <td><%= enseignant.grade %></td>
                                 <td><%= enseignant.responsabilite %></td>
                                 <td><img src="<%= enseignant.Image %>" alt="Image" width="100"></td>
+                                <td><%= enseignant.activated %></td>
 
                                 <td><input type="button" value="EDIT" onclick="edit('<%= enseignant._id %>')"></td>
                             </tr>

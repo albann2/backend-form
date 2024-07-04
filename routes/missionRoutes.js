@@ -8,7 +8,7 @@ const authenticateToken = require('../controllers/authenticateToken');
 router.get('/Getmission/:id?',Missions.Getmission)
 router.post('/Postmission',authenticateToken, Missions.Postmission);
 router.post('/Updatemission/:id',authenticateToken,Missions.Updatemission)
-router.patch('/ActivateMission/:id',authenticateToken,Missions.ActivateMission)
+router.post('/ActivateMission/:id',authenticateToken,Missions.ActivateMission)
 router.get('/Mission',authenticateToken, Missions.Mission);
 
 module.exports = router;

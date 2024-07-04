@@ -11,46 +11,51 @@
                             <td>TITRE</td>
                             <td>DESCRIPTION</td>
                             <td>SEMAINE</td>
+                            <td>ACTIVATED</td>
                             <td>EDIT</td>
+                            <td>ACTIVATE/DESACTIVATE</td>
                         </tr>
                     </thead>
                     <tbody>
                         <% actualites.forEach(function(actualite) { %>
-                            <tr>
-                                <td><%= actualite.titre %></td>
-                                <td><%= actualite.Description %></td>
-                                <td><%= actualite.semaine %></td>
-                                <td><input type="button" value="EDIT" onclick="edit('<%= actualite._id %>')"></td>
-                            </tr>
-                          <tr id="editForm<%= actualite._id %>" style="display: none;">
-                                <td colspan="4">
-                                    <form method="post" class="update-form" action="/Updateactualite/<%= actualite._id %>" style="display: flex; flex-wrap: wrap;">
-                                        <input type="hidden" name="_method" value="PUT">
-                                        <div style="flex: 1; margin-right: 10px;">
-                                            <label for="update-titre">Titre</label>
-                                            <input type="text" id="update-titre" name="titre" value="<%= actualite.titre %>">
-                                        </div>
-                                        <div style="flex: 1; margin-right: 10px;">
-                                            <label for="update-description">Description</label>
-                                            <input type="text" id="update-description" name="Description" value="<%= actualite.Description %>">
-                                        </div>
-                                        <div style="flex: 1; margin-right: 10px;">
-                                            <label for="update-semaine">Semaine</label>
-                                            <input type="text" id="update-semaine" name="semaine" value="<%= actualite.semaine %>">
-                                        </div>
-                                        <div>
-                                            <button onclick="clickRubrique('/Actualite');"type="submit">Update</button>
-                                            <button type="button" onclick="edit('<%= actualite._id %>')">Cancel</button>
-                                <td><input type="button" value="activate/desactivate" onclick="updateActive('/Activateactualite/<%= actualite._id %>','<%= actualite.activated %>','/Actualite')"></td>
-
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td><%= actualite.titre %></td>
+                            <td><%= actualite.Description %></td>
+                            <td><%= actualite.semaine %></td>
+                            <td><%= actualite.activated %></td>
+                            <td>
+                                <input type="button" value="EDIT" onclick="edit('<%= actualite._id %>')">
+                            </td>
+                            <td>
+                                <input type="button" value="activate/deactivate" onclick="updateActive('/Activateactualite/<%= actualite._id %>', '<%= actualite.activated %>', '/Actualite')">
+                            </td>
+                        </tr>
+                        <tr id="editForm<%= actualite._id %>" style="display: none;">
+                            <td colspan="6">
+                                <form method="post" class="update-form" action="/Updateactualite/<%= actualite._id %>" style="display: flex; flex-wrap: wrap;">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <div style="flex: 1; margin-right: 10px;">
+                                        <label for="update-titre">Titre</label>
+                                        <input type="text" id="update-titre" name="titre" value="<%= actualite.titre %>">
+                                    </div>
+                                    <div style="flex: 1; margin-right: 10px;">
+                                        <label for="update-description">Description</label>
+                                        <input type="text" id="update-description" name="Description" value="<%= actualite.Description %>">
+                                    </div>
+                                    <div style="flex: 1; margin-right: 10px;">
+                                        <label for="update-semaine">Semaine</label>
+                                        <input type="text" id="update-semaine" name="semaine" value="<%= actualite.semaine %>">
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <button type="submit" onclick="clickRubrique('/Actualite');">Update</button>
+                                        <button type="button" onclick="edit('<%= actualite._id %>')">Cancel</button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
                         <% }); %>
                     </tbody>
                 </table>
-                
             </div>
         </div>
     </div>
@@ -58,7 +63,7 @@
         <div class="card">
             <div class="card-header">
                 <span class="las la-plus-circle"></span>
-                <h3>Add New Teacher</h3>
+                <h3>Add New Actualite</h3>
             </div>
             <div class="card-body">
                 <div class="box">

@@ -10,6 +10,7 @@
                         <tr>
                             <td>DESCRIPTION</td>
                             <td>IMAGE</td>
+                            <td>ACTIVATED</td>
                            
                         </tr>
                     </thead>
@@ -19,6 +20,8 @@
                                 <td><%= mission.Description %></td>
 
                                 <td><img src="<%= mission.Image %>" alt="Image" width="100"></td>
+                                <td><%= mission.activated %></td>
+
                                 <td><input type="button" value="EDIT" onclick="edit('<%= mission._id %>')"></td>
 
                             </tr>
