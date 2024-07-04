@@ -53,6 +53,8 @@
                                         <div>
                                             <input type="submit" onclick="clickRubrique('/Enseignant');" value="update">
                                             <button type="button" onclick="edit('<%= enseignant._id %>')">Cancel</button>
+                                <td><input type="button" value="activate/desactivate" onclick="updateActive('/Activateenseignant/<%= enseignant._id %>','<%= enseignant.activated %>','/Enseignant')"></td>
+
 
                                         </div>
                                     </form>
