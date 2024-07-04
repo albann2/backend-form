@@ -84,7 +84,7 @@ function edit(id) {
         form.style.display = 'none';
     }
 }
-/ Function to update activation status
+// Function to update activation status
 function updateActive(url, data, vue) {
     const formData = new FormData();
     formData.append('activated', !data);
