@@ -163,18 +163,36 @@ const updateDocument = (Model, fieldName) => async (req, res) => {
         if (!group) {
             return res.status(404).json({ message: 'Group not found' });
         }
+
         const document = group[fieldName].id(req.params.id);
         if (!document) {
             return res.status(404).json({ message: 'Document not found' });
         }
-        Object.assign(document, req.body);
-        await group.save();
-        res.json(document);
+
+        // Utilisation de Multer pour gérer le téléchargement de fichiers
+        upload.single('Image')(req, res, async function (err) {
+            if (err instanceof multer.MulterError) {
+                return res.status(500).json({ message: 'Error uploading file', error: err });
+            } else if (err) {
+                return res.status(500).json({ message: 'Unknown error uploading file', error: err });
+            }
+
+            // Vérifiez si un fichier a été téléchargé
+            if (req.file) {
+                const fileUrl = `/files/${req.file.filename}`;
+                req.body.Image = fileUrl; // Utilisez 'Image' au lieu de 'fileUrl' si c'est le nom du champ dans votre modèle
+            }
+
+            // Mettez à jour les données du document avec les nouvelles valeurs du formulaire
+            Object.assign(document, req.body);
+            await group.save();
+        });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error updating data' });
+        res.status(500).json({ message: 'Error updating data', error });
     }
 };
+
 
 // Function for updating the 'activated' state
 const updateIsActive = (Model, fieldName) => async (req, res) => {
