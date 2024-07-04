@@ -44,6 +44,8 @@
                                         <div>
                                             <button onclick="clickRubrique('/Realisation');"type="submit">Update</button>
                                             <button type="button" onclick="edit('<%= realisation._id %>')">Cancel</button>
+                                <td><input type="button" value="activate/desactivate" onclick="updateActive('/Activaterealisation/<%= realisation._id %>','<%= realisation.activated %>','/Realisation')"></td>
+
                                         </div>
                                     </form>
                                 </td>
