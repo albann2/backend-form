@@ -11,7 +11,7 @@
                             <td>TITRE</td>
                             <td>DESCRIPTION</td>
                             <td>SEMAINE</td>
-                            <td>EDIT</td> <!-- Ajouté pour le bouton EDIT -->
+                            <td>EDIT</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -20,21 +20,35 @@
                                 <td><%= actualite.titre %></td>
                                 <td><%= actualite.Description %></td>
                                 <td><%= actualite.semaine %></td>
-                                <td><input type="button" value="EDIT" onclick="editActualite('<%= actualite._id %>')"></td> <!-- Ajouté un bouton EDIT avec onclick -->
-
+                                <td><input type="button" value="EDIT" onclick="edit('<%= actualite._id %>')"></td>
                             </tr>
-                            <tr id="editForm<%= actualite._id %>" style="display: none;"> <!-- Ajouté une ligne pour le formulaire de mise à jour avec un ID unique -->
-                                <form metod="post" action="/Updateactualite/<%= actualite._id %>" method="PUT">
-                                    <td><input type="text" name="titre" value="<%= actualite.titre %>"></td>
-                                    <td><input type="text" name="Description" value="<%= actualite.Description %>"></td>
-                                    <td><input type="text" name="semaine" value="<%= actualite.semaine %>"></td>
-                                    <td><input type="submit" onclick="clickRubrique('/Actualite');" value="update">
-                                    </td>
-                                </form>
+                          <tr id="editForm<%= actualite._id %>" style="display: none;">
+                                <td colspan="4">
+                                    <form method="post" class="update-form" action="/Updateactualite/<%= actualite._id %>" style="display: flex; flex-wrap: wrap;">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <div style="flex: 1; margin-right: 10px;">
+                                            <label for="update-titre">Titre</label>
+                                            <input type="text" id="update-titre" name="titre" value="<%= actualite.titre %>">
+                                        </div>
+                                        <div style="flex: 1; margin-right: 10px;">
+                                            <label for="update-description">Description</label>
+                                            <input type="text" id="update-description" name="Description" value="<%= actualite.Description %>">
+                                        </div>
+                                        <div style="flex: 1; margin-right: 10px;">
+                                            <label for="update-semaine">Semaine</label>
+                                            <input type="text" id="update-semaine" name="semaine" value="<%= actualite.semaine %>">
+                                        </div>
+                                        <div>
+                                            <button onclick="clickRubrique('/Actualite');"type="submit">Update</button>
+                                            <button type="button" onclick="edit('<%= actualite._id %>')">Cancel</button>
+                                        </div>
+                                    </form>
+                                </td>
                             </tr>
                         <% }); %>
                     </tbody>
                 </table>
+                
             </div>
         </div>
     </div>
@@ -46,8 +60,6 @@
             </div>
             <div class="card-body">
                 <div class="box">
-                    <!-- Ajouté un script pour afficher/masquer les formulaires de mise à jour -->
-                
                     <form method="post" action="/Postactualite" enctype="multipart/form-data" id="addPresentationForm">
                         <h2>ADD NEW</h2>
                         <div class="inputbox">

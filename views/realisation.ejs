@@ -21,7 +21,34 @@
                                 <td><%= realisation.titre %></td>
                                 <td><%= realisation.annee %></td>
                                 <td><%= realisation.Description %></td>
+                                <td><input type="button" value="EDIT" onclick="edit('<%= realisation._id %>')"></td>
+
                             </tr>
+                             <tr id="editForm<%= realisation._id %>" style="display: none;">
+                                <td colspan="4">
+                                    <form method="post" class="update-form" action="/Updaterealisation/<%= realisation._id %>" style="display: flex; flex-wrap: wrap;">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <div style="flex: 1; margin-right: 10px;">
+                                            <label for="update-titre">Titre</label>
+                                            <input type="text" id="update-titre" name="titre" value="<%= realisation.titre %>">
+                                        </div>
+                                        <div style="flex: 1; margin-right: 10px;">
+                                            <label for="update-annee">annee</label>
+                                            <input type="text" id="update-annee" name="annee" value="<%= realisation.annee %>">
+                                        </div>
+                                        <div style="flex: 1; margin-right: 10px;">
+                                            <label for="update-description">Description</label>
+                                            <input type="text" id="update-description" name="Description" value="<%= realisation.Description %>">
+                                        </div>
+                                      
+                                        <div>
+                                            <button onclick="clickRubrique('/Realisation');"type="submit">Update</button>
+                                            <button type="button" onclick="edit('<%= realisation._id %>')">Cancel</button>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+
                         <% }); %>
                     </tbody>
                 </table>

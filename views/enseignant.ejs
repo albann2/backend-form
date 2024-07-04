@@ -26,8 +26,37 @@
                                 <td><%= enseignant.domainesExpertise %></td>
                                 <td><%= enseignant.grade %></td>
                                 <td><%= enseignant.responsabilite %></td>
-
                                 <td><img src="<%= enseignant.Image %>" alt="Image" width="100"></td>
+
+                                <td><input type="button" value="EDIT" onclick="edit('<%= enseignant._id %>')"></td>
+                            </tr>
+                            <tr id="editForm<%= enseignant._id %>" style="display: none;">
+                                <td colspan="4">
+                                    <form method="post" class="update-form" action="/Updateenseignant/<%= enseignant._id %>">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <div>
+                                            <input type="text"name="nomComplet" value="<%= enseignant.nomComplet %>">
+                                        </div>
+                                        <div>
+                                            <input type="text" name="adresseMail" value="<%= enseignant.adresseMail %>">
+                                        </div>
+                                        <div>
+                                            <input type="text"  name="telephone" value="<%= enseignant.telephone %>">
+                                        </div>
+                                        <div>
+                                            <input type="text"  name="domainesExpertise value="<%= enseignant.domainesExpertise %>">
+                                        </div><div>
+                                            <input type="text"  name="grade" value="<%= enseignant.grade %>">
+                                        </div><div>
+                                            <input type="text"  name="responsabilite" value="<%= enseignant.responsabilite %>">
+                                        </div>
+                                        <div>
+                                            <input type="submit" onclick="clickRubrique('/Enseignant');" value="update">
+                                            <button type="button" onclick="edit('<%= enseignant._id %>')">Cancel</button>
+
+                                        </div>
+                                    </form>
+                                </td>
                             </tr>
                         <% }); %>
                     </tbody>
