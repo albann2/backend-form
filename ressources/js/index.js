@@ -84,23 +84,28 @@ function edit(id) {
         form.style.display = 'none';
     }
 }
-function updateStaffData(url, formData) {
+/ Function to update activation status
+function updateActive(url, data, vue) {
+    const formData = new FormData();
+    formData.append('activated', !data);
+
     const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
 
     fetch(url, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: jsonData
     })
-    .then(response => response.json())
+    .then(response => response.ok ? response.json() : Promise.reject(response))
     .then(updatedItem => {
         console.log('Données mises à jour avec succès:', updatedItem);
-        // Vous pouvez ajouter du code ici pour mettre à jour l'affichage des données si nécessaire
+        clickRubrique(vue);
     })
     .catch(error => {
         console.error('Erreur lors de la mise à jour des données:', error.message);
         alert('Erreur lors de la mise à jour des données: ' + error.message);
     });
 }
+
