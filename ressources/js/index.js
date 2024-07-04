@@ -75,7 +75,7 @@ function sendDataViaAjax(formId, url, callback) {
     });
 }
 
-function editActualite(id) {
+function edit(id) {
     var formId = 'editForm' + id;
     var form = document.getElementById(formId);
     if (form.style.display === 'none') {
