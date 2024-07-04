@@ -1,6 +1,6 @@
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs'); // Importation du module fs
+const fs = require('fs');
 
 const model = require('../model/modeles');
 const jwt = require('jsonwebtoken');
