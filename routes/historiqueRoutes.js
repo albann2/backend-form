@@ -7,7 +7,7 @@ const authenticateToken = require('../controllers/authenticateToken');
 
 router.get('/Gethistorique/:id?',historique.Gethistorique)
 router.post('/Posthistorique',authenticateToken, historique.Posthistorique);
-router.put('/Updatehistorique/:id',authenticateToken,historique.Updatehistorique)
+router.post('/Updatehistorique/:id',authenticateToken,historique.Updatehistorique)
 router.patch('/Activatehistorique/:id',authenticateToken,historique.ActivateHistorique)
 router.get('/Historique',authenticateToken, historique.Historique);
 
