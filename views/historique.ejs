@@ -33,6 +33,8 @@
                                         <div>
                                             <button onclick="clickRubrique('/Historique');"type="submit">Update</button>
                                             <button type="button" onclick="edit('<%= historique._id %>')">Cancel</button>
+                                <td><input type="button" value="activate/desactivate" onclick="updateActive('/Activatehistorique/<%= historique._id %>','<%= historique.activated %>','/Historique')"></td>
+
                                         </div>
                                     </form>
                                 </td>
