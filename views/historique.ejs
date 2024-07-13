@@ -19,39 +19,29 @@
                                 <td><%= historique.Description %></td>
                                 <td><img src="<%= historique.Image %>" alt="Image" width="100"></td>
                                 <td><%= historique.activated %></td>
-                                <td>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal<%= historique._id %>">
-                                        EDIT
-                                    </button>
-                                </td>
+
+                                <td><input type="button" value="EDIT" onclick="edit('<%= historique._id %>')"></td>
+
                             </tr>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="editModal<%= historique._id %>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<%= historique._id %>" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="editModalLabel<%= historique._id %>">Edit Historique</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                            <tr id="editForm<%= historique._id %>" style="display: none;">
+                                <td colspan="4">
+                                    <form method="post" class="update-form" action="/Updatehistorique/<%= historique._id %>" style="display: flex; flex-wrap: wrap;">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <div style="flex: 1; margin-right: 10px;">
+                                            <label for="update-description">Description</label>
+                                            <input type="text" id="update-description" name="Description" value="<%= historique.Description %>">
                                         </div>
-                                        <div class="modal-body">
-                                            <form method="post" class="update-form" action="/Updatehistorique/<%= historique._id %>">
-                                                <input type="hidden" name="_method" value="PUT">
-                                                <div class="form-group">
-                                                    <label for="update-description">Description</label>
-                                                    <input type="text" class="form-control" id="update-description" name="Description" value="<%= historique.Description %>">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                    <button type="submit" class="btn btn-primary">Update</button>
-                                                </div>
-                                            </form>
+                                      
+                                        <div>
+                                            <button onclick="clickRubrique('/Historique');"type="submit">Update</button>
+                                            <button type="button" onclick="edit('<%= historique._id %>')">Cancel</button>
+                                <td><input type="button" value="activate/desactivate" onclick="updateActive('/Activatehistorique/<%= historique._id %>','<%= historique.activated %>','/Historique')"></td>
+
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    </form>
+                                </td>
+                            </tr>
                         <% }); %>
                     </tbody>
                 </table>
@@ -66,6 +56,13 @@
             </div>
             <div class="card-body">
                 <div class="box">
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            sendDataViaAjax('addPresentationForm', '/Posthistorique', function(error, response) {
+                                // handle response
+                            });
+                        });
+                    </script>
                     <form method="post" action="/Posthistorique" id="addPresentationForm" enctype="multipart/form-data">
                         <h2>ADD NEW</h2>
                         <div class="inputbox">
