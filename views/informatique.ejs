@@ -9,22 +9,133 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
+        .modal-content {
+            border-radius: 8px;
+        }
 
-            .modal-content {
-                border-radius: 8px;
-            }
+        .modal-header {
+            background-color: var(--main-color);
+            color: var(--button-background);
+        }
 
-            .modal-header {
-                background-color: var(--main-color);
-                color: var(--button-background);
-            }
+        .modal-footer .btn-primary {
+            background-color: var(--main-color);
+            border-color: var(--main-color);
+        }
 
-            .modal-footer .btn-primary {
-                background-color: var(--main-color);
-                border-color: var(--main-color);
-            }
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: var(--main-color);
+            z-index: 100;
+            transition: width 1000ms;
+            color: #fff;
+        }
+
+        .sidebar-brand {
+            height: 90px;
+            padding: 1rem 0rem 1rem 2rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-dark);
+        }
+
+        .sidebar-brand h2 {
+            display: inline-block;
+            padding-right: 1rem;
+        }
+
+        .sidebar-menu ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        .sidebar-menu ul li {
+            width: 100%;
+            padding-left: 1rem;
+        }
+
+        .sidebar-menu ul li a {
+            padding-left: 1rem;
+            display: block;
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        .sidebar-menu ul li a.active {
+            background: #fff;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            color: var(--main-color);
+            border-radius: 30px 0px 0px 30px;
+        }
+
+        .main-content {
+            transition: margin-left 0.1s;
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        header {
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            position: fixed;
+            left: 250px;
+            width: calc(100% - 250px);
+            top: 0;
+            z-index: 100;
+            transition: left 1000ms;
+        }
+
+        header h2 {
+            color: #555;
+        }
+
+        .user-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-wrapper img {
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        main {
+            margin-top: 135px;
+            padding: 2rem 1.5rem;
+            background: #f1f5f9;
+            min-height: calc(100vh - 90px);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .card-single {
+            display: flex;
+            justify-content: space-between;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 2px;
+        }
     </style>
-</head>
     <title>Dashboard</title>
 </head>
 <body>
@@ -39,18 +150,18 @@
         <div class="sidebar-menu">
             <ul>
                 <li><a href="#" class="active"><span class="las la-igloo"></span><span>DASHBOARD DU DEPARTEMENT INFORMATIQUE</span></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Presentation')"><span class="las la-users"></span><span>Presentation</span></button></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Historique')"><span class="las la-users"></span><span>Historique</span></button></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Mission')"><span class="las la-users"></span><span>Mission</span></button></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Enseignant')"><span class="las la-users"></span><span>Enseignant</span></button></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Formation')"><span class="las la-users"></span><span>Formation</span></button></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Realisation')"><span class="las la-users"></span><span>Realisation</span></button></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Actualite')"><span class="las la-users"></span><span>Actualite</span></button></a></li>
-                <li><a href="/logout"><button class="reset-button"><span class="las la-users"></span><span>Déconnexion</span></button></a></li>
+                <li><a><button class="reset-button btn btn-link" onclick="clickRubrique('/Presentation')"><span class="las la-users"></span><span>Presentation</span></button></a></li>
+                <li><a><button class="reset-button btn btn-link" onclick="clickRubrique('/Historique')"><span class="las la-users"></span><span>Historique</span></button></a></li>
+                <li><a><button class="reset-button btn btn-link" onclick="clickRubrique('/Mission')"><span class="las la-users"></span><span>Mission</span></button></a></li>
+                <li><a><button class="reset-button btn btn-link" onclick="clickRubrique('/Enseignant')"><span class="las la-users"></span><span>Enseignant</span></button></a></li>
+                <li><a><button class="reset-button btn btn-link" onclick="clickRubrique('/Formation')"><span class="las la-users"></span><span>Formation</span></button></a></li>
+                <li><a><button class="reset-button btn btn-link" onclick="clickRubrique('/Realisation')"><span class="las la-users"></span><span>Realisation</span></button></a></li>
+                <li><a><button class="reset-button btn btn-link" onclick="clickRubrique('/Actualite')"><span class="las la-users"></span><span>Actualite</span></button></a></li>
+                <li><a href="/logout"><button class="reset-button btn btn-link"><span class="las la-users"></span><span>Déconnexion</span></button></a></li>
             </ul>
         </div>
     </div>
-
+//boot
     <div class="main-content">
         <header>
             <h2>
@@ -58,8 +169,8 @@
                 DASHBOARD
             </h2>
             <div class="user-wrapper">
+                <img src="/images/1.png" width="60" height="60" alt="erreur">
                 <div>
-                    <img src="/images/1.png" width="200px" height="100px" alt="erreur">
                     <h4>departement d'informatique</h4>
                     <small>super admin</small>
                 </div>
