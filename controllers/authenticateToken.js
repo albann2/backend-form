@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = '1111'; // Assurez-vous de mettre JWT_SECRET entre guillemets
+const JWT_SECRET = '1111';
 
 module.exports = (req, res, next) => {
     const token = req.cookies.token;
