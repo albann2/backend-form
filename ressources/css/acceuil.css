@@ -481,16 +481,3 @@ select {
 }
 
 
-.modal-content {
-    border-radius: 8px;
-}
-
-.modal-header {
-    background-color: var(--main-color);
-    color: var(--button-background);
-}
-
-.modal-footer .btn-primary {
-    background-color: var(--main-color);
-    border-color: var(--main-color);
-}
