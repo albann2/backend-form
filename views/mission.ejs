@@ -1,50 +1,48 @@
 <div class="recent-grid">
     <div class="projects">
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-header">
                 <h3>MISSION</h3>
             </div>
             <div class="card-body">
-                <table width="100%">
-                    <thead>
+                <table class="table table-bordered table-dark table-striped table-hover">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>DESCRIPTION</td>
-                            <td>IMAGE</td>
-                            <td>ACTIVATED</td>
-                           
+                            <th>DESCRIPTION</th>
+                            <th>IMAGE</th>
+                            <th>ACTIVATED</th>
+                            <th>EDIT</th>
+                            <th>ACTIVATE/DEACTIVATE</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% missions.forEach(function(mission) { %>
-                            <tr>
-                                <td><%= mission.Description %></td>
-
-                                <td><img src="<%= mission.Image %>" alt="Image" width="100"></td>
-                                <td><%= mission.activated %></td>
-
-                                <td><input type="button" value="EDIT" onclick="edit('<%= mission._id %>')"></td>
-
-                            </tr>
-
-                            <tr id="editForm<%= mission._id %>" style="display: none;">
-                                <td colspan="4">
-                                    <form method="post" class="update-form" action="/Updatemission/<%= mission._id %>" style="display: flex; flex-wrap: wrap;">
-                                        <input type="hidden" name="_method" value="PUT">
-                                        <div style="flex: 1; margin-right: 10px;">
-                                            <label for="update-description">Description</label>
-                                            <input type="text" id="update-description" name="Description" value="<%= mission.Description %>">
-                                        </div>
-                                      
-                                        <div>
-                                            <button onclick="clickRubrique('/Mission');"type="submit">Update</button>
-                                            <button type="button" onclick="edit('<%= mission._id %>')">Cancel</button>
-                                <td><input type="button" value="activate/desactivate" onclick="updateActive('/Activatemission/<%= mission._id %>','<%= mission.activated %>','/Mission')"></td>
-
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-
+                        <tr>
+                            <td><%= mission.Description %></td>
+                            <td><img src="<%= mission.Image %>" alt="Image" class="img-fluid" style="max-width: 100px;"></td>
+                            <td><%= mission.activated %></td>
+                            <td>
+                                <button class="btn btn-primary mb-2" onclick="edit('<%= mission._id %>')">EDIT</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-secondary mb-2" onclick="updateActive('/Activatemission/<%= mission._id %>', '<%= mission.activated %>', '/Mission')">Activate/Deactivate</button>
+                            </td>
+                        </tr>
+                        <tr id="editForm<%= mission._id %>" style="display: none;">
+                            <td colspan="5">
+                                <form method="post" class="update-form" action="/Updatemission/<%= mission._id %>" style="display: flex; flex-wrap: wrap;">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <div class="form-group mb-2 w-100">
+                                        <label for="update-description">Description</label>
+                                        <input type="text" id="update-description" name="Description" class="form-control" value="<%= mission.Description %>">
+                                    </div>
+                                    <div class="form-group mb-2 w-100">
+                                        <button type="submit" class="btn btn-success btn-block" onclick="clickRubrique('/Mission');">Update</button>
+                                        <button type="button" class="btn btn-danger btn-block" onclick="edit('<%= mission._id %>')">Cancel</button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
                         <% }); %>
                     </tbody>
                 </table>
@@ -55,33 +53,21 @@
         <div class="card">
             <div class="card-header">
                 <span class="las la-plus-circle"></span>
-                <h3>Add New Historique</h3>
+                <h3>Add New Mission</h3>
             </div>
             <div class="card-body">
-                <div class="box">
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                        sendDataViaAjax('addPresentationForm', '/Postmission', function(error, response) {
-        
-                            });
-                        });
-                    </script>
-                    <form method="post" enctype="multipart/form-data" action="/Postmission" id="addPresentationForm">
-                        <h2>ADD NEW</h2>
-                        <div class="inputbox">
-                            <input type="text" id="Description" name="Description" placeholder="Description" required>
-                            <span>Description</span>
-                            <i></i>
-                        </div>
-                        <div class="inputbox">
-                            <input type="file" id="Image" name="Image" placeholder="Image URL" required>
-                            <span>Image</span>
-                            <i></i>
-                        </div>
-                       
-                        <input type="submit" onclick="clickRubrique('/Mission');" value="Enregistrer">
-                    </form>
-                </div>
+                <form method="post" enctype="multipart/form-data" action="/Postmission" id="addPresentationForm">
+                    <div class="form-group mb-2">
+                        <label for="Description">Description</label>
+                        <input type="text" id="Description" name="Description" class="form-control" placeholder="Description" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="Image">Image</label>
+                        <input type="file" id="Image" name="Image" class="form-control" required>
+                    </div>
+                    <button type="submit" onclick="clickRubrique('/Mission');" class="btn btn-primary btn-block">Enregistrer</button>
+                </form>
             </div>
         </div>
     </div>
+</div>

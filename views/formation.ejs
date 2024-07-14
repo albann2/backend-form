@@ -1,60 +1,66 @@
 <div class="recent-grid">
     <div class="projects">
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-header">
                 <h3>FORMATIONS</h3>
             </div>
             <div class="card-body">
-                <table width="100%">
-                    <thead>
+                <table class="table table-bordered table-dark table-striped table-hover">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>TITRE</td>
-                            <td>PRESENTATION</td>
-                            <td>ADMISSION</td>
-                            <td>PARCOURS</td>
-                            <td>PARCOURS IMAGE</td>
-                            <td>ACTIVATED</td>
+                            <th>TITRE</th>
+                            <th>PRESENTATION</th>
+                            <th>ADMISSION</th>
+                            <th>PARCOURS</th>
+                            <th>PARCOURS IMAGE</th>
+                            <th>ACTIVATED</th>
+                            <th>EDIT</th>
+                            <th>ACTIVATE/DEACTIVATE</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% formations.forEach(function(formation) { %>
-                            <tr>
-                                <td><%= formation.titre %></td>
-                                <td><%= formation.presentation %></td>
-                                <td><%= formation.admission %></td>
-                                <td><%= formation.parcours %></td>
-                                <td><img src="<%= formation.Image %>" alt="Image" width="100"></td>
-                                <td><%= formation.activated %></td>
-
-                                <td><input type="button" value="EDIT" onclick="edit('<%= formation._id %>')"></td>
-                            </tr>
-                            <tr id="editForm<%= formation._id %>" style="display: none;">
-                                <td colspan="4">
-                                    <form method="post" class="update-form" action="/Updateformation/<%= formation._id %>">
-                                        <input type="hidden" name="_method" value="PUT">
-                                        <div>
-                                            <input type="text"name="titre" value="<%= formation.titre %>">
-                                        </div>
-                                        <div>
-                                            <input type="text" name="presentation" value="<%= formation.presentation %>">
-                                        </div>
-                                        <div>
-                                            <input type="text"  name="admission" value="<%= formation.admission %>">
-                                        </div>
-                                        <div>
-                                            <input type="text"  name="parcours value="<%= formation.parcours %>">
-                                        </div>
-                                       
-                                        <div>
-                                            <input type="submit" onclick="clickRubrique('/Formation');" value="update">
-                                            <button type="button" onclick="edit('<%= formation._id %>')">Cancel</button>
-                                <td><input type="button" value="activate/desactivate" onclick="updateActive('/Activateformation/<%= formation._id %>','<%= formation.activated %>','/Formation')"></td>
-
-
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td><%= formation.titre %></td>
+                            <td><%= formation.presentation %></td>
+                            <td><%= formation.admission %></td>
+                            <td><%= formation.parcours %></td>
+                            <td><img src="<%= formation.Image %>" alt="Image" class="img-fluid" style="max-width: 100px;"></td>
+                            <td><%= formation.activated %></td>
+                            <td>
+                                <button class="btn btn-primary mb-2" onclick="edit('<%= formation._id %>')">EDIT</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-secondary mb-2" onclick="updateActive('/Activateformation/<%= formation._id %>', '<%= formation.activated %>', '/Formation')">Activate/Deactivate</button>
+                            </td>
+                        </tr>
+                        <tr id="editForm<%= formation._id %>" style="display: none;">
+                            <td colspan="8">
+                                <form method="post" class="update-form" action="/Updateformation/<%= formation._id %>" style="display: flex; flex-wrap: wrap;">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <div class="form-group mb-2 w-100">
+                                        <label for="update-titre">Titre</label>
+                                        <input type="text" id="update-titre" name="titre" class="form-control" value="<%= formation.titre %>">
+                                    </div>
+                                    <div class="form-group mb-2 w-100">
+                                        <label for="update-presentation">Présentation</label>
+                                        <input type="text" id="update-presentation" name="presentation" class="form-control" value="<%= formation.presentation %>">
+                                    </div>
+                                    <div class="form-group mb-2 w-100">
+                                        <label for="update-admission">Admission</label>
+                                        <input type="text" id="update-admission" name="admission" class="form-control" value="<%= formation.admission %>">
+                                    </div>
+                                    <div class="form-group mb-2 w-100">
+                                        <label for="update-parcours">Parcours</label>
+                                        <input type="text" id="update-parcours" name="parcours" class="form-control" value="<%= formation.parcours %>">
+                                    </div>
+                                    <div class="form-group mb-2 w-100">
+                                        <button type="submit" class="btn btn-success btn-block" onclick="clickRubrique('/Formation');">Update</button>
+                                        <button type="button" class="btn btn-danger btn-block" onclick="edit('<%= formation._id %>')">Cancel</button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
                         <% }); %>
                     </tbody>
                 </table>
@@ -65,47 +71,32 @@
         <div class="card">
             <div class="card-header">
                 <span class="las la-plus-circle"></span>
-                <h3>Add New Teacher</h3>
+                <h3>Add New Formation</h3>
             </div>
             <div class="card-body">
-                <div class="box">
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                        sendDataViaAjax('addPresentationForm', '/Postformation', function(error, response) {
-        
-                            });
-                        });
-                    </script>
-                    <form method="post" action="/Postformation"  enctype="multipart/form-data" id="addPresentationForm">
-                        <h2>ADD NEW</h2>
-                        <div class="inputbox">
-                            <input type="text" id="titre" name="titre" placeholder="titre" required>
-                            <span>titre</span>
-                            <i></i>
-                        </div>
-                        <div class="inputbox">
-                            <input type="text" id="presentation" name="presentation" placeholder="presentation" required>
-                            <span>presentation</span>
-                            <i></i>
-                        </div>
-                        <div class="inputbox">
-                            <input type="text" id="admission" name="admission" placeholder="admission" required>
-                            <span>admission</span>
-                            <i></i>
-                        </div>
-                        <div class="inputbox">
-                            <input type="text" id="parcours" name="parcours" placeholder="parcours" required>
-                            <span>parcours</span>
-                            <i></i>
-                        </div>
-                        <div class="inputbox">
-                            <input type="file" id="Image" name="Image" placeholder="parcoursImage" required>
-                            <span>parcoursImage</span>
-                            <i></i>
-                        </div>
-                        <input type="submit" onclick="clickRubrique('/Formation');" value="Enregistrer">
-                    </form>
-                </div>
+                <form method="post" action="/Postformation" enctype="multipart/form-data" id="addPresentationForm">
+                    <div class="form-group mb-2">
+                        <label for="titre">Titre</label>
+                        <input type="text" id="titre" name="titre" class="form-control" placeholder="titre" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="presentation">Présentation</label>
+                        <input type="text" id="presentation" name="presentation" class="form-control" placeholder="présentation" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="admission">Admission</label>
+                        <input type="text" id="admission" name="admission" class="form-control" placeholder="admission" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="parcours">Parcours</label>
+                        <input type="text" id="parcours" name="parcours" class="form-control" placeholder="parcours" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="Image">Parcours Image</label>
+                        <input type="file" id="Image" name="Image" class="form-control" required>
+                    </div>
+                    <button type="submit" onclick="clickRubrique('/Formation');" class="btn btn-primary btn-block">Enregistrer</button>
+                </form>
             </div>
         </div>
     </div>
