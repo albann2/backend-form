@@ -12,8 +12,7 @@
                             <th>DESCRIPTION</th>
                             <th>SEMAINE</th>
                             <th>ACTIVATED</th>
-                            <th>EDIT</th>
-                            <th>ACTIVATE/DESACTIVATE</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -24,10 +23,12 @@
                             <td><%= actualite.semaine %></td>
                             <td><%= actualite.activated %></td>
                             <td>
-                                <button class="btn btn-primary mb-2" onclick="edit('<%= actualite._id %>')">EDIT</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-secondary mb-2" onclick="updateActive('/Activateactualite/<%= actualite._id %>', '<%= actualite.activated %>', '/Actualite')">Activate/Deactivate</button>
+                                <div class="form-group mb-2">
+
+                                <button class="btn btn-primary" onclick="edit('<%= actualite._id %>')"><span class="las la-edit"></span>EDIT</button>
+                                <button class="btn btn-secondary" onclick="updateActive('/Activateactualite/<%= actualite._id %>', '<%= actualite.activated %>', '/Actualite')">Deactivate</button>
+                                    </div>
+                                    
                             </td>
                         </tr>
                         <tr id="editForm<%= actualite._id %>" style="display: none;">

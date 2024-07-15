@@ -12,8 +12,7 @@
                             <th>ANNEE</th>
                             <th>DESCRIPTION</th>
                             <th>ACTIVATED</th>
-                            <th>EDIT</th>
-                            <th>ACTIVATE/DEACTIVATE</th>
+                            <th>ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -24,10 +23,14 @@
                             <td><%= realisation.Description %></td>
                             <td><%= realisation.activated %></td>
                             <td>
-                                <button class="btn btn-primary mb-2" onclick="edit('<%= realisation._id %>')">EDIT</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-secondary mb-2" onclick="updateActive('/Activaterealisation/<%= realisation._id %>', '<%= realisation.activated %>', '/Realisation')">Activate/Deactivate</button>
+                                <div class="form-group mb-2">
+                                    <button class="btn btn-primary mb-2" onclick="edit('<%= realisation._id %>')">
+                                        <span class="las la-edit"></span> EDIT
+                                    </button>
+                                    <button class="btn btn-secondary mb-2" onclick="updateActive('/Activaterealisation/<%= realisation._id %>', '<%= realisation.activated %>', '/Realisation')">
+                                        Deactivate
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                         <tr id="editForm<%= realisation._id %>" style="display: none;">

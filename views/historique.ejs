@@ -20,12 +20,12 @@
                             <% historiques.forEach(function(historique) { %>
                                 <tr>
                                     <td><%= historique.Description %></td>
-                                    <td><img src="<%= historique.Image %>" alt="Image" class="img-fluid" style="max-width: 100px;"></td>
+                                    <td><img src="<%= historique.Image %>" alt="Image" class="rounded mx-auto d-block" style="max-width: 100px;"></td>
                                     <td><%= historique.activated %></td>
                                     <td>
                                         <div class="form-group mb-2">
-                                            <button class="btn btn-primary mb-2" onclick="edit('<%= historique._id %>')">EDIT</button>
-                                            <button class="btn btn-secondary mb-2" onclick="updateActive('/Activatehistorique/<%= historique._id %>', '<%= historique.activated %>', '/Historique')">Activate/Deactivate</button>
+                                            <button class="btn btn-primary mb-2" onclick="edit('<%= historique._id %>')"><span class="las la-edit"></span>EDIT</button>
+                                            <button class="btn btn-secondary mb-2" onclick="updateActive('/Activatehistorique/<%= historique._id %>', '<%= historique.activated %>', '/Historique')">Deactivate</button>
                                         </div>
                                     </td>
                                 </tr>

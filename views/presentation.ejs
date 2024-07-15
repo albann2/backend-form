@@ -5,28 +5,38 @@
                 <h3>PRESENTATION</h3>
             </div>
             <div class="card-body">
-                <table class="table table-bordered table-dark table-striped table-hover">
+                <table class="table container table-bordered table-dark table-striped table-hover">
                     <thead class="thead-dark">
                         <tr>
                             <th>DESCRIPTION</th>
+                            <th>TELEPHONE</th>
+                            <th>EMAIL</th>
+                            <th>ADRESSE</th>
                             <th>IMAGE</th>
                             <th>ACTIVATED</th>
-                            <th>EDIT</th>
-                            <th>ACTIVATE/DEACTIVATE</th>
+                            
+
+                            <th>ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% presentations.forEach(function(presentation) { %>
                         <tr>
                             <td><%= presentation.Description %></td>
+                            <td><%= presentation.telephone %></td>
+                            <td><%= presentation.email %></td>
+                            <td><%= presentation.adresse %></td>
                             <td><img src="<%= presentation.Image %>" alt="Image" class="img-fluid" style="max-width: 100px;"></td>
                             <td><%= presentation.activated %></td>
                             <td>
-                                <button class="btn btn-primary mb-2" onclick="edit('<%= presentation._id %>')">EDIT</button>
+                                <div class="form-group mb-2">
+
+                                <button class="btn btn-primary mb-2" onclick="edit('<%= presentation._id %>')"><span class="las la-edit"></span>EDIT</button>
+                                <button class="btn btn-secondary mb-2" onclick="updateActive('/Activatepresentation/<%= presentation._id %>', '<%= presentation.activated %>', '/Presentation')">Deactivate</button>
+                                    </div>
                             </td>
-                            <td>
-                                <button class="btn btn-secondary mb-2" onclick="updateActive('/Activatepresentation/<%= presentation._id %>', '<%= presentation.activated %>', '/Presentation')">Activate/Deactivate</button>
-                            </td>
+                            
+                            
                         </tr>
                         <tr id="editForm<%= presentation._id %>" style="display: none;">
                             <td colspan="5">
@@ -35,6 +45,15 @@
                                     <div class="form-group mb-2 w-100">
                                         <label for="update-description">Description</label>
                                         <input type="text" id="update-description" name="Description" class="form-control" value="<%= presentation.Description %>">
+
+                                        <label for="telephone">Telephone</label>
+                                         <input type="text" id="telephone" name="telephone" class="form-control" value="<%= presentation.telephone%>">
+
+                                        <label for="email">Email</label>
+                                        <input type="text" id="email" name="email" class="form-control" value="<%= presentation.email %>">
+
+                                        <label for="adresse">Adresse</label>
+                                        <input type="text" id="adresse" name="adresse" class="form-control" value="<%= presentation.adresse %>">
                                     </div>
                                     <div class="form-group mb-2 w-100">
                                         <button type="submit" class="btn btn-success btn-block" onclick="clickRubrique('/Presentation');">Update</button>
@@ -60,6 +79,15 @@
                     <div class="form-group mb-2">
                         <label for="Description">Description</label>
                         <input type="text" id="Description" name="Description" class="form-control" placeholder="Description" required>
+
+                        <label for="telephone">Telephone</label>
+                        <input type="text" id="telephone" name="telephone" class="form-control" placeholder="Telephone" required>
+
+                        <label for="eamil">Email</label>
+                        <input type="text" id="email" name="email" class="form-control" placeholder="Email" required>
+
+                        <label for="adresse">Adresse</label>
+                        <input type="text" id="adresse" name="adresse" class="form-control" placeholder="Adresse" required>
                     </div>
                     <div class="form-group mb-2">
                         <label for="Image">Image</label>

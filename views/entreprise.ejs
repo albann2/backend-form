@@ -1,0 +1,97 @@
+<div class="container mt-5">
+    <div class="row">
+        <!-- Main column for displaying entreprises -->
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3>entreprise</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-dark table-striped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>NOM</th>
+                                <th>ADRESSE</th>
+                                <th>SECTEUR</th>
+                                <th>CONTACT</th>
+                                <th>ACTIVATED</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% entreprises.forEach(function(entreprise) { %>
+                                <tr>
+                                    <td><%= entreprise.nom %></td>
+                                    <td><%= entreprise.adresse %></td>
+                                    <td><%= entreprise.secteur %></td>
+                                    <td><%= entreprise.contact %></td>
+                                    <td><%= entreprise.activated %></td>
+                                    <td>
+                                        <div class="form-group mb-2">
+                                            <button class="btn btn-primary mb-2" onclick="edit('<%= entreprise._id %>')"><span class="las la-edit"></span>EDIT</button>
+                                            <button class="btn btn-secondary mb-2" onclick="updateActive('/Activateentreprise/<%= entreprise._id %>', '<%= entreprise.activated %>', '/entreprise')">Deactivate</button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Hidden edit form for each entreprise -->
+                                <tr id="editForm<%= entreprise._id %>" style="display: none;">
+                                    <td colspan="4">
+                                        <form method="post" class="update-form" action="/Updateentreprise/<%= entreprise._id %>">
+                                            <input type="hidden" name="_method" value="PUT">
+                                            <div class="form-group mb-2 w-100">
+                                                <label for="update-nom">Nom</label>
+                                                <input type="textarea" id="update-nom" name="nom" class="form-control" value="<%= entreprise.nom %>">
+
+                                                <label for="update-adresse">Adresse</label>
+                                                <input type="textarea" id="update-adresse" name="adresse" class="form-control" value="<%= entreprise.adresse %>">
+
+                                                <label for="update-secteur">Secteur</label>
+                                                <input type="textarea" id="update-secteur" name="secteur" class="form-control" value="<%= entreprise.secteur %>">
+
+                                                <label for="update-contact">Contact</label>
+                                                <input type="textarea" id="update-contact" name="contact" class="form-control" value="<%= entreprise.contact %>">
+                                            </div>
+                                            <div class="form-group mb-2 w-100">
+                                                <button type="submit" class="btn btn-success btn-block" onclick="clickRubrique('/Entreprise');">Update</button>
+                                                <button type="button" class="btn btn-danger btn-block" onclick="edit('<%= entreprise._id %>')">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar column for adding new entreprise -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <span class="las la-plus-circle"></span>
+                    <h3>Add New Entreprise</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/Postentreprise" id="addPresentationForm" enctype="multipart/form-data">
+                        <div class="form-group mb-2">
+                            <label for="nom">Nom</label>
+                            <input type="text" id="nom" name="nom" class="form-control" placeholder="nom" required>
+                            <label for="adresse">Adresse</label>
+                            <input type="text" id="adresse" name="adresse" class="form-control" placeholder="adresse" required>
+                            <label for="secteur">Secteur</label>
+                            <input type="text" id="secteur" name="secteur" class="form-control" placeholder="secteur" required>
+                            <label for="contact">Contact</label>
+                            <input type="text" id="contact" name="contact" class="form-control" placeholder="contact" required>
+                        </div>
+                       
+                        <button type="submit"  onclick="clickRubrique('/Entreprise');" class="btn btn-primary btn-block">Enregistrer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

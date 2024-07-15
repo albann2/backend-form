@@ -1,97 +1,65 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-        <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
-        <link rel="stylesheet" href="/css/acceuil.css">
-     
-    </head>
-    <body>
-       <input type="checkbox" id="nav-toggle">
-        <div class="sidebar">
-            <div class="sidebar-brand">
-                <h2>
-                    <span class="lab la-accusoft">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="/css/acceuil.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Dashboard</title>
+</head>
+<body>
+    <input type="checkbox" id="nav-toggle">
+    <div class="sidebar bg-success">
+        <div class="sidebar-brand">
+            <h2>
+                <span class="lab la-accusoft"></span>
+                <span>backend</span>
+            </h2>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li class="d-flex justify-content-center align-items-center bg-dark rounded-start" style="height: 70px;">
+                    <span class="badge text-wrap text-center w-100" style="font-size: 18px;">
+                        DASHBOARD DU DEPARTEMENT DE BIOLOGIE
                     </span>
-                    <span>backend</span>
-                </h2>
-            </div>
+                </li>
+                
+                <li><a><button class="reset-button" onclick="clickRubrique('/Presentation')"><span class="las la-chevron-right"></span><span>Localisation</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Historique')"><span class="las la-chevron-right"></span><span>Historique</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Mission')"><span class="las la-chevron-right"></span><span>Mission</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Enseignant')"><span class="las la-chevron-right"></span><span>Enseignant</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Formation')"><span class="las la-chevron-right"></span><span>Formation</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Realisation')"><span class="las la-chevron-right"></span><span>Realisation</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Actualite')"><span class="las la-chevron-right"></span><span>Actualite</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Entreprise')"><span class="las la-chevron-right"></span><span>Entreprise</span></button></a></li>
 
-
-            <div class="sidebar-menu">
-                <ul>
-                    <li>
-                        <a href="#" class="active"><span class="las la-igloo"></span>
-                            <span>DASHBOARD DU DEPARTEMENT INFORMATIQUE</span></a>
-                    </li>
-                    <li>
-                        <a><button  class="reset-button" onclick="clickRubrique('/Presentation')"><span class="las la-users"></span>
-                            <span>Presentation</span></button></a>
-                    </li>
-                    <li>
-                        <a ><button  class="reset-button" onclick="clickRubrique('/Historique')"><span class="las la-users"></span>
-                            <span>Historique</span></button></a>
-                    </li>
-                    <li>
-                        <a ><button  class="reset-button" onclick="clickRubrique('/Mission')"><span class="las la-users"></span>
-                            <span>Mission</span></button></a>
-                    </li>
-                    <li>
-                        <a ><button  class="reset-button" onclick="clickRubrique('/Enseignant')"><span class="las la-users"></span>
-                            <span>Enseignant</span></button></a>
-                    </li>
-                    
-
-                    <li>
-                        <a ><button class="reset-button" onclick="clickRubrique('/Formation')"><span class="las la-users"></span>
-                            <span>Formation</span></button></a>
-                    </li>
-                    <li>
-                        <a ><button class="reset-button" onclick="clickRubrique('/Realisation')"><span class=" las la-users"></span>
-                            <span>Realisation</span></button></a>
-                    </li>
-                    <li>
-                        <a ><button class="reset-button" onclick="clickRubrique('/Actualite')"><span class="las la-users"></span>
-                            <span>Actualite</span></button></a>
-                    </li>
-                    <li>
-                        <a href="/logout"><button class="reset-button"><span class="las la-users"></span>
-                            <span>Déconnexion</span></button></a>
-                    </li>
-                   
-                </ul>
-            </div>
+                <li><a href="/logout"><button class="reset-button"><span class="las la-chevron-right"></span><span>Déconnexion</span></button></a></li>
+            </ul>
         </div>
+    </div>
 
-        
-        <div class="main-content">
-            <header>
-                <h2>
-                     <label for="nav-toggle">
-                        <span class="las la-bars"></span>
-                    </label>
-                    DASHBOARD
-                </h2>
-               
-
-                <div class="user-wrapper">
-                    <div>
-                        <img src="/images/1.png" width="200px" height="100px" alt="erreur">
-                        <h4>departement d'informatique</h4>
-                        <small>super admin</small>
-                    </div>
+    <div class="main-content">
+        <header>
+            <h2>
+                <label for="nav-toggle"><span class="las la-bars"></span></label>
+                DASHBOARD
+            </h2>
+            <div class="user-wrapper">
+                <div>
+                    <img src="/images/1.png" width="200px" height="100px" alt="erreur">
+                    <h4>departement de biologie</h4>
+                    <small>super admin</small>
                 </div>
-            </header>
-            <main id="main-content">
-               
-                <div id="cards-content" class="cards"> </div>
+            </div>
+        </header>
+        <main id="main-content" class="bg-warning-subtle">
+            <div id="cards-content" class="cards"> </div>
+        </main>
+    </div>
 
-            </main>
-        </div>
-        <script src="js/index.js"></script>
-
-        <script src="js/fill-card.js"></script>
-
-    </body>
-
+    <script src="js/index.js"></script>
+    <script src="js/fill-card.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
 </html>

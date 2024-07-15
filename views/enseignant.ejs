@@ -16,8 +16,7 @@
                             <th>RESPONSABILITE</th>
                             <th>PHOTO</th>
                             <th>ACTIVATED</th>
-                            <th>EDIT</th>
-                            <th>ACTIVATE/DEACTIVATE</th>
+                            <th>ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,10 +31,11 @@
                             <td><img src="<%= enseignant.Image %>" alt="Image" class="img-fluid" style="max-width: 100px;"></td>
                             <td><%= enseignant.activated %></td>
                             <td>
-                                <button class="btn btn-primary mb-2" onclick="edit('<%= enseignant._id %>')">EDIT</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-secondary mb-2" onclick="updateActive('/Activateenseignant/<%= enseignant._id %>', '<%= enseignant.activated %>', '/Enseignant')">Activate/Deactivate</button>
+                                <div class="form-group mb-2">
+
+                                <button class="btn btn-primary mb-2" onclick="edit('<%= enseignant._id %>')"><span class="las la-edit"></span>EDIT</button>
+                                <button class="btn btn-secondary mb-2" onclick="updateActive('/Activateenseignant/<%= enseignant._id %>', '<%= enseignant.activated %>', '/Enseignant')">Deactivate</button>
+                                </div>
                             </td>
                         </tr>
                         <tr id="editForm<%= enseignant._id %>" style="display: none;">

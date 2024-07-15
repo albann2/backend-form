@@ -11,14 +11,14 @@
 </head>
 <body>
     <input type="checkbox" id="nav-toggle">
-    <div class="sidebar">
-        <div class="sidebar-brand">
+    <div class="sidebar bg-primary">
+        <div class="sidebar-brand ">
             <h2>
                 <span class="lab la-accusoft"></span>
                 <span>backend</span>
             </h2>
         </div>
-        <div class="sidebar-menu">
+        <div class="sidebar-menu  bg-primary">
             <ul>
                 <li class="d-flex justify-content-center align-items-center bg-dark rounded-start" style="height: 70px;">
                     <span class="badge text-wrap text-center w-100" style="font-size: 18px;">
@@ -27,14 +27,16 @@
                 </li>
                 
                 
-                                <li><a><button class="reset-button" onclick="clickRubrique('/Presentation')"><span class="las la-users"></span><span>Presentation</span></button></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Historique')"><span class="las la-users"></span><span>Historique</span></button></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Mission')"><span class="las la-users"></span><span>Mission</span></button></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Enseignant')"><span class="las la-users"></span><span>Enseignant</span></button></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Formation')"><span class="las la-users"></span><span>Formation</span></button></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Realisation')"><span class="las la-users"></span><span>Realisation</span></button></a></li>
-                <li><a><button class="reset-button" onclick="clickRubrique('/Actualite')"><span class="las la-users"></span><span>Actualite</span></button></a></li>
-                <li><a href="/logout"><button class="reset-button"><span class="las la-users"></span><span>Déconnexion</span></button></a></li>
+                                <li><a><button class="reset-button  " onclick="clickRubrique('/Presentation')"><span class="las la-chevron-right"></span><span>Localisation</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Historique')"><span  class="las la-chevron-right"></span><span>Historique</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Mission')"><span class="las la-chevron-right"></span><span>Mission</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Enseignant')"><span class="las la-chevron-right"></span><span>Enseignant</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Formation')"><span class="las la-chevron-right"></span><span>Formation</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Realisation')"><span class="las la-chevron-right"></span><span>Realisation</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Actualite')"><span class="las la-chevron-right"></span><span>Actualite</span></button></a></li>
+                <li><a><button class="reset-button" onclick="clickRubrique('/Entreprise')"><span class="las la-chevron-right"></span><span>Entreprise</span></button></a></li>
+
+                <li><a href="/logout"><button class="reset-button"><span class="las la-chevron-right"></span><span>Déconnexion</span></button></a></li>
             </ul>
         </div>
     </div>
@@ -42,7 +44,7 @@
     <div class="main-content">
         <header>
             <h2>
-                <label for="nav-toggle"><span class="las la-bars"></span></label>
+                <label for="nav-toggle"><span class="las la-warehouse "></span></label>
                 DASHBOARD
             </h2>
             <div class="user-wrapper">
@@ -53,7 +55,7 @@
                 </div>
             </div>
         </header>
-        <main id="main-content">
+        <main id="main-content" class="bg-secondary-subtle">
             <div id="cards-content" class="cards"> </div>
         </main>
     </div>

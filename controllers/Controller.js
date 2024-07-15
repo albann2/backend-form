@@ -105,6 +105,8 @@ exports.Historique = getDataAndRenderView(model.Group, 'historiques', 'historiqu
 exports.Mission = getDataAndRenderView(model.Group, 'missions', 'mission');
 exports.Presentation = getDataAndRenderView(model.Group, 'presentations', 'presentation');
 exports.Realisation = getDataAndRenderView(model.Group, 'realisations', 'realisation');
+exports.Entreprise = getDataAndRenderView(model.Group, 'entreprises', 'entreprise');
+
 
 // Generic function for GET requests
 const getAllDocuments = (Model, fieldName) => async (req, res) => {
@@ -259,8 +261,11 @@ exports.Getenseignant = getAllDocuments(model.Group, 'enseignants');
 exports.Getformation = getAllDocuments(model.Group, 'formations');
 exports.Getrealisation = getAllDocuments(model.Group, 'realisations');
 exports.Getactualite = getAllDocuments(model.Group, 'actualites');
+exports.Getentreprise = getAllDocuments(model.Group, 'entreprises');
+
 
 // Routes POST
+exports.Postentreprise = createDocument(model.Group, 'entreprises');
 exports.Postmission = createDocument(model.Group, 'missions');
 exports.Postpresentation = createDocument(model.Group, 'presentations');
 exports.Posthistorique = createDocument(model.Group, 'historiques');
@@ -270,6 +275,7 @@ exports.Postrealisation = createDocument(model.Group, 'realisations');
 exports.Postactualite = createDocument(model.Group, 'actualites');
 
 // Routes PUT
+exports.Updateentreprise = updateDocument(model.Group, 'entreprises');
 exports.Updatemission = updateDocument(model.Group, 'missions');
 exports.Updatepresentation = updateDocument(model.Group, 'presentations');
 exports.Updatehistorique = updateDocument(model.Group, 'historiques');
@@ -279,6 +285,7 @@ exports.Updaterealisation = updateDocument(model.Group, 'realisations');
 exports.Updateactualite = updateDocument(model.Group, 'actualites');
 
 // Routes PATCH (Update activated)
+exports.Activateentreprise = updateIsActive(model.Group, 'entreprises');
 exports.ActivateMission = updateIsActive(model.Group, 'missions');
 exports.ActivatePresentation = updateIsActive(model.Group, 'presentations');
 exports.ActivateHistorique = updateIsActive(model.Group, 'historiques');
