@@ -2,7 +2,7 @@
     <div class="projects">
         <div class="card mb-4">
             <div class="card-header">
-                <h3>REALISATION</h3>
+                <span><img style="width: 70px; height: 70px;" src="/images/realisation.png"></span>
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-dark table-striped table-hover">
@@ -11,7 +11,6 @@
                             <th>TITRE</th>
                             <th>ANNEE</th>
                             <th>DESCRIPTION</th>
-                            <th>ACTIVATED</th>
                             <th>ACTIONS</th>
                         </tr>
                     </thead>
@@ -21,15 +20,21 @@
                             <td><%= realisation.titre %></td>
                             <td><%= realisation.annee %></td>
                             <td><%= realisation.Description %></td>
-                            <td><%= realisation.activated %></td>
                             <td>
                                 <div class="form-group mb-2">
-                                    <button class="btn btn-primary mb-2" onclick="edit('<%= realisation._id %>')">
-                                        <span class="las la-edit"></span> EDIT
+                                    <button class="btn  mb-2" onclick="edit('<%= realisation._id %>')">
+                                        <img width="40px" style="background-color: white;" height="40px" src="/images/editer.png" alt="">
                                     </button>
-                                    <button class="btn btn-secondary mb-2" onclick="updateActive('/Activaterealisation/<%= realisation._id %>', '<%= realisation.activated %>', '/Realisation')">
-                                        Deactivate
-                                    </button>
+                                    
+                                    <% if (realisation.activated === true) { %>
+                                        <button class=" btn-secondary mb-2" onclick="updateActive('/Activaterealisation/<%= realisation._id %>', '<%= realisation.activated %>', '/Realisation')">
+                                            <img width="40px" height="40px" src="/images/glissiere.png" alt="">
+                                        </button>
+                                    <% } else { %>
+                                        <button class=" btn-secondary mb-2" onclick="updateActive('/Activaterealisation/<%= realisation._id %>', '<%= realisation.activated %>', '/Realisation')">
+                                            <img width="40px" height="40px" src="/images/eteindre.png" alt="">
+                                        </button>
+                                    <% } %>
                                 </div>
                             </td>
                         </tr>
@@ -65,11 +70,11 @@
     <div class="customers">
         <div class="card">
             <div class="card-header">
-                <span class="las la-plus-circle"></span>
+                <span><img style="width: 50px; height: 50px;" src="/images/form.png"></span>
                 <h3>Add New Realisation</h3>
             </div>
             <div class="card-body">
-                <form method="post" action="/Postrealisation" enctype="multipart/form-data" id="addPresentationForm">
+                <form method="post" action="/Postrealisation" enctype="multipart/form-data" id="addrealisationForm">
                     <div class="form-group mb-2">
                         <label for="titre">Titre</label>
                         <input type="text" id="titre" name="titre" class="form-control" placeholder="titre" required>

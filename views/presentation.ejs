@@ -2,7 +2,7 @@
     <div class="projects">
         <div class="card mb-4">
             <div class="card-header">
-                <h3>PRESENTATION</h3>
+                <span><img style="width: 70px; height: 70px;" src="/images/presentation.png"></span>
             </div>
             <div class="card-body">
                 <table class="table container table-bordered table-dark table-striped table-hover">
@@ -12,9 +12,7 @@
                             <th>TELEPHONE</th>
                             <th>EMAIL</th>
                             <th>ADRESSE</th>
-                            <th>IMAGE</th>
-                            <th>ACTIVATED</th>
-                            
+                            <th>IMAGE</th>                            
 
                             <th>ACTIONS</th>
                         </tr>
@@ -27,12 +25,23 @@
                             <td><%= presentation.email %></td>
                             <td><%= presentation.adresse %></td>
                             <td><img src="<%= presentation.Image %>" alt="Image" class="img-fluid" style="max-width: 100px;"></td>
-                            <td><%= presentation.activated %></td>
                             <td>
                                 <div class="form-group mb-2">
 
-                                <button class="btn btn-primary mb-2" onclick="edit('<%= presentation._id %>')"><span class="las la-edit"></span>EDIT</button>
-                                <button class="btn btn-secondary mb-2" onclick="updateActive('/Activatepresentation/<%= presentation._id %>', '<%= presentation.activated %>', '/Presentation')">Deactivate</button>
+                                    <button class="btn  mb-2" onclick="edit('<%= presentation._id %>')">
+                                        <img width="40px" style="background-color: white;" height="40px" src="/images/editer.png" alt="">
+                                    </button>
+                                    
+                                    <% if (presentation.activated === true) { %>
+                                        <button class=" btn-secondary mb-2" onclick="updateActive('/Activatepresentation/<%= presentation._id %>', '<%= presentation.activated %>', '/Presentation')">
+                                            <img width="40px" height="40px" src="/images/glissiere.png" alt="">
+                                        </button>
+                                    <% } else { %>
+                                        <button class=" btn-secondary mb-2" onclick="updateActive('/Activatepresentation/<%= presentation._id %>', '<%= presentation.activated %>', '/Presentation')">
+                                            <img width="40px" height="40px" src="/images/eteindre.png" alt="">
+                                        </button>
+                                    <% } %>
+                                    
                                     </div>
                             </td>
                             
@@ -71,7 +80,7 @@
     <div class="customers">
         <div class="card">
             <div class="card-header">
-                <span class="las la-plus-circle"></span>
+                <span><img style="width: 50px; height: 50px;" src="/images/form.png"></span>
                 <h3>Add New Presentation</h3>
             </div>
             <div class="card-body">

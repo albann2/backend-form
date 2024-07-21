@@ -86,7 +86,12 @@ function edit(id) {
 function updateActive(url, data, vue) {
     console.log('updateActive called with:', { url, data, vue });
     const formData = new FormData();
-    formData.append('activated', !data);
+   if(data==='false'){
+    formData.append('activated',true);
+   }
+   else{
+    formData.append('activated',false);
+   }
     console.log('FormData created:', Array.from(formData.entries()));
 
     const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));

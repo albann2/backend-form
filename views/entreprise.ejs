@@ -4,7 +4,7 @@
         <div class="col-lg-8">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h3>entreprise</h3>
+                    <span><img style="width: 70px; height: 70px;" src="/images/entreprise.png"></span>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-dark table-striped table-hover">
@@ -14,7 +14,6 @@
                                 <th>ADRESSE</th>
                                 <th>SECTEUR</th>
                                 <th>CONTACT</th>
-                                <th>ACTIVATED</th>
                                 <th>ACTIONS</th>
                             </tr>
                         </thead>
@@ -25,11 +24,21 @@
                                     <td><%= entreprise.adresse %></td>
                                     <td><%= entreprise.secteur %></td>
                                     <td><%= entreprise.contact %></td>
-                                    <td><%= entreprise.activated %></td>
                                     <td>
                                         <div class="form-group mb-2">
-                                            <button class="btn btn-primary mb-2" onclick="edit('<%= entreprise._id %>')"><span class="las la-edit"></span>EDIT</button>
-                                            <button class="btn btn-secondary mb-2" onclick="updateActive('/Activateentreprise/<%= entreprise._id %>', '<%= entreprise.activated %>', '/entreprise')">Deactivate</button>
+                                            <button class="btn  mb-2" onclick="edit('<%= entreprise._id %>')">
+                                                <img width="40px" style="background-color: white;" height="40px" src="/images/editer.png" alt="">
+                                            </button>
+                                            
+                                            <% if (entreprise.activated === true) { %>
+                                                <button class=" btn-secondary mb-2" onclick="updateActive('/Activateentreprise/<%= entreprise._id %>', '<%= entreprise.activated %>', '/Entreprise')">
+                                                    <img width="40px" height="40px" src="/images/glissiere.png" alt="">
+                                                </button>
+                                            <% } else { %>
+                                                <button class=" btn-secondary mb-2" onclick="updateActive('/Activateentreprise/<%= entreprise._id %>', '<%= entreprise.activated %>', '/Entreprise')">
+                                                    <img width="40px" height="40px" src="/images/eteindre.png" alt="">
+                                                </button>
+                                            <% } %>
                                         </div>
                                     </td>
                                 </tr>
@@ -70,11 +79,11 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <span class="las la-plus-circle"></span>
+                    <span><img style="width: 50px; height: 50px;" src="/images/form.png"></span>
                     <h3>Add New Entreprise</h3>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="/Postentreprise" id="addPresentationForm" enctype="multipart/form-data">
+                    <form method="post" action="/Postentreprise" id="addentrepriseForm" enctype="multipart/form-data">
                         <div class="form-group mb-2">
                             <label for="nom">Nom</label>
                             <input type="text" id="nom" name="nom" class="form-control" placeholder="nom" required>

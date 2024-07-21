@@ -2,7 +2,7 @@
     <div class="projects">
         <div class="card mb-4">
             <div class="card-header">
-                <h3>MISSION</h3>
+                <span><img style="width: 70px; height: 70px;" src="/images/mission.png"></span>
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-dark table-striped table-hover">
@@ -10,7 +10,6 @@
                         <tr>
                             <th>DESCRIPTION</th>
                             <th>IMAGE</th>
-                            <th>ACTIVATED</th>
                             <th>ACTIONS</th>
                         </tr>
                     </thead>
@@ -19,13 +18,23 @@
                         <tr>
                             <td><%= mission.Description %></td>
                             <td><img src="<%= mission.Image %>" alt="Image" class="img-fluid" style="max-width: 100px;"></td>
-                            <td><%= mission.activated %></td>
                             <td>
                                 <div class="form-group mb-2">
 
-                                <button class="btn btn-primary mb-2" onclick="edit('<%= mission._id %>')"><span class="las la-edit"></span>EDIT</button>
-                                <button class="btn btn-secondary mb-2" onclick="updateActive('/Activatemission/<%= mission._id %>', '<%= mission.activated %>', '/Mission')">Deactivate</button>
-                                    </div>
+                                    <button class="btn  mb-2" onclick="edit('<%= mission._id %>')">
+                                        <img width="40px" style="background-color: white;" height="40px" src="/images/editer.png" alt="">
+                                    </button>
+                                    
+                                    <% if (mission.activated === true) { %>
+                                        <button class=" btn-secondary mb-2" onclick="updateActive('/Activatemission/<%= mission._id %>', '<%= mission.activated %>', '/Mission')">
+                                            <img width="40px" height="40px" src="/images/glissiere.png" alt="">
+                                        </button>
+                                    <% } else { %>
+                                        <button class=" btn-secondary mb-2" onclick="updateActive('/Activatemission/<%= mission._id %>', '<%= mission.activated %>', '/Mission')">
+                                            <img width="40px" height="40px" src="/images/eteindre.png" alt="">
+                                        </button>
+                                    <% } %>
+                            </div>
                             </td>
                         </tr>
                         <tr id="editForm<%= mission._id %>" style="display: none;">
@@ -52,11 +61,11 @@
     <div class="customers">
         <div class="card">
             <div class="card-header">
-                <span class="las la-plus-circle"></span>
+                <span><img style="width: 50px; height: 50px;" src="/images/form.png"></span>
                 <h3>Add New Mission</h3>
             </div>
             <div class="card-body">
-                <form method="post" enctype="multipart/form-data" action="/Postmission" id="addPresentationForm">
+                <form method="post" enctype="multipart/form-data" action="/Postmission" id="addmissionForm">
                     <div class="form-group mb-2">
                         <label for="Description">Description</label>
                         <input type="text" id="Description" name="Description" class="form-control" placeholder="Description" required>

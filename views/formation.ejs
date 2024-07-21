@@ -2,18 +2,17 @@
     <div class="projects">
         <div class="card mb-4">
             <div class="card-header">
-                <h3>FORMATIONS</h3>
+                <span><img style="width: 70px; height: 70px;" src="/images/formation.png"></span>
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-dark table-striped table-hover">
                     <thead class="thead-dark">
                         <tr>
                             <th>TITRE</th>
-                            <th>PRESENTATION</th>
+                            <th>formation</th>
                             <th>ADMISSION</th>
                             <th>PARCOURS</th>
                             <th>PARCOURS IMAGE</th>
-                            <th>ACTIVATED</th>
                             <th>ACTIONS</th>
                         </tr>
                     </thead>
@@ -21,18 +20,27 @@
                         <% formations.forEach(function(formation) { %>
                         <tr>
                             <td><%= formation.titre %></td>
-                            <td><%= formation.presentation %></td>
+                            <td><%= formation.formation %></td>
                             <td><%= formation.admission %></td>
                             <td><%= formation.parcours %></td>
                             <td><img src="<%= formation.Image %>" alt="Image" class="img-fluid" style="max-width: 100px;"></td>
-                            <td><%= formation.activated %></td>
                             <td>
                                 <div class="form-group mb-2">
 
-                                <button class="btn btn-primary mb-2" onclick="edit('<%= formation._id %>')"><span class="las la-edit"></span>EDIT</button>
-                            
-                                <button class="btn btn-secondary mb-2" onclick="updateActive('/Activateformation/<%= formation._id %>', '<%= formation.activated %>', '/Formation')">Deactivate</button>
-                                    </div>
+                                    <button class="btn  mb-2" onclick="edit('<%= formation._id %>')">
+                                        <img width="40px" style="background-color: white;" height="40px" src="/images/editer.png" alt="">
+                                    </button>
+                                    
+                                    <% if (formation.activated === true) { %>
+                                        <button class=" btn-secondary mb-2" onclick="updateActive('/Activateformation/<%= formation._id %>', '<%= formation.activated %>', '/Formation')">
+                                            <img width="40px" height="40px" src="/images/glissiere.png" alt="">
+                                        </button>
+                                    <% } else { %>
+                                        <button class=" btn-secondary mb-2" onclick="updateActive('/Activateformation/<%= formation._id %>', '<%= formation.activated %>', '/Formation')">
+                                            <img width="40px" height="40px" src="/images/eteindre.png" alt="">
+                                        </button>
+                                    <% } %>
+                            </div>
                             </td>
                         </tr>
                         <tr id="editForm<%= formation._id %>" style="display: none;">
@@ -44,8 +52,8 @@
                                         <input type="text" id="update-titre" name="titre" class="form-control" value="<%= formation.titre %>">
                                     </div>
                                     <div class="form-group mb-2 w-100">
-                                        <label for="update-presentation">Présentation</label>
-                                        <input type="text" id="update-presentation" name="presentation" class="form-control" value="<%= formation.presentation %>">
+                                        <label for="update-formation">Présentation</label>
+                                        <input type="text" id="update-formation" name="formation" class="form-control" value="<%= formation.formation %>">
                                     </div>
                                     <div class="form-group mb-2 w-100">
                                         <label for="update-admission">Admission</label>
@@ -71,18 +79,18 @@
     <div class="customers">
         <div class="card">
             <div class="card-header">
-                <span class="las la-plus-circle"></span>
+                <span><img style="width: 50px; height: 50px;" src="/images/form.png"></span>
                 <h3>Add New Formation</h3>
             </div>
             <div class="card-body">
-                <form method="post" action="/Postformation" enctype="multipart/form-data" id="addPresentationForm">
+                <form method="post" action="/Postformation" enctype="multipart/form-data" id="addformationForm">
                     <div class="form-group mb-2">
                         <label for="titre">Titre</label>
                         <input type="text" id="titre" name="titre" class="form-control" placeholder="titre" required>
                     </div>
                     <div class="form-group mb-2">
-                        <label for="presentation">Présentation</label>
-                        <input type="text" id="presentation" name="presentation" class="form-control" placeholder="présentation" required>
+                        <label for="formation">Présentation</label>
+                        <input type="text" id="formation" name="formation" class="form-control" placeholder="présentation" required>
                     </div>
                     <div class="form-group mb-2">
                         <label for="admission">Admission</label>

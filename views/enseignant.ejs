@@ -2,7 +2,7 @@
     <div class="projects">
         <div class="card mb-4">
             <div class="card-header">
-                <h3>ENSEIGNANTS</h3>
+                <span><img style="width: 70px; height: 70px;" src="/images/enseignant.png"></span>
             </div>
             <div class="card-body">
                 <table class="table table-bordered table-dark table-striped table-hover">
@@ -15,7 +15,6 @@
                             <th>GRADE</th>
                             <th>RESPONSABILITE</th>
                             <th>PHOTO</th>
-                            <th>ACTIVATED</th>
                             <th>ACTIONS</th>
                         </tr>
                     </thead>
@@ -29,13 +28,23 @@
                             <td><%= enseignant.grade %></td>
                             <td><%= enseignant.responsabilite %></td>
                             <td><img src="<%= enseignant.Image %>" alt="Image" class="img-fluid" style="max-width: 100px;"></td>
-                            <td><%= enseignant.activated %></td>
                             <td>
                                 <div class="form-group mb-2">
 
-                                <button class="btn btn-primary mb-2" onclick="edit('<%= enseignant._id %>')"><span class="las la-edit"></span>EDIT</button>
-                                <button class="btn btn-secondary mb-2" onclick="updateActive('/Activateenseignant/<%= enseignant._id %>', '<%= enseignant.activated %>', '/Enseignant')">Deactivate</button>
-                                </div>
+                                    <button class="btn  mb-2" onclick="edit('<%= enseignant._id %>')">
+                                        <img width="40px" style="background-color: white;" height="40px" src="/images/editer.png" alt="">
+                                    </button>
+                                    
+                                    <% if (enseignant.activated === true) { %>
+                                        <button class=" btn-secondary mb-2" onclick="updateActive('/Activateenseignant/<%= enseignant._id %>', '<%= enseignant.activated %>', '/Enseignant')">
+                                            <img width="40px" height="40px" src="/images/glissiere.png" alt="">
+                                        </button>
+                                    <% } else { %>
+                                        <button class=" btn-secondary mb-2" onclick="updateActive('/Activateenseignant/<%= enseignant._id %>', '<%= enseignant.activated %>', '/Enseignant')">
+                                            <img width="40px" height="40px" src="/images/eteindre.png" alt="">
+                                        </button>
+                                    <% } %>
+                            </div>
                             </td>
                         </tr>
                         <tr id="editForm<%= enseignant._id %>" style="display: none;">
@@ -82,11 +91,11 @@
     <div class="customers">
         <div class="card">
             <div class="card-header">
-                <span class="las la-plus-circle"></span>
+                <span><img style="width: 50px; height: 50px;" src="/images/form.png"></span>
                 <h3>Add New Enseignant</h3>
             </div>
             <div class="card-body">
-                <form method="post" action="/Postenseignant" enctype="multipart/form-data" id="addPresentationForm">
+                <form method="post" action="/Postenseignant" enctype="multipart/form-data" id="addenseignantForm">
                     <div class="form-group mb-2">
                         <label for="nomComplet">Nom Complet</label>
                         <input type="text" id="nomComplet" name="nomComplet" class="form-control" placeholder="Nom Complet" required>

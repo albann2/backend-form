@@ -4,7 +4,7 @@
         <div class="col-lg-8">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h3>HISTORIQUE</h3>
+                    <span><img style="width: 70px; height: 70px;" src="/images/historique.png"></span>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-dark table-striped table-hover">
@@ -12,7 +12,6 @@
                             <tr>
                                 <th>DESCRIPTION</th>
                                 <th>IMAGE</th>
-                                <th>ACTIVATED</th>
                                 <th>ACTIONS</th>
                             </tr>
                         </thead>
@@ -21,11 +20,21 @@
                                 <tr>
                                     <td><%= historique.Description %></td>
                                     <td><img src="<%= historique.Image %>" alt="Image" class="rounded mx-auto d-block" style="max-width: 100px;"></td>
-                                    <td><%= historique.activated %></td>
                                     <td>
                                         <div class="form-group mb-2">
-                                            <button class="btn btn-primary mb-2" onclick="edit('<%= historique._id %>')"><span class="las la-edit"></span>EDIT</button>
-                                            <button class="btn btn-secondary mb-2" onclick="updateActive('/Activatehistorique/<%= historique._id %>', '<%= historique.activated %>', '/Historique')">Deactivate</button>
+                                            <button class="btn  mb-2" onclick="edit('<%= historique._id %>')">
+                                                <img width="40px" style="background-color: white;" height="40px" src="/images/editer.png" alt="">
+                                            </button>
+                                            
+                                            <% if (historique.activated === true) { %>
+                                                <button class=" btn-secondary mb-2" onclick="updateActive('/Activatehistorique/<%= historique._id %>', '<%= historique.activated %>', '/Historique')">
+                                                    <img width="40px" height="40px" src="/images/glissiere.png" alt="">
+                                                </button>
+                                            <% } else { %>
+                                                <button class=" btn-secondary mb-2" onclick="updateActive('/Activatehistorique/<%= historique._id %>', '<%= historique.activated %>', '/Historique')">
+                                                    <img width="40px" height="40px" src="/images/eteindre.png" alt="">
+                                                </button>
+                                            <% } %>
                                         </div>
                                     </td>
                                 </tr>
@@ -57,11 +66,11 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <span class="las la-plus-circle"></span>
+                    <span><img style="width: 50px; height: 50px;" src="/images/form.png"></span>
                     <h3>Add New Historique</h3>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="/Posthistorique" id="addPresentationForm" enctype="multipart/form-data">
+                    <form method="post" action="/Posthistorique" id="addhistoriqueForm" enctype="multipart/form-data">
                         <div class="form-group mb-2">
                             <label for="Description">Description</label>
                             <input type="text" id="Description" name="Description" class="form-control" placeholder="Description" required>

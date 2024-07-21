@@ -14,7 +14,8 @@ async function createDefaultGroupsIfNotExist() {
         const groups = [
             { nom: 'informatique' },
             { nom: 'biologie' },
-            { nom: 'langue' }
+            { nom: 'langue' },
+            { nom: 'mathematiques' }
         ];
 
         for (const group of groups) {
@@ -29,7 +30,8 @@ async function createDefaultGroupsIfNotExist() {
                     enseignants: [],
                     formations: [],
                     realisations: [],
-                    actualites: []
+                    actualites: [],
+                    entreprises:[]
                 });
 
                 // Enregistrez le groupe dans la base de données
