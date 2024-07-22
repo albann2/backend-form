@@ -1,7 +1,6 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-
 const model = require('../model/modeles');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = '1111';
@@ -21,7 +20,6 @@ async function createDefaultGroupsIfNotExist() {
         for (const group of groups) {
             const existingGroup = await model.Group.findOne({ nom: group.nom });
             if (!existingGroup) {
-                // Créez une instance du modèle Group pour le groupe actuel
                 const newGroup = new model.Group({
                     nom: group.nom,
                     historiques: [],
@@ -31,10 +29,9 @@ async function createDefaultGroupsIfNotExist() {
                     formations: [],
                     realisations: [],
                     actualites: [],
-                    entreprises:[]
+                    entreprises: []
                 });
 
-                // Enregistrez le groupe dans la base de données
                 await newGroup.save();
                 console.log(`Groupe ${group.nom} créé avec succès.`);
             } else {
@@ -46,10 +43,8 @@ async function createDefaultGroupsIfNotExist() {
     }
 }
 
-// Appelez la fonction pour créer les groupes par défaut s'ils n'existent pas déjà
 createDefaultGroupsIfNotExist();
 
-// Vérifiez que le répertoire 'uploads' existe et créez-le si nécessaire
 const uploadDir = path.join(__dirname, '../uploads');
 
 if (!fs.existsSync(uploadDir)) {
@@ -58,10 +53,10 @@ if (!fs.existsSync(uploadDir)) {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, uploadDir); // Répertoire où les fichiers seront stockés
+        cb(null, uploadDir); 
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname)); // Nom du fichier après téléchargement
+        cb(null, Date.now() + path.extname(file.originalname)); 
     }
 });
 
@@ -76,16 +71,16 @@ const upload = multer({
     }
 });
 
-// Rendering view functions
 exports.index = (req, res) => res.render('main');
 exports.logout = (req, res) => {
     res.clearCookie('token');
     res.render('main');
 }
+
 const renderView = (viewName, data = {}) => (req, res) => res.render(viewName, data);
 
 const getDataAndRenderView = (Model, fieldName, viewName) => async (req, res) => {
-    let name = req.params.id || departement; // Utilisation de req.params.departements s'il est défini, sinon departement
+    let name = req.params.id || departement;
 
     try {
         const group = await Model.findOne({ nom: name });
@@ -109,10 +104,9 @@ exports.Presentation = getDataAndRenderView(model.Group, 'presentations', 'prese
 exports.Realisation = getDataAndRenderView(model.Group, 'realisations', 'realisation');
 exports.Entreprise = getDataAndRenderView(model.Group, 'entreprises', 'entreprise');
 
-
 // Generic function for GET requests
 const getAllDocuments = (Model, fieldName) => async (req, res) => {
-    let name = req.params.id || departement; // Utilisation de req.params.departements s'il est défini, sinon departement
+    let name = req.params.id || departement;
 
     try {
         const group = await Model.findOne({ nom: name });
@@ -127,78 +121,74 @@ const getAllDocuments = (Model, fieldName) => async (req, res) => {
 };
 
 // Generic function for POST requests
-const createDocument = (Model, fieldName) => async (req, res) => {
-    try {
-        const group = await Model.findOne({ nom: departement });
-        if (!group) {
-            return res.status(404).json({ message: 'Group not found' });
+const createDocument = (Model,fieldName) => async (req, res) => {
+    upload.single('Image')(req, res, async function (err) {
+        if (err instanceof multer.MulterError) {
+            return res.status(500).json({ message: 'Error uploading file', error: err });
+        } else if (err) {
+            return res.status(500).json({ message: 'Unknown error uploading file', error: err });
         }
 
-        // Utilisation de Multer pour gérer le téléchargement de fichiers
-        upload.single('Image')(req, res, async function (err) {
-            if (err instanceof multer.MulterError) {
-                return res.status(500).json({ message: 'Error uploading file', error: err });
-            } else if (err) {
-                return res.status(500).json({ message: 'Unknown error uploading file', error: err });
+        try {
+            const group = await Model.findOne({ nom: departement });
+            if (!group) {
+                return res.status(404).json({ message: 'Group not found' });
             }
 
-            // Si le fichier est téléchargé avec succès, ajoutez-le au document
             if (req.file) {
-                // Vous pouvez accéder au fichier téléchargé via req.file
                 const fileUrl = `/files/${req.file.filename}`;
-                req.body.Image = fileUrl; // Utilisez 'Image' au lieu de 'fileUrl' si c'est le nom du champ dans votre modèle
+                req.body.Image = fileUrl; 
             }
 
-            // Ajoutez les données du corps de la requête au champ spécifié du modèle
             group[fieldName].push(req.body);
             await group.save();
-        });
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error submitting data', error });
-    }
+        } catch (error) {
+            console.error(error);
+        }
+    });
 };
-
-// Generic function for PUT (Update) requests
 const updateDocument = (Model, fieldName) => async (req, res) => {
-    try {
-        const group = await Model.findOne({ nom: departement });
-        if (!group) {
-            return res.status(404).json({ message: 'Group not found' });
+    upload.single('Image')(req, res, async function (err) {
+        if (err instanceof multer.MulterError) {
+            return res.status(500).json({ message: 'Error uploading file', error: err });
+        } else if (err) {
+            return res.status(500).json({ message: 'Unknown error uploading file', error: err });
         }
 
-        const document = group[fieldName].id(req.params.id);
-        if (!document) {
-            return res.status(404).json({ message: 'Document not found' });
-        }
-
-        // Utilisation de Multer pour gérer le téléchargement de fichiers
-        upload.single('Image')(req, res, async function (err) {
-            if (err instanceof multer.MulterError) {
-                return res.status(500).json({ message: 'Error uploading file', error: err });
-            } else if (err) {
-                return res.status(500).json({ message: 'Unknown error uploading file', error: err });
-            }
-
-            // Vérifiez si un fichier a été téléchargé
+        try {
+            const updates = req.body;
+            let fileUrl;
+            let filename;
             if (req.file) {
-                const fileUrl = `/files/${req.file.filename}`;
-                req.body.Image = fileUrl; // Utilisez 'Image' au lieu de 'fileUrl' si c'est le nom du champ dans votre modèle
+                fileUrl = `/files/${req.file.filename}`;
+                updates.Image = fileUrl;
+                filename = req.file.filename;
             }
 
-            // Mettez à jour les données du document avec les nouvelles valeurs du formulaire
-            Object.assign(document, req.body);
-            await group.save();
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error updating data', error });
-    }
+            // Construct the update object with the dot notation to avoid conflicts
+            const updateObject = {};
+            for (const key in updates) {
+                updateObject[`${fieldName}.$.${key}`] = updates[key];
+            }
+
+            const group = await Model.findOneAndUpdate(
+                { nom: departement, [`${fieldName}._id`]: req.params.id },
+                { $set: updateObject },
+                { new: true, runValidators: true }
+            );
+
+            if (!group) {
+                return res.status(404).json({ message: 'Group or document not found' });
+            }
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Error updating document', error });
+        }
+    });
 };
 
 
-// Function for updating the 'activated' state
 const updateIsActive = (Model, fieldName) => async (req, res) => {
     try {
         const group = await Model.findOne({ nom: departement });
@@ -228,7 +218,7 @@ exports.Signup = async (req, res) => {
         }
         const newUser = new model.User({ email, password, departement });
         await newUser.save();
-        await exports.Signin(req, res); // Auto-login after signup
+        await exports.Signin(req, res);
     } catch (error) {
         res.status(500).json({ message: 'Error creating user', error });
     }
@@ -264,7 +254,6 @@ exports.Getformation = getAllDocuments(model.Group, 'formations');
 exports.Getrealisation = getAllDocuments(model.Group, 'realisations');
 exports.Getactualite = getAllDocuments(model.Group, 'actualites');
 exports.Getentreprise = getAllDocuments(model.Group, 'entreprises');
-
 
 // Routes POST
 exports.Postentreprise = createDocument(model.Group, 'entreprises');

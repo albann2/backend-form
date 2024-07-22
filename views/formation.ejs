@@ -20,7 +20,7 @@
                         <% formations.forEach(function(formation) { %>
                         <tr>
                             <td><%= formation.titre %></td>
-                            <td><%= formation.formation %></td>
+                            <td><%= formation.presentation %></td>
                             <td><%= formation.admission %></td>
                             <td><%= formation.parcours %></td>
                             <td><img src="<%= formation.Image %>" alt="Image" class="img-fluid" style="max-width: 100px;"></td>
@@ -45,7 +45,7 @@
                         </tr>
                         <tr id="editForm<%= formation._id %>" style="display: none;">
                             <td colspan="8">
-                                <form method="post" class="update-form" action="/Updateformation/<%= formation._id %>" style="display: flex; flex-wrap: wrap;">
+                                <form method="post" class="update-form" enctype="multipart/form-data" action="/Updateformation/<%= formation._id %>" style="display: flex; flex-wrap: wrap;">
                                     <input type="hidden" name="_method" value="PUT">
                                     <div class="form-group mb-2 w-100">
                                         <label for="update-titre">Titre</label>
@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="form-group mb-2 w-100">
                                         <label for="update-formation">Présentation</label>
-                                        <input type="text" id="update-formation" name="formation" class="form-control" value="<%= formation.formation %>">
+                                        <input type="text" id="update-formation" name="presentation" class="form-control" value="<%= formation.formation %>">
                                     </div>
                                     <div class="form-group mb-2 w-100">
                                         <label for="update-admission">Admission</label>
@@ -62,6 +62,10 @@
                                     <div class="form-group mb-2 w-100">
                                         <label for="update-parcours">Parcours</label>
                                         <input type="text" id="update-parcours" name="parcours" class="form-control" value="<%= formation.parcours %>">
+                                    </div>
+                                    <div class="form-group mb-2 w-100">
+                                        <label for="Image">Image</label>
+                                        <input type="file" id="Image" name="Image" class="form-control">
                                     </div>
                                     <div class="form-group mb-2 w-100">
                                         <button type="submit" class="btn btn-success btn-block" onclick="clickRubrique('/Formation');">Update</button>
@@ -90,7 +94,7 @@
                     </div>
                     <div class="form-group mb-2">
                         <label for="formation">Présentation</label>
-                        <input type="text" id="formation" name="formation" class="form-control" placeholder="présentation" required>
+                        <input type="text" id="formation" name="presentation" class="form-control" placeholder="présentation" required>
                     </div>
                     <div class="form-group mb-2">
                         <label for="admission">Admission</label>

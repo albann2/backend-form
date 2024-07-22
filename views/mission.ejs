@@ -17,6 +17,7 @@
                         <% missions.forEach(function(mission) { %>
                         <tr>
                             <td><%= mission.Description %></td>
+                            
                             <td><img src="<%= mission.Image %>" alt="Image" class="img-fluid" style="max-width: 100px;"></td>
                             <td>
                                 <div class="form-group mb-2">
@@ -39,11 +40,15 @@
                         </tr>
                         <tr id="editForm<%= mission._id %>" style="display: none;">
                             <td colspan="5">
-                                <form method="post" class="update-form" action="/Updatemission/<%= mission._id %>" style="display: flex; flex-wrap: wrap;">
+                                <form method="post" class="update-form" enctype="multipart/form-data" action="/Updatemission/<%= mission._id %>" style="display: flex; flex-wrap: wrap;">
                                     <input type="hidden" name="_method" value="PUT">
                                     <div class="form-group mb-2 w-100">
                                         <label for="update-description">Description</label>
                                         <input type="text" id="update-description" name="Description" class="form-control" value="<%= mission.Description %>">
+                                    </div>
+                                    <div class="form-group mb-2 w-100">
+                                        <label for="Image">Image</label>
+                                        <input type="file" id="Image" name="Image" class="form-control">
                                     </div>
                                     <div class="form-group mb-2 w-100">
                                         <button type="submit" class="btn btn-success btn-block" onclick="clickRubrique('/Mission');">Update</button>

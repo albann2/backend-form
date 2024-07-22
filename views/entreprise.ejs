@@ -46,7 +46,7 @@
                                 <!-- Hidden edit form for each entreprise -->
                                 <tr id="editForm<%= entreprise._id %>" style="display: none;">
                                     <td colspan="4">
-                                        <form method="post" class="update-form" action="/Updateentreprise/<%= entreprise._id %>">
+                                        <form method="post" class="update-form" enctype="multipart/form-data" action="/Updateentreprise/<%= entreprise._id %>">
                                             <input type="hidden" name="_method" value="PUT">
                                             <div class="form-group mb-2 w-100">
                                                 <label for="update-nom">Nom</label>

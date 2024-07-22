@@ -42,6 +42,7 @@ app.set('view engine', 'ejs');
 // Configuration du dossier statique
 app.use(express.static(path.join(__dirname, 'ressources')));
 app.use(express.static(path.join(__dirname, 'controllers')));
+app.use('/files', express.static(path.join(__dirname, '../uploads')));
 
 
 // Utilisation des routes

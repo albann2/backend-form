@@ -49,7 +49,7 @@
                         </tr>
                         <tr id="editForm<%= enseignant._id %>" style="display: none;">
                             <td colspan="10">
-                                <form method="post" class="update-form" action="/Updateenseignant/<%= enseignant._id %>" style="display: flex; flex-wrap: wrap;">
+                                <form method="post" class="update-form" enctype="multipart/form-data" action="/Updateenseignant/<%= enseignant._id %>" style="display: flex; flex-wrap: wrap;">
                                     <input type="hidden" name="_method" value="PUT">
                                     <div class="form-group mb-2 w-100">
                                         <label for="update-nomComplet">Nom Complet</label>
@@ -74,6 +74,10 @@
                                     <div class="form-group mb-2 w-100">
                                         <label for="update-responsabilite">Responsabilité</label>
                                         <input type="text" id="update-responsabilite" name="responsabilite" class="form-control" value="<%= enseignant.responsabilite %>">
+                                    </div>
+                                    <div class="form-group mb-2 w-100">
+                                        <label for="Image">Image</label>
+                                        <input type="file" id="Image" name="Image" class="form-control">
                                     </div>
                                     <div class="form-group mb-2 w-100">
                                         <button type="submit" class="btn btn-success btn-block" onclick="clickRubrique('/Enseignant');">Update</button>

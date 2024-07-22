@@ -42,7 +42,7 @@
                         </tr>
                         <tr id="editForm<%= actualite._id %>" style="display: none;">
                             <td colspan="6">
-                                <form method="post" class="update-form" action="/Updateactualite/<%= actualite._id %>" style="display: flex; flex-wrap: wrap;">
+                                <form method="post" class="update-form" enctype="multipart/form-data" action="/Updateactualite/<%= actualite._id %>" style="display: flex; flex-wrap: wrap;">
                                     <input type="hidden" name="_method" value="PUT">
                                     <div class="form-group mb-2 w-100">
                                         <label for="update-titre">Titre</label>
